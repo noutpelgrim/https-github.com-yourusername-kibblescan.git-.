@@ -24,7 +24,17 @@ const upload = multer({
 
 // Google Vision Client
 const vision = require('@google-cloud/vision');
-const client = new vision.ImageAnnotatorClient();
+
+const visionConfig = {};
+if (process.env.GOOGLE_CREDENTIALS_JSON) {
+    try {
+        visionConfig.credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
+    } catch (e) {
+        console.error("Failed to parse GOOGLE_CREDENTIALS_JSON", e);
+    }
+}
+
+const client = new vision.ImageAnnotatorClient(visionConfig);
 
 router.post('/analyze', upload.single('receipt'), async (req, res) => {
     // Define cleanup routine
