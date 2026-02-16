@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KibbleScan - Active Surveillance</title>
+
+    <!-- Meta -->
+    <meta name="description"
+        content="Independent veterinary toxicology registry monitoring 12,000+ pet food formulations for unannounced ingredient drift and restricted agents.">
+    <meta property="og:title" content="KibbleScan | Active Food Surveillance">
+    <meta property="og:description"
+        content="Is your pet's food changing without you knowing? Check the world's only independent toxicology audit grid.">
+    <meta property="og:image" content="https://kibblescan.com/og-image.jpg"> <!-- Placeholder -->
+    <meta property="og:type" content="website">
+
+    <!-- Favicon (Emoji Placeholder) -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐕</text></svg>">
+
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <div class="container">
+        <nav class="navbar">
+            <a href="home.html" class="logo">KibbleScan.</a>
+            <div class="nav-right">
+                <a href="registry.html" class="nav-link">Registry</a>
+                <a href="access.html" class="nav-link">Access</a>
+                <a href="protocol.html" class="nav-link">Protocol</a>
+                <a href="scan.html" class="btn-primary">Initiate Audit</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- 1. HERO (Registry Infrastructure) -->
+    <section class="hero-wrapper" style="padding:4rem 0 6rem 0;">
+        <div class="container">
+            <div class="hero-grid" style="align-items:start;">
+
+                <!-- Left: Mission -->
+                <div class="hero-text" style="max-width:500px;">
+                    <div
+                        style="font-family:'Courier New', monospace; font-size:0.8rem; color:var(--primary-light); margin-bottom:1rem; display:flex; gap:12px; align-items:center;">
+                        <span
+                            style="width:8px; height:8px; background:#10B981; border-radius:50%; animation:pulse-live 2s infinite;"></span>
+                        SYSTEM OPERATIONAL
+                        <span style="opacity:0.3;">|</span>
+                        <span>V2.4.1</span>
+                    </div>
+
+                    <h1 style="font-size:2.5rem; letter-spacing:-0.03em; margin-bottom:1.5rem;">Independent Veterinary
+                        Toxicology Registry.</h1>
+
+                    <p class="subtitle"
+                        style="font-size:1.1rem; border-left:none; padding-left:0; color:#475569; margin-bottom:2.5rem;">
+                        The independent standard for pet food safety. The grid monitors 12,402 formulations for
+                        unannounced drift and restricted ingredient inclusion.
+                    </p>
+
+                    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                        <a href="scan.html" class="btn-primary"
+                            style="background:#1E293B; border:1px solid #1E293B;">Scan Label</a>
+                        <a href="registry.html"
+                            style="text-decoration:none; padding:12px 24px; border:1px solid #CBD5E1; color:var(--primary); font-weight:600; border-radius:6px; background:white;">Check
+                            Ingredients</a>
+                    </div>
+                </div>
+
+                <!-- Right: Data Terminal (No Phone) -->
+                <div
+                    style="background:#1E293B; border-radius:8px; box-shadow:0 20px 40px -10px rgba(0,0,0,0.2); overflow:hidden; font-family:'Courier New', monospace; color:#E2E8F0; width:100%; max-width:500px; margin-top:1rem;">
+                    <!-- Terminal Header -->
+                    <div
+                        style="background:#0F172A; padding:10px 16px; border-bottom:1px solid #334155; display:flex; justify-content:space-between; align-items:center; font-size:0.75rem;">
+                        <span>kibblescan_monitor.exe</span>
+                        <span style="color:#10B981;">● CONNECTED</span>
+                    </div>
+
+                    <!-- Terminal Body -->
+                    <div
+                        style="padding:1.5rem; font-size:0.85rem; line-height:1.6; height:320px; overflow-y:hidden; position:relative;">
+                        <!-- Static Logs for "Always On" feel -->
+                        <div style="color:#64748B; margin-bottom:1rem;">> Initializing Surveillance Grid... OK</div>
+
+                        <div style="margin-bottom:8px;">
+                            <span style="color:#94A3B8;">[14:02:11]</span>
+                            <span style="color:#22D3EE;">AUDIT</span>
+                            Purina Pro Plan (Savor)
+                            <span style="color:#10B981;">[MATCH]</span>
+                        </div>
+                        <div style="margin-bottom:8px;">
+                            <span style="color:#94A3B8;">[14:01:45]</span>
+                            <span style="color:#22D3EE;">AUDIT</span>
+                            Royal Canin (Gastro)
+                            <span style="color:#10B981;">[MATCH]</span>
+                        </div>
+                        <div style="margin-bottom:8px;">
+                            <span style="color:#94A3B8;">[13:58:22]</span>
+                            <span style="color:#F59E0B;">FLAG</span>
+                            <span style="color:#F59E0B;">Pedigree (Adult)</span>
+                            <span>- BHA Detected</span>
+                        </div>
+                        <div style="margin-bottom:8px;">
+                            <span style="color:#94A3B8;">[13:55:10]</span>
+                            <span style="color:#22D3EE;">AUDIT</span>
+                            Blue Buffalo (Life Protection)
+                            <span style="color:#10B981;">[MATCH]</span>
+                        </div>
+                        <div style="margin-bottom:8px;">
+                            <span style="color:#94A3B8;">[13:52:04]</span>
+                            <span style="color:#F59E0B;">DRIFT</span>
+                            <span style="color:#F59E0B;">Acana (Regionals)</span>
+                            <span>- Formula v4.1 != v4.2</span>
+                        </div>
+                        <div style="margin-bottom:8px; opacity:0.6;">
+                            <span style="color:#94A3B8;">[13:48:33]</span>
+                            <span style="color:#22D3EE;">AUDIT</span>
+                            Orijen (Original)
+                            <span style="color:#10B981;">[MATCH]</span>
+                        </div>
+
+                        <!-- Fade overlay -->
+                        <div
+                            style="position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(to top, #1E293B, transparent);">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. DATA GOVERNANCE -->
+    <section class="section section-white" id="registry">
+        <div class="container">
+            <div class="max-w-md text-center">
+                <span class="section-label">Longitudinal Tracking</span>
+                <h2 class="section-title">Formulation Drift Detection.</h2>
+                <p>Safety is not static. We maintain version-controlled histories of ingredient decks to identify
+                    unannounced composition changes.</p>
+            </div>
+
+            <!-- Activity Log -->
+            <div class="live-log-container">
+                <div class="log-header">
+                    <span>Stability Log</span>
+                    <span class="status-indicator">MONITORING</span>
+                </div>
+                <div class="log-body" id="activity-log">
+                    <div class="log-entry">
+                        <span class="log-time">14:02</span>
+                        <span class="log-event">Audit: Brand A / Sensitive Stomach</span>
+                        <span class="log-status ok">STABLE</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-time">13:58</span>
+                        <span class="log-event">Audit: Brand B / Adult Formula</span>
+                        <span class="log-status ok">STABLE</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-time">13:45</span>
+                        <span class="log-event">Alert: Brand C / Puppy Chow (v4.2 to v4.3)</span>
+                        <span class="log-status warn">DRIFT DETECTED</span>
+                    </div>
+                    <div class="log-entry">
+                        <span class="log-time">13:42</span>
+                        <span class="log-event">Audit: Brand D / Grain-Free</span>
+                        <span class="log-status ok">STABLE</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="problem-grid">
+                <div class="fact-card">
+                    <h3><ion-icon name="eye"
+                            style="color:var(--primary); margin-right:8px; vertical-align:middle;"></ion-icon>
+                        Independent Validation</h3>
+                    <p>Endpoint validation via user-submitted OCR scans ensures registry accuracy matches physical
+                        retail inventory.</p>
+                </div>
+                <div class="fact-card">
+                    <h3><ion-icon name="trending-up"
+                            style="color:var(--primary); margin-right:8px; vertical-align:middle;"></ion-icon> Change
+                        Logging</h3>
+                    <p>Automated comparison against historical baselines detects ingredient substitution without
+                        manufacturer disclosure.</p>
+                </div>
+                <div class="fact-card">
+                    <h3><ion-icon name="library"
+                            style="color:var(--primary); margin-right:8px; vertical-align:middle;"></ion-icon> Clinical
+                        Thresholds</h3>
+                    <p>Risk parameters are defined exclusively by peer-reviewed veterinary toxicology citations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. INGREDIENT REFERENCE -->
+    <section class="section section-gray" id="reference">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-label">Toxicology Standards</span>
+                <h2 class="section-title">Notable Restricted Agents.</h2>
+                <p style="max-width:600px; margin:0 auto 2rem auto;">
+                    Protocols are based on documented toxicity mechanisms, authoritative bodies (IARC, FDA-CVM), and
+                    repeatable adverse reaction data.
+                </p>
+            </div>
+
+            <div class="truth-grid">
+                <!-- BHA -->
+                <a href="ingredient_bha.html" class="truth-card"
+                    style="text-decoration:none; color:inherit; transition:transform 0.2s;">
+                    <span class="truth-badge">Carcinogen</span>
+                    <div>
+                        <h3 style="margin:0 0 4px 0;">BHA & BHT</h3>
+                        <p style="margin:0;">Mechanism: Oxidative stress leading to hyperplasia. <br><span
+                                style="font-size:0.8rem; color:var(--primary-light); margin-top:4px; display:block;">Ref:
+                                Ito et al., 1986</span></p>
+                    </div>
+                </a>
+
+                <!-- 4D Meat -->
+                <a href="ingredient_meat_meal.html" class="truth-card"
+                    style="text-decoration:none; color:inherit; transition:transform 0.2s;">
+                    <span class="truth-badge">Contaminant</span>
+                    <div>
+                        <h3 style="margin:0 0 4px 0;">Meat Meal (Generic)</h3>
+                        <p style="margin:0;">Risk: Pentobarbital contamination from euthanized animals. <br><span
+                                style="font-size:0.8rem; color:var(--primary-light); margin-top:4px; display:block;">Ref:
+                                FDA CVM Surveys</span></p>
+                    </div>
+                </a>
+
+                <!-- Dyes -->
+                <a href="ingredient_yellow_5.html" class="truth-card"
+                    style="text-decoration:none; color:inherit; transition:transform 0.2s;">
+                    <span class="truth-badge">Adverse Rxn</span>
+                    <div>
+                        <h3 style="margin:0 0 4px 0;">Yellow #5</h3>
+                        <p style="margin:0;">Risk: Hypersensitivity and behavioral neurotoxicity. <br><span
+                                style="font-size:0.8rem; color:var(--primary-light); margin-top:4px; display:block;">Ref:
+                                Toxicology Letters</span></p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. NETWORK METRICS (Epidemiological Data) -->
+    <section class="section section-white" style="text-align:center; padding:6rem 0;">
+        <div class="container">
+            <h2 class="section-title">Surveillance Network Velocity.</h2>
+            <p style="max-width:600px; margin:0 auto 3rem auto; color:#64748B;">
+                Real-time ingestion statistics from the decentralized audit grid. High-volume sampling allows for early
+                detection of supply chain anomalies.
+            </p>
+
+            <div class="proof-grid" style="grid-template-columns: repeat(3, 1fr); gap:2rem; text-align:center;">
+                <!-- Stat 1 -->
+                <div style="padding:2rem; background:#F8FAFC; border-radius:8px; border:1px solid #E2E8F0;">
+                    <div
+                        style="font-size:2.5rem; font-weight:800; color:#1E293B; font-family:'Courier New', monospace;">
+                        12,402</div>
+                    <div
+                        style="font-size:0.75rem; text-transform:uppercase; color:#64748B; letter-spacing:0.05em; margin-top:8px;">
+                        Active SKU Profiles</div>
+                </div>
+
+                <!-- Stat 2 -->
+                <div style="padding:2rem; background:#F8FAFC; border-radius:8px; border:1px solid #E2E8F0;">
+                    <div
+                        style="font-size:2.5rem; font-weight:800; color:#EF4444; font-family:'Courier New', monospace;">
+                        843</div>
+                    <div
+                        style="font-size:0.75rem; text-transform:uppercase; color:#64748B; letter-spacing:0.05em; margin-top:8px;">
+                        Unannounced Drifts / Mo</div>
+                </div>
+
+                <!-- Stat 3 -->
+                <div style="padding:2rem; background:#F8FAFC; border-radius:8px; border:1px solid #E2E8F0;">
+                    <div
+                        style="font-size:2.5rem; font-weight:800; color:#10B981; font-family:'Courier New', monospace;">
+                        99.9%</div>
+                    <div
+                        style="font-size:0.75rem; text-transform:uppercase; color:#64748B; letter-spacing:0.05em; margin-top:8px;">
+                        OCR Transcription Accuracy</div>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div
+                style="background:white; border-radius:8px; padding:8px; box-shadow:var(--shadow-card); display:flex; gap:10px; border:1px solid #E2E8F0; position:relative;">
+                <ion-icon name="search" style="font-size:1.2rem; color:#94A3B8; padding:12px;"></ion-icon>
+                <input type="text" id="main-search-input" placeholder="Search by Brand, Ingredient, or Product ID..."
+                    style="border:none; outline:none; font-size:1rem; flex:1; color:#1E293B;">
+                <button id="btn-main-search" class="btn-primary">Search Registry</button>
+            </div>
+
+            <!-- Search Results / No Results Container -->
+            <div id="search-results-container" style="display:none; margin-top:1rem; text-align:left;">
+                <!-- NO RESULTS STATE -->
+                <div id="search-no-results"
+                    style="background:white; border:1px solid #E2E8F0; border-radius:8px; padding:2rem; box-shadow:var(--shadow-card);">
+                    <div style="display:flex; gap:1.5rem; align-items:start;">
+                        <div style="background:#F1F5F9; padding:1rem; border-radius:50%; color:#64748B;">
+                            <ion-icon name="globe-outline" style="font-size:1.5rem;"></ion-icon>
+                        </div>
+                        <div>
+                            <h3 style="margin:0 0 8px 0; font-size:1.1rem; color:#1E293B;">Coverage Gap Detected.</h3>
+                            <p style="margin:0 0 1.5rem 0; color:#475569; line-height:1.6; font-size:0.95rem;">
+                                The entity <span id="search-term-display"
+                                    style="font-family:'Courier New'; font-weight:600;">"..."</span> is not currently
+                                indexed in the active surveillance grid (v2.4). This represents a blind spot in our
+                                coverage.
+                            </p>
+
+                            <button onclick="alert('Priority Request Logged. Surveillance node allocated.')"
+                                style="background:#F8FAFC; border:1px solid #CBD5E1; color:#0F172A; padding:10px 16px; border-radius:6px; font-weight:600; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; gap:8px;">
+                                <ion-icon name="add-circle"></ion-icon> Request Surveillance
+                            </button>
+                            <div style="font-size:0.8rem; color:#94A3B8; margin-top:8px;">
+                                Submitting a request allocates a crawler to index this brand within 24-48 hours.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:4rem;">
+                <a href="registry.html" class="btn-primary">Access Data Grid</a>
+                <p style="margin-top:1.5rem; font-size:0.85rem; color:#94A3B8;">
+                    Data provided for veterinary reference. <a href="protocol.html"
+                        style="color:#94A3B8; text-decoration:underline;">View Methodology</a>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-weight:700;">KibbleScan Registry.</div>
+            <div style="font-size:0.9rem; color:var(--primary-light); display:flex; gap:20px;">
+                <span>&copy; 2026 Independent Standard. No Industry Conflict.</span>
+                <a href="protocol.html" style="color:var(--primary-light); text-decoration:none;">Protocol</a>
+                <a href="protocol.html#citations"
+                    style="color:var(--primary-light); text-decoration:none;">Citations</a>
+                <span style="color:var(--safe);">● Monitoring Active</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
