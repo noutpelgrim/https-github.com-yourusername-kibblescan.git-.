@@ -1,0 +1,6 @@
+{
+    "event_type": "subscription.canceled",
+    "data": {
+        "id": "sub_123"
+    }
+}

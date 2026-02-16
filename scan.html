@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Initiate Audit - KibbleScan</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="app.js" defer></script>
+</head>
+
+<body style="background:#F8FAFC;">
+    <div class="container">
+        <!-- Infrastructure Nav -->
+        <nav class="navbar" style="padding:1rem 0;">
+            <a href="index.html" class="logo" style="font-size:1.1rem;">KibbleScan</a>
+            <div class="nav-right" style="gap:1rem;">
+                <a href="registry.html" class="nav-link">Registry</a>
+                <a href="protocol.html" class="nav-link">Protocol</a>
+            </div>
+        </nav>
+
+        <div style="max-width:600px; margin:4rem auto;">
+
+            <!-- STATE 1: ENTRY -->
+            <div id="scan-entry">
+                <div style="text-align:center; margin-bottom:3rem;">
+                    <div
+                        style="display:inline-flex; align-items:center; gap:8px; background:#F1F5F9; padding:6px 12px; border-radius:4px; font-size:0.75rem; color:var(--primary-light); margin-bottom:1rem;">
+                        <span style="width:6px; height:6px; background:#10B981; border-radius:50%;"></span>
+                        Database v2.4.1 Connected
+                    </div>
+                    <h1 style="font-size:2rem; margin-bottom:1rem;">Initiate Audit.</h1>
+                    <p style="color:#64748B;">
+                        Cross-reference your local inventory against the Global Toxicology Registry.
+                    </p>
+                </div>
+
+                <div style="display:grid; gap:1.5rem;">
+                    <!-- Camera Input -->
+                    <button id="btn-camera-scan"
+                        style="background:white; border:2px dashed #CBD5E1; padding:3rem; border-radius:12px; cursor:pointer; transition:all 0.2s; text-align:center; color:#64748B;">
+                        <ion-icon name="camera-outline"
+                            style="font-size:3rem; margin-bottom:1rem; color:#1E293B;"></ion-icon>
+                        <div style="font-weight:600; color:#1E293B; margin-bottom:4px;">Scan Label</div>
+                        <div style="font-size:0.85rem;">Capture Ingredient Deck</div>
+                    </button>
+                    <input type="file" id="file-upload-trigger" style="display:none;" accept="image/*"
+                        capture="environment">
+
+                    <!-- Manual Input -->
+                    <div style="text-align:center; position:relative;">
+                        <div
+                            style="height:1px; background:#E2E8F0; position:absolute; top:50%; left:0; right:0; z-index:0;">
+                        </div>
+                        <span
+                            style="background:#F8FAFC; padding:0 1rem; color:#94A3B8; font-size:0.8rem; position:relative; z-index:1;">OR</span>
+                    </div>
+
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" placeholder="Enter GTIN / UPC Code"
+                            style="flex:1; padding:12px; border:1px solid #CBD5E1; border-radius:6px; outline:none;">
+                        <button id="btn-start-scan" class="btn-primary">Check ID</button>
+                    </div>
+                </div>
+
+                <!-- LOCAL HISTORY -->
+                <div id="local-history-container"
+                    style="display:none; max-width:400px; margin:2rem auto 0 auto; text-align:left;">
+                    <h3
+                        style="font-size:0.75rem; text-transform:uppercase; color:#64748B; letter-spacing:0.05em; margin-bottom:0.5rem; display:flex; justify-content:space-between;">
+                        <span>Device History (Last 3)</span>
+                        <span style="font-size:0.65rem; background:#F1F5F9; padding:2px 6px; border-radius:4px;">LOCAL
+                            STORAGE ONLY</span>
+                    </h3>
+                    <div id="local-history-list" style="display:grid; gap:8px;">
+                        <!-- JS injected items -->
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top:3rem;">
+                    <h3
+                        style="font-size:0.75rem; text-transform:uppercase; color:var(--primary-light); letter-spacing:0.05em; margin-bottom:1rem;">
+                        Recent Network Activity</h3>
+                    <div
+                        style="font-family:'Courier New', monospace; font-size:0.8rem; color:#64748B; background:white; padding:1rem; border-radius:8px; border:1px solid #E2E8F0; display:inline-block; text-align:left;">
+                        <div style="margin-bottom:4px;">> Scan #8821: Purina Pro Plan... <span
+                                style="color:#10B981;">[MATCH]</span></div>
+                        <div style="margin-bottom:4px;">> Scan #8820: Royal Canin... <span
+                                style="color:#10B981;">[MATCH]</span></div>
+                        <div>> Scan #8819: Pedigree... <span style="color:#EF4444;">[FLAG]</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATE 2: PROCESSING (Hidden) -->
+            <div id="scan-processing" style="display:none;">
+                <h1 style="margin-bottom:1rem; font-size:1.5rem;">Audit in Progress...</h1>
+                <div
+                    style="background:#0F172A; color:#E2E8F0; padding:2rem; border-radius:8px; font-family:'Courier New', monospace; font-size:0.9rem; min-height:300px; box-shadow:var(--shadow-card); margin-bottom:1rem;">
+                    <div id="cli-output">
+                        <span>> Initializing Database Handshake...</span><br>
+                    </div>
+                    <div class="cursor-blink"
+                        style="display:inline-block; width:8px; height:1em; background:#22D3EE; vertical-align:middle; margin-left:4px;">
+                    </div>
+                </div>
+                <button onclick="location.reload()"
+                    style="background:none; border:none; color:#EF4444; cursor:pointer; font-size:0.9rem;">
+                    [X] Abort Sequence
+                </button>
+            </div>
+
+            <!-- STATE 3: RESULT (Hidden) -->
+            <div id="scan-result" style="display:none;">
+                <div style="margin-bottom:2rem; display:flex; align-items:center; gap:10px;">
+                    <button id="btn-reset" onclick="location.reload()"
+                        style="background:none; border:none; color:var(--primary-light); cursor:pointer; font-size:0.9rem;">←
+                        New Audit</button>
+                </div>
+
+                <!-- Certificate -->
+                <div
+                    style="background:white; border-radius:8px; border:1px solid #E2E8F0; overflow:hidden; box-shadow:var(--shadow-card);">
+
+                    <!-- Certificate Header -->
+                    <div id="result-header" style="background:#FEF2F2; padding:2rem; border-bottom:1px solid #FECACA;">
+                        <div style="display:flex; justify-content:space-between; align-items:start;">
+                            <div>
+                                <div
+                                    style="font-family:'Courier New', monospace; font-size:0.8rem; text-transform:uppercase; color:#991B1B; margin-bottom:8px;">
+                                    Audit Record #8821-X
+                                </div>
+                                <h2 id="result-verdict"
+                                    style="margin:0; color:#7F1D1D; font-size:2rem; font-weight:800; letter-spacing:-0.02em;">
+                                    NON-COMPLIANT
+                                </h2>
+                                <p id="result-subtext" style="margin:8px 0 0 0; color:#991B1B; font-size:1rem;">
+                                    2 Restricted Agents Detected.
+                                </p>
+                            </div>
+                            <!-- Stamp -->
+                            <div id="result-stamp"
+                                style="border:3px solid #991B1B; color:#991B1B; border-radius:50%; width:80px; height:80px; display:flex; align-items:center; justify-content:center; transform:rotate(-15deg); font-weight:900; opacity:0.3; font-size:0.9rem;">
+                                AUDIT<br>FAIL
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Findings -->
+                    <div style="padding:2rem;">
+                        <div
+                            style="text-transform:uppercase; font-size:0.75rem; letter-spacing:0.05em; color:var(--primary-light); margin-bottom:1rem;">
+                            Toxicology Findings
+                        </div>
+
+                        <div id="result-findings" style="border:1px solid #F1F5F9; border-radius:8px; overflow:hidden;">
+                            <!-- Dynamic Content Injected Here -->
+                        </div>
+                    </div>
+
+                    <!-- Footer / Actions -->
+                    <div
+                        style="background:#F8FAFC; padding:1.5rem; border-top:1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center;">
+                        <div style="font-size:0.8rem; color:#64748B;">
+                            Compliance Standard v2.4
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <button onclick="openMonitoringModal()"
+                                style="background:white; border:1px solid #CBD5E1; color:var(--primary); padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;">Monitor
+                                Brand</button>
+                            <a href="product_report.html" class="btn-primary"
+                                style="text-decoration:none; font-size:0.9rem; padding:8px 16px;">View Full Report</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <p style="text-align:center; font-size:0.8rem; color:#94A3B8; margin-top:2rem;">
+                    Automated analysis based on > 98% OCR confidence.
+                </p>
+            </div>
+
+            <!-- STATE 4: UNKNOWN (Hidden) -->
+            <div id="scan-unknown" style="display:none; text-align:center;">
+                <div
+                    style="background:#F1F5F9; width:80px; height:80px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 2rem auto;">
+                    <ion-icon name="cloud-offline" style="font-size:2.5rem; color:#64748B;"></ion-icon>
+                </div>
+
+                <h2 style="font-size:1.8rem; color:#1E293B; margin-bottom:1rem;">Target Unidentified.</h2>
+                <p style="color:#475569; max-width:400px; margin:0 auto 2.5rem auto; line-height:1.6;">
+                    This formulation (Ref: <span style="font-family:'Courier New';">Unknown-SKU</span>) is not
+                    currently indexed in the Global Toxicology Registry.
+                </p>
+
+                <div
+                    style="background:white; border:1px solid #E2E8F0; padding:2rem; border-radius:12px; text-align:left; box-shadow:var(--shadow-card);">
+                    <h3 style="font-size:0.9rem; text-transform:uppercase; color:#64748B; margin-bottom:1rem;">
+                        <ion-icon name="cloud-upload" style="vertical-align:middle; margin-right:8px;"></ion-icon>
+                        Submit for Analysis
+                    </h3>
+                    <p style="font-size:0.9rem; color:#334155; margin-bottom:1.5rem;">
+                        Transmitting this manifest allows our optical network to ingest and classify the ingredient
+                        label.
+                    </p>
+
+                    <button onclick="alert('Manifest Transmitted. Queue Position: #4421')" class="btn-primary"
+                        style="width:100%; justify-content:center; padding:12px;">
+                        Transmit Manifest to Central
+                    </button>
+
+                    <div style="margin-top:1rem; display:flex; align-items:start; gap:10px;">
+                        <input type="checkbox" id="notify-check" style="margin-top:4px;">
+                        <label for="notify-check" style="font-size:0.8rem; color:#64748B; line-height:1.4;">
+                            Notify me upon classification completion. (Priority routing applied).
+                        </label>
+                    </div>
+                </div>
+
+                <button onclick="location.reload()"
+                    style="margin-top:2rem; background:none; border:none; color:#94A3B8; cursor:pointer;">
+                    ← Return to Scanner
+                </button>
+            </div>
+            <!-- STATE 5: SCAN ERROR (Hidden) -->
+            <div id="scan-error" style="display:none; text-align:center;">
+                <div
+                    style="background:#FEF2F2; width:80px; height:80px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 2rem auto;">
+                    <ion-icon name="alert-circle" style="font-size:2.5rem; color:#EF4444;"></ion-icon>
+                </div>
+
+                <h2 style="font-size:1.8rem; color:#1E293B; margin-bottom:1rem;">Optical Data Failure.</h2>
+                <p style="color:#475569; max-width:400px; margin:0 auto 2.5rem auto; line-height:1.6;">
+                    The ingredient deck could not be quantized. Image resolution may be insufficient or obfuscated
+                    by glare.
+                </p>
+
+                <button onclick="location.reload()" class="btn-primary"
+                    style="background:#EF4444; border:1px solid #EF4444; width:100%; justify-content:center; padding:12px;">
+                    <ion-icon name="refresh" style="margin-right:8px;"></ion-icon> Retake Label Scan
+                </button>
+
+                <button onclick="location.reload()"
+                    style="margin-top:1.5rem; background:none; border:none; color:#94A3B8; cursor:pointer;">
+                    Cancel Audit
+                </button>
+            </div>
+
+            <!-- POST-SCAN INFO MODAL -->
+            <div id="monitoringModal" class="modal hidden">
+                <div class="modal-content">
+                    <h3>Enable Continuous Monitoring</h3>
+                    <p>
+                        This product is currently verified against the KibbleScan registry.
+                        Pet food formulations may change without public notice.
+                        Monitoring allows KibbleScan to notify you if this product’s ingredient profile changes.
+                    </p>
+
+                    <ul style="list-style:none; padding:0; margin:0 0 1.5rem 0;">
+                        <li style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <ion-icon name="checkmark-circle-outline" style="color:#10B981;"></ion-icon> Silent change
+                            alerts
+                        </li>
+                        <li style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <ion-icon name="checkmark-circle-outline" style="color:#10B981;"></ion-icon> Saved products
+                        </li>
+                        <li style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <ion-icon name="checkmark-circle-outline" style="color:#10B981;"></ion-icon> Scan history
+                        </li>
+                        <li style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <ion-icon name="checkmark-circle-outline" style="color:#10B981;"></ion-icon> Multi-pet
+                            tracking
+                        </li>
+                    </ul>
+
+                    <button id="enableMonitoringBtn" class="btn-primary"
+                        style="width:100%; justify-content:center; margin-bottom:1rem;">
+                        Enable Monitoring
+                    </button>
+
+                    <p class="secondary-link">
+                        <a href="#" id="closeMonitoringModal">Continue without monitoring</a>
+                    </p>
+
+                    <p class="modal-microcopy"
+                        style="text-align:center; font-size:0.8rem; color:#94A3B8; margin-top:1rem;">
+                        Ingredient-level verification remains free.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Paddle.js -->
+            <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+            <script>
+                Paddle.Initialize({
+                    token: "test_8772b40c927a726a3190b415cd9",
+                    environment: "sandbox"
+                });
+            </script>
+
+            <script>
+                function maybeShowMonitoringModal(user) {
+                    if (!user || !user.isMonitoringActive) {
+                        const modal = document.getElementById("monitoringModal");
+                        if (modal) modal.classList.remove("hidden");
+                    }
+                }
+
+                function openMonitoringModal() {
+                    const modal = document.getElementById("monitoringModal");
+                    if (modal) modal.classList.remove("hidden");
+                }
+
+                const closeBtn = document.getElementById("closeMonitoringModal");
+                if (closeBtn) {
+                    closeBtn.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        const modal = document.getElementById("monitoringModal");
+                        if (modal) modal.classList.add("hidden");
+                    });
+                }
+
+                const enableBtn = document.getElementById("enableMonitoringBtn");
+                if (enableBtn) {
+                    enableBtn.addEventListener("click", function () {
+                        // Paddle Checkout
+                        Paddle.Checkout.open({
+                            items: [{
+                                priceId: 'pri_01khcchknvqv3w3dc9r2c5jpwj', // Monitoring Plan ($6)
+                                quantity: 1
+                            }],
+                            settings: {
+                                successUrl: window.location.origin + '/success.html',
+                                displayMode: 'overlay',
+                                theme: 'light'
+                            }
+                        });
+                    });
+                }
+            </script>
+</body>
+
+</html>

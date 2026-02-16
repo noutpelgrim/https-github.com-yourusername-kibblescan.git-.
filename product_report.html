@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Report #8821 - KibbleScan</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="app.js" defer></script>
+</head>
+
+<body style="background:#F1F5F9; color:#1E293B;">
+    <div class="container">
+        <!-- Infrastructure Nav -->
+        <nav class="navbar" style="padding:1rem 0;">
+            <a href="index.html" class="logo" style="font-size:1.1rem;">KibbleScan</a>
+            <div class="nav-right" style="gap:1rem;">
+                <a href="registry.html" class="nav-link">Registry</a>
+                <a href="scan.html" class="nav-btn" style="padding:8px 16px; font-size:0.8rem;">Start Scan</a>
+            </div>
+        </nav>
+
+        <div
+            style="max-width:800px; margin:2rem auto; background:white; box-shadow:0 10px 30px -5px rgba(0,0,0,0.1); border-radius:4px; overflow:hidden;">
+
+            <!-- Report Header -->
+            <div style="background:#1E293B; color:white; padding:2rem; border-bottom:4px solid #EF4444;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                    <div>
+                        <div
+                            style="font-family:'Courier New', monospace; font-size:0.8rem; opacity:0.7; margin-bottom:8px;">
+                            AUDIT RECORD ID: 8821-XFD
+                        </div>
+                        <h1 style="font-size:1.8rem; margin:0 0 8px 0;">Purina Pro Plan (Savor)</h1>
+                        <p style="margin:0; opacity:0.8; font-size:0.9rem;">
+                            Adult Shredded Blend Chicken & Rice Formula
+                        </p>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:0.75rem; opacity:0.7; text-transform:uppercase;">Verification Date</div>
+                        <div style="font-weight:700;">Feb 10, 2026</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verdict Banner -->
+            <div
+                style="background:#FEF2F2; padding:2rem; border-bottom:1px solid #FECACA; display:flex; align-items:center; gap:2rem;">
+                <!-- Stamp -->
+                <div
+                    style="width:100px; height:100px; border:4px solid #991B1B; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#991B1B; font-weight:900; font-size:1.1rem; line-height:1.1; text-align:center; transform:rotate(-12deg); opacity:0.8; flex-shrink:0;">
+                    NON<br>COMPLIANT
+                </div>
+
+                <div>
+                    <h2 style="font-size:1.2rem; color:#7F1D1D; margin-bottom:8px;">Protocol Violation Detected</h2>
+                    <p style="margin:0; color:#991B1B; line-height:1.5;">
+                        This formulation contains agents classified as <strong>Restricted</strong> or
+                        <strong>Unnecessary</strong> per the Global Toxicology Registry v2.4.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Analysis Body -->
+            <div style="padding:3rem;">
+
+                <h3
+                    style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--primary-light); margin-bottom:1.5rem; border-bottom:1px solid #E2E8F0; padding-bottom:1rem;">
+                    Ingredient Breakdown
+                </h3>
+
+                <table style="width:100%; border-collapse:collapse; text-align:left; margin-bottom:3rem;">
+                    <thead>
+                        <tr style="border-bottom:2px solid #E2E8F0;">
+                            <th style="padding:12px 0; font-size:0.8rem; color:#64748B; text-transform:uppercase;">
+                                Ingredient</th>
+                            <th style="padding:12px 0; font-size:0.8rem; color:#64748B; text-transform:uppercase;">
+                                Category</th>
+                            <th style="padding:12px 0; font-size:0.8rem; color:#64748B; text-transform:uppercase;">
+                                Registry Status</th>
+                            <th style="padding:12px 0;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 1. BHA -->
+                        <tr style="border-bottom:1px solid #F1F5F9;">
+                            <td style="padding:1rem 0; font-weight:600; color:#1E293B;">Butylated Hydroxyanisole</td>
+                            <td style="padding:1rem 0; color:#64748B;">Preservative</td>
+                            <td style="padding:1rem 0;">
+                                <span
+                                    style="background:#FEF2F2; color:#991B1B; padding:4px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">RESTRICTED</span>
+                            </td>
+                            <td style="padding:1rem 0; text-align:right;">
+                                <a href="ingredient_bha.html"
+                                    style="color:var(--primary); font-size:0.85rem; font-weight:600; text-decoration:none;">View
+                                    Risks →</a>
+                            </td>
+                        </tr>
+
+                        <!-- 2. Meat Meal -->
+                        <tr style="border-bottom:1px solid #F1F5F9;">
+                            <td style="padding:1rem 0; font-weight:600; color:#1E293B;">Meat Meal (Generic)</td>
+                            <td style="padding:1rem 0; color:#64748B;">Protein</td>
+                            <td style="padding:1rem 0;">
+                                <span
+                                    style="background:#FFFBEB; color:#B45309; padding:4px 8px; border-radius:4px; font-size:0.75rem; font-weight:700; border:1px solid #FCD34D;">NON-SPECIFIC</span>
+                            </td>
+                            <td style="padding:1rem 0; text-align:right;">
+                                <a href="ingredient_meat_meal.html"
+                                    style="color:var(--primary); font-size:0.85rem; font-weight:600; text-decoration:none;">View
+                                    Monograph →</a>
+                            </td>
+                        </tr>
+
+                        <!-- 3. Yellow 5 -->
+                        <tr style="border-bottom:1px solid #F1F5F9;">
+                            <td style="padding:1rem 0; font-weight:600; color:#1E293B;">Yellow #5 (Tartrazine)</td>
+                            <td style="padding:1rem 0; color:#64748B;">Colorant</td>
+                            <td style="padding:1rem 0;">
+                                <span
+                                    style="background:#F1F5F9; color:#475569; padding:4px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">UNNECESSARY</span>
+                            </td>
+                            <td style="padding:1rem 0; text-align:right;">
+                                <a href="ingredient_yellow_5.html"
+                                    style="color:var(--primary); font-size:0.85rem; font-weight:600; text-decoration:none;">View
+                                    Risks →</a>
+                            </td>
+                        </tr>
+
+                        <!-- 4. Safe Item (Chicken) -->
+                        <tr style="border-bottom:1px solid #F1F5F9;">
+                            <td style="padding:1rem 0; color:#64748B;">Chicken</td>
+                            <td style="padding:1rem 0; color:#64748B;">Protein</td>
+                            <td style="padding:1rem 0;">
+                                <span
+                                    style="background:#F0FDF4; color:#166534; padding:4px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">APPROVED</span>
+                            </td>
+                            <td style="padding:1rem 0; text-align:right;">
+                                <a href="ingredient_chicken.html"
+                                    style="color:var(--primary); font-size:0.85rem; font-weight:600; text-decoration:none;">View
+                                    Monograph →</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Conclusion -->
+                <div style="background:#F8FAFC; padding:1.5rem; border-radius:6px; border:1px solid #E2E8F0;">
+                    <h4
+                        style="margin:0 0 8px 0; font-size:0.9rem; text-transform:uppercase; color:var(--primary-light);">
+                        Toxicologist Summary</h4>
+                    <p style="margin:0; font-size:0.9rem; line-height:1.6; color:#334155;">
+                        This formula relies on synthetic preservation (BHA) instead of natural tocopherols, indicating a
+                        cost-driven formulation strategy. The inclusion of generic Meat Meal introduces sourcing
+                        ambiguity. The presence of Yellow #5 serves no nutritional purpose.
+                    </p>
+                </div>
+
+            </div>
+
+            <div
+                style="background:#F1F5F9; padding:1.5rem; border-top:1px solid #E2E8F0; text-align:center; font-size:0.8rem; color:#64748B;">
+                Generated by KibbleScan Surveillance Grid v2.4.1 | <a href="protocol.html" style="color:#64748B;">View
+                    Methodology</a>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

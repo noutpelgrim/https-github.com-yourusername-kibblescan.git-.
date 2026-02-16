@@ -1,0 +1,1 @@
+Mock receipt content for testing

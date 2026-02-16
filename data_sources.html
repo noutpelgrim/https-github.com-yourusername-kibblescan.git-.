@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Sources & Methodology - KibbleScan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body style="background:#F8FAFC; color:#1E293B;">
+    <div class="container">
+        <!-- Infrastructure Nav -->
+        <nav class="navbar" style="padding:1rem 0;">
+            <a href="index.html" class="logo" style="font-size:1.1rem;">KibbleScan</a>
+            <div class="nav-right" style="gap:1rem;">
+                <a href="registry.html" class="nav-link">Registry</a>
+                <a href="javascript:window.history.back()"
+                    style="font-size:0.8rem; color:#64748B; text-decoration:none;">←
+                    Return</a>
+            </div>
+        </nav>
+
+        <div style="max-width:750px; margin:4rem auto;">
+            <!-- Header -->
+            <div style="margin-bottom:3rem; border-bottom:1px solid #E2E8F0; padding-bottom:2rem;">
+                <div style="font-family:'Courier New', monospace; color:#64748B; font-size:0.8rem; margin-bottom:8px;">
+                    SYS-DOC-004 | REV 2.1
+                </div>
+                <h1 style="font-size:2rem; margin:0 0 1rem 0; letter-spacing:-0.02em; color:#1E293B;">Data Sources &
+                    Limitations</h1>
+                <p style="font-size:1.1rem; line-height:1.6; color:#475569;">
+                    This document outlines the acquisition vectors, classification standards, and known limitations of
+                    the KibbleScan Registry. This platform acts as independent public infrastructure, not a guarantee of
+                    safety.
+                </p>
+            </div>
+
+            <div style="display:grid; gap:3rem;">
+
+                <!-- 1. Acquisition Vectors -->
+                <section>
+                    <h3
+                        style="font-size:0.9rem; text-transform:uppercase; color:#64748B; letter-spacing:0.05em; margin-bottom:1rem; border-bottom:2px solid #E2E8F0; display:inline-block; padding-bottom:4px;">
+                        1. Data Acquisition Vectors
+                    </h3>
+                    <p style="margin-bottom:1rem; color:#334155; line-height:1.6;">
+                        The Registry aggregates data from three primary streams. We do not accept direct unverified
+                        feeds from manufacturers without independent sampling.
+                    </p>
+                    <ul style="padding-left:1.5rem; color:#475569; line-height:1.6;">
+                        <li style="margin-bottom:8px;"><strong>Optical Character Recognition (OCR):</strong>
+                            User-submitted scans of physical packaging labels (Guaranteed Analysis, Ingredient Decks) in
+                            retail environments.</li>
+                        <li style="margin-bottom:8px;"><strong>Regulatory Filings:</strong> Publicly available recall
+                            notices from FDA CVM (Center for Veterinary Medicine) and international equivalents.</li>
+                        <li><strong>Independent Assay:</strong> Third-party laboratory analysis reports submitted by
+                            "Guardian" tier users (verified via Chain of Custody).</li>
+                    </ul>
+                </section>
+
+                <!-- 2. Classification Standards -->
+                <section>
+                    <h3
+                        style="font-size:0.9rem; text-transform:uppercase; color:#64748B; letter-spacing:0.05em; margin-bottom:1rem; border-bottom:2px solid #E2E8F0; display:inline-block; padding-bottom:4px;">
+                        2. Classification Standards
+                    </h3>
+                    <p style="margin-bottom:1rem; color:#334155; line-height:1.6;">
+                        Ingredient definitions and toxicity thresholds are derived from the following established
+                        bodies. KibbleScan does not inventing new toxicology, but rather indexes existing constraints.
+                    </p>
+                    <ul style="padding-left:1.5rem; color:#475569; line-height:1.6;">
+                        <li style="margin-bottom:8px;"><strong>AAFCO (Association of American Feed Control
+                                Officials):</strong> Official Ingredient Definitions and Nutrient Profiles.</li>
+                        <li style="margin-bottom:8px;"><strong>NRC (National Research Council):</strong> Nutrient
+                            Requirements of Dogs and Cats (2006).</li>
+                        <li><strong>Peer-Reviewed Toxicology:</strong> PubMed-indexed studies regarding specific agents
+                            (e.g., Menadione cytotoxicity, BHA carcinogenicity).</li>
+                    </ul>
+                </section>
+
+                <!-- 3. Exclusions -->
+                <section>
+                    <h3
+                        style="font-size:0.9rem; text-transform:uppercase; color:#64748B; letter-spacing:0.05em; margin-bottom:1rem; border-bottom:2px solid #E2E8F0; display:inline-block; padding-bottom:4px;">
+                        3. Exclusionary Criteria
+                    </h3>
+                    <div style="background:#FFF1F2; border-left:4px solid #BE123C; padding:1.5rem;">
+                        <p style="margin:0 0 1rem 0; font-weight:700; color:#881337;">We explicitly EXCLUDE the
+                            following data sources to maintain neutrality:</p>
+                        <ul style="margin:0; padding-left:1.5rem; color:#881337; line-height:1.6;">
+                            <li>Marketing claims found on manufacturer websites (e.g., "Premium," "Holistic," "Human
+                                Grade" without validation).</li>
+                            <li>Paid placement or "Featured Product" requests.</li>
+                            <li>Unverified API feeds that contradict physical label scans.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 4. Limitations -->
+                <section>
+                    <h3
+                        style="font-size:0.9rem; text-transform:uppercase; color:#64748B; letter-spacing:0.05em; margin-bottom:1rem; border-bottom:2px solid #E2E8F0; display:inline-block; padding-bottom:4px;">
+                        4. Known Limitations
+                    </h3>
+                    <p style="margin-bottom:1rem; color:#334155; line-height:1.6;">
+                        Users must be aware of the inherent gaps in the current surveillance capabilities:
+                    </p>
+                    <div style="display:grid; gap:1rem;">
+                        <div style="background:white; padding:1rem; border:1px solid #E2E8F0; border-radius:6px;">
+                            <div style="font-weight:700; color:#1E293B; margin-bottom:4px;">Group Definitions</div>
+                            <div style="color:#64748B; font-size:0.9rem;">Labeling laws permit vague terms like "Meat
+                                Meal" or "Natural Flavor." We cannot chemically identify the specific source species of
+                                these ingredients via OCR alone.</div>
+                        </div>
+                        <div style="background:white; padding:1rem; border:1px solid #E2E8F0; border-radius:6px;">
+                            <div style="font-weight:700; color:#1E293B; margin-bottom:4px;">Formula Drift / Lag Time
+                            </div>
+                            <div style="color:#64748B; font-size:0.9rem;">Manufacturers may update recipes silently. The
+                                Registry reflects the <strong>last confirmed scan</strong>, which may vary from the bag
+                                currently on the shelf.</div>
+                        </div>
+                        <div style="background:white; padding:1rem; border:1px solid #E2E8F0; border-radius:6px;">
+                            <div style="font-weight:700; color:#1E293B; margin-bottom:4px;">Contaminant Screening</div>
+                            <div style="color:#64748B; font-size:0.9rem;">Standard scans read the <strong>declared
+                                    label</strong>. They do not detect undeclared contaminants (Mycotoxins,
+                                Pentobarbital) unless a specific Lab Assay is attached to the record.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. Disclaimer -->
+                <section
+                    style="margin-top:4rem; padding-top:2rem; border-top:1px solid #E2E8F0; font-size:0.9rem; color:#64748B;">
+                    <strong style="color:#1E293B;">Veterinary Disclaimer:</strong><br>
+                    KibbleScan is an information aggregator, not a diagnostic tool. Classifications (e.g., "Protocol
+                    Violation") refer to the KibbleScan Internal Standard, not federal law. Always consult a licensed
+                    veterinarian regarding your animal's specific dietary needs and medical conditions.
+                </section>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

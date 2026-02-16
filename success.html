@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Activated - KibbleScan</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body style="background:#F0FDFA;">
+
+    <div style="background:white; padding:3rem; border-radius:16px; box-shadow:var(--shadow-card); max-width:400px;">
+        <div
+            style="width:80px; height:80px; background:#CCFBF1; color:#0F766E; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1.5rem auto;">
+            <ion-icon name="checkmark-circle" style="font-size:3rem;"></ion-icon>
+        </div>
+
+        <h1 style="color:#115E59; margin-bottom:1rem; font-size:1.8rem;">Surveillance Active.</h1>
+        <p style="color:#475569; margin-bottom:2rem; line-height:1.6;">
+            Your node has been allocated. You will receive your first drift report within 24 hours.
+        </p>
+
+        <a href="scan.html" class="btn-primary" style="text-decoration:none; justify-content:center;">
+            Return to Dashboard
+        </a>
+    </div>
+
+    <script>
+        // Simulate Activation on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('mock_checkout') === 'true') {
+                console.log("Processing Mock Activation...");
+                localStorage.setItem('kibblescan_premium', 'true');
+                // In real app, we'd wait for webhook, but here we optimistically unlock UI
+            }
+        });
+    </script>
+</body>
+
+</html>

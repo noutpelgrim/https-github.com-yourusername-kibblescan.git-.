@@ -1,0 +1,24 @@
+<svg width="400" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="white"/>
+  <text x="50%" y="40" font-family="monospace" font-size="20" text-anchor="middle">Happy Paws Vet</text>
+  <text x="50%" y="70" font-family="monospace" font-size="14" text-anchor="middle">123 Puppy Lane</text>
+  <text x="50%" y="90" font-family="monospace" font-size="14" text-anchor="middle">Austin, TX 78701</text>
+  <text x="20" y="130" font-family="monospace" font-size="14">Date: 02/14/2024</text>
+  
+  <text x="20" y="170" font-family="monospace" font-size="14">Description</text>
+  <text x="320" y="170" font-family="monospace" font-size="14">Price</text>
+  <line x1="20" y1="180" x2="380" y2="180" stroke="black"/>
+  
+  <text x="20" y="210" font-family="monospace" font-size="14">Wellness Exam</text>
+  <text x="320" y="210" font-family="monospace" font-size="14">$85.00</text>
+  
+  <text x="20" y="240" font-family="monospace" font-size="14">Rabies Vaccine</text>
+  <text x="320" y="240" font-family="monospace" font-size="14">$35.00</text>
+  
+  <text x="20" y="270" font-family="monospace" font-size="14">Heartworm Test</text>
+  <text x="320" y="270" font-family="monospace" font-size="14">$45.00</text>
+  
+  <line x1="20" y1="300" x2="380" y2="300" stroke="black"/>
+  <text x="200" y="330" font-family="monospace" font-size="14">Total:</text>
+  <text x="320" y="330" font-family="monospace" font-size="14">$165.00</text>
+</svg>

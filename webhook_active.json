@@ -1,0 +1,9 @@
+{
+    "event_type": "subscription.activated",
+    "data": {
+        "id": "sub_123",
+        "custom_data": {
+            "userId": "user_123"
+        }
+    }
+}

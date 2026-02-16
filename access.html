@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Access & Infrastructure — KibbleScan</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- Nav Integration (Preserved from original project for navigation continuity) -->
+    <div class="container" style="margin-bottom:0;">
+        <nav class="navbar" style="padding:1rem 0;">
+            <a href="index.html" class="logo" style="font-size:1.1rem;">KibbleScan</a>
+            <div class="nav-right" style="gap:1rem;">
+                <a href="registry.html" class="nav-link">Registry</a>
+                <a href="protocol.html" class="nav-link">Protocol</a>
+            </div>
+        </nav>
+    </div>
+
+    <main class="access-container">
+
+        <!-- Opening Statement -->
+        <section class="access-intro">
+            <h1>Access & Infrastructure</h1>
+            <p>
+                KibbleScan is structured as a public ingredient registry.
+                Ingredient-level verification is always free.
+                Monitoring and workflow tools fund ongoing surveillance infrastructure.
+            </p>
+        </section>
+
+        <!-- Public Access -->
+        <section class="access-tier">
+            <h2>Public Access — Free</h2>
+            <ul>
+                <li>Unlimited scans</li>
+                <li>Full ingredient registry access</li>
+                <li>Toxicology classifications</li>
+                <li>Ambiguity explanations</li>
+                <li>Protocol documentation</li>
+            </ul>
+            <a href="scan.html" class="btn-primary" style="text-align:center;">Start Scanning</a>
+        </section>
+
+        <!-- Monitoring -->
+        <section class="access-tier">
+            <h2>Monitoring Access — $6/month or $59/year</h2>
+            <ul>
+                <li>Save products</li>
+                <li>Silent formulation change alerts</li>
+                <li>Scan history</li>
+                <li>Multi-pet tracking</li>
+                <li>Ongoing registry monitoring</li>
+            </ul>
+            <button onclick="startCheckout()" class="btn-primary" style="text-align:center;">Enable Monitoring</button>
+            <p class="secondary-link" style="text-align:center; margin-top:1rem;">
+                <a href="scan.html">Continue with public access</a>
+            </p>
+        </section>
+
+        <!-- Clinical -->
+        <section class="access-tier">
+            <h2>Clinical Access — $39/month per clinic</h2>
+            <ul>
+                <li>Batch lookup</li>
+                <li>PDF export</li>
+                <li>Citation export</li>
+                <li>Historical tracking</li>
+                <li>Audit documentation</li>
+            </ul>
+            <a href="clinical.html" class="btn-primary" style="text-align:center; background:#0F172A;">Request Clinical
+                Access</a>
+        </section>
+
+        <!-- Institutional -->
+        <section class="access-tier" style="border:none; text-align:center; padding:1rem;">
+            <h2>Institutional Access — Custom</h2>
+            <p style="text-align:center; color:#64748B;">
+                For universities, researchers, and regulatory bodies.
+            </p>
+            <a href="mailto:research@kibblescan.io" class="btn-primary"
+                style="background:white; color:#64748B; border:1px solid #E2E8F0; box-shadow:none;">Contact for
+                Institutional Access</a>
+        </section>
+
+    </main>
+
+    <!-- Footer Integration -->
+    <footer style="border-top:1px solid #E2E8F0; padding:2rem 0; margin-top:2rem;">
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-weight:700; font-size:0.9rem;">KibbleScan Access.</div>
+            <div style="font-size:0.8rem; color:#64748B; text-align:right;">
+                <div style="margin-bottom:4px;">&copy; 2026 Independent Standard. No Industry Conflict.</div>
+                <div>Funds enable ongoing surveillance. <strong>Safety data is never gated.</strong></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Paddle Checkout Logic
+        function startCheckout(priceId) {
+            Paddle.Checkout.open({
+                items: [{
+                    priceId: priceId,
+                    quantity: 1
+                }],
+                settings: {
+                    successUrl: window.location.origin + '/success.html',
+                    displayMode: 'overlay',
+                    theme: 'light'
+                }
+            });
+        }
+
+        // Monitoring Button
+        const monitorBtn = document.querySelector('button[onclick="startCheckout()"]');
+        if (monitorBtn) {
+            monitorBtn.innerText = "Enable Monitoring";
+            monitorBtn.onclick = function () {
+                startCheckout('pri_01khcchknvqv3w3dc9r2c5jpwj'); // Monitoring Plan
+            };
+        }
+
+        // Clinical Button (Convert <a> to trigger checkout)
+        const clinicalLink = document.querySelector('a[href="clinical.html"]');
+        if (clinicalLink) {
+            clinicalLink.href = "#";
+            clinicalLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                startCheckout('pri_01khccg37dc7v5542hr7a65vb7'); // Clinical Access
+            });
+        }
+    </script>
+    <!-- Paddle.js -->
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <script>
+        Paddle.Initialize({
+            token: "test_8772b40c927a726a3190b415cd9",
+            environment: "sandbox"
+        });
+    </script>
+</body>
+
+</html>

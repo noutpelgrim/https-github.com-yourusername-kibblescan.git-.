@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Toxicology Registry - KibbleScan</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="app.js" defer></script>
+</head>
+
+<body style="background:#F8FAFC; color:#1E293B;">
+    <div class="container">
+        <!-- Infrastructure Nav -->
+        <nav class="navbar" style="padding:1rem 0;">
+            <a href="index.html" class="logo" style="font-size:1.1rem;">KibbleScan</a>
+            <div class="nav-right" style="gap:1rem;">
+                <a href="registry.html" class="nav-link" style="color:#0F172A; font-weight:600;">Registry</a>
+                <a href="access.html" class="nav-link">Access</a>
+                <a href="protocol.html" class="nav-link">Protocol</a>
+                <a href="scan.html" class="btn-primary" style="padding:8px 16px; font-size:0.9rem;">Scan</a>
+            </div>
+        </nav>
+
+        <div style="padding:2rem 0;">
+
+            <!-- Header & Search -->
+            <div style="margin-bottom:3rem;">
+                <h1 style="font-size:1.8rem; margin-bottom:0.5rem;">Global Toxicology Registry</h1>
+                <p style="color:#64748B; margin-bottom:2rem; max-width:600px;">
+                    The central repository for veterinary toxicology standards and real-time product compliance audits.
+                </p>
+
+                <div
+                    style="background:white; padding:1.5rem; border-radius:8px; border:1px solid #E2E8F0; box-shadow:var(--shadow-card); display:flex; gap:1rem; align-items:center;">
+                    <ion-icon name="search-outline" style="font-size:1.5rem; color:#94A3B8;"></ion-icon>
+                    <input type="text" id="registry-search-input"
+                        placeholder="Search by Ingredient Name, CAS Number, brand, or UPC..."
+                        style="border:none; outline:none; font-size:1.1rem; width:100%; color:#1E293B; font-family:'Inter', sans-serif;">
+                    <div
+                        style="font-size:0.75rem; color:#94A3B8; white-space:nowrap; border-left:1px solid #E2E8F0; padding-left:1rem;">
+                        Index v2.4.1
+                    </div>
+                </div>
+            </div>
+
+            <!-- NO RESULTS STATE (Hidden) -->
+            <div id="registry-no-results" style="display:none; margin-bottom:3rem; animation:fadeIn 0.3s ease-out;">
+                <div
+                    style="background:white; border:1px solid #E2E8F0; border-radius:8px; padding:2rem; box-shadow:var(--shadow-card); display:flex; gap:1.5rem; align-items:start;">
+                    <div style="background:#F1F5F9; padding:1rem; border-radius:50%; color:#64748B;">
+                        <ion-icon name="cloud-offline" style="font-size:1.5rem;"></ion-icon>
+                    </div>
+                    <div>
+                        <h3 style="margin:0 0 8px 0; font-size:1.1rem; color:#1E293B;">Registry Coverage Gap.</h3>
+                        <p style="margin:0 0 1.5rem 0; color:#475569; line-height:1.6; font-size:0.95rem;">
+                            No records found for <span id="registry-search-term"
+                                style="font-family:'Courier New'; font-weight:600;">"..."</span>. This entity may be
+                            unindexed or operating under a shell company.
+                        </p>
+                        <button onclick="alert('Priority Request Logged. Surveillance node allocated.')"
+                            style="background:#0F172A; border:1px solid #0F172A; color:white; padding:10px 16px; border-radius:6px; font-weight:600; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; gap:8px;">
+                            <ion-icon name="add-circle"></ion-icon> Request Surveillance
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LIVE ACTIVITY STREAM (Product Lookup) -->
+            <div style="margin-bottom:4rem;">
+                <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:1rem;">
+                    <h3
+                        style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--primary-light);">
+                        Live Audit Feed (Real-Time)</h3>
+                    <div
+                        style="display:flex; align-items:center; gap:6px; font-size:0.75rem; color:var(--safe); font-family:'Courier New', monospace;">
+                        <span
+                            style="width:6px; height:6px; background:var(--safe); border-radius:50%; animation:pulse-live 2s infinite;"></span>
+                        SYSTEM_ACTIVE
+                    </div>
+                </div>
+
+                <div style="background:white; border-radius:8px; border:1px solid #E2E8F0; overflow:hidden;">
+                    <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+                        <thead style="background:#F8FAFC; border-bottom:1px solid #E2E8F0;">
+                            <tr>
+                                <th
+                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                    Timestamp</th>
+                                <th
+                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                    Product / Formula</th>
+                                <th
+                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                    Batch ID</th>
+                                <th
+                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                    Audit Result</th>
+                                <th style="text-align:right; padding:12px 1rem;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">14:02 UTC
+                                </td>
+                                <td style="padding:1rem; font-weight:500;">Purina Pro Plan / Savor</td>
+                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
+                                    0-38100-13180-2</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#FEF2F2; color:#991B1B; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">NON-COMPLIANT</span>
+                                </td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <a href="product_report.html?id=8821"
+                                        style="color:var(--primary); text-decoration:none; font-size:0.85rem;">View
+                                        Report →</a>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">14:01 UTC
+                                </td>
+                                <td style="padding:1rem; font-weight:500;">Royal Canin / Gastrointestinal</td>
+                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
+                                    0-30111-78901-5</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">VERIFIED</span>
+                                </td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">13:58 UTC
+                                </td>
+                                <td style="padding:1rem; font-weight:500;">Pedigree / Adult Complete</td>
+                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
+                                    0-23100-11001-2</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#FEF2F2; color:#991B1B; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">NON-COMPLIANT</span>
+                                </td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">13:55 UTC
+                                </td>
+                                <td style="padding:1rem; font-weight:500;">Blue Buffalo / Life Protection</td>
+                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
+                                    0-84024-30001-9</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">VERIFIED</span>
+                                </td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- INGREDIENT STANDARDS (Static Lookups) -->
+            <div>
+                <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:1rem;">
+                    <h3
+                        style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--primary-light);">
+                        Restricted Substance Index</h3>
+                    <div style="font-size:0.8rem; color:#64748B;">
+                        Displaying 3 of 152 Restricted Agents
+                    </div>
+                </div>
+
+                <div style="background:white; border-radius:8px; border:1px solid #E2E8F0; overflow:hidden;">
+                    <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+                        <thead style="background:#F8FAFC; border-bottom:1px solid #E2E8F0;">
+                            <tr>
+                                <th
+                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                    Official Name</th>
+                                <th
+                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                    CAS Registry No.</th>
+                                <th
+                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                    Status</th>
+                                <th
+                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                    Verification Date</th>
+                                <th style="text-align:right; padding:12px 1rem;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- BHA -->
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-weight:600; color:#1E293B;">Butylated Hydroxyanisole (BHA)
+                                </td>
+                                <td
+                                    style="padding:1rem; font-family:'Courier New', monospace; color:var(--primary-light);">
+                                    25013-16-5</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#FEF2F2; color:#B91C1C; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">RESTRICTED</span>
+                                </td>
+                                <td style="padding:1rem; color:#64748B; font-size:0.85rem;">Feb 01, 2026</td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <a href="ingredient_bha.html"
+                                        style="text-decoration:none; color:var(--primary); font-size:0.85rem; font-weight:600;">Dossier
+                                        →</a>
+                                </td>
+                            </tr>
+
+                            <!-- Yellow 5 -->
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-weight:600; color:#1E293B;">Yellow #5 (Tartrazine)</td>
+                                <td
+                                    style="padding:1rem; font-family:'Courier New', monospace; color:var(--primary-light);">
+                                    1934-21-0</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#FEF2F2; color:#B91C1C; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">WARNING</span>
+                                </td>
+                                <td style="padding:1rem; color:#64748B; font-size:0.85rem;">Jan 15, 2026</td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <a href="ingredient_yellow_5.html"
+                                        style="text-decoration:none; color:var(--primary); font-size:0.85rem; font-weight:600;">Dossier
+                                        →</a>
+                                </td>
+                            </tr>
+
+                            <!-- Meat Meal -->
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-weight:600; color:#1E293B;">Meat Meal (Generic)</td>
+                                <td
+                                    style="padding:1rem; font-family:'Courier New', monospace; color:var(--primary-light);">
+                                    N/A (Compound)</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#FFF7ED; color:#C2410C; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">MONITOR</span>
+                                </td>
+                                <td style="padding:1rem; color:#64748B; font-size:0.85rem;">Jan 12, 2026</td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <a href="ingredient_meat_meal.html"
+                                        style="text-decoration:none; color:var(--primary); font-size:0.85rem; font-weight:600;">Dossier
+                                        →</a>
+                                </td>
+                            </tr>
+
+                            <!-- Menadione -->
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-weight:600; color:#1E293B;">Menadione (Vitamin K3)</td>
+                                <td
+                                    style="padding:1rem; font-family:'Courier New', monospace; color:var(--primary-light);">
+                                    58-27-5</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#FEF2F2; color:#B91C1C; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">VIOLATION</span>
+                                </td>
+                                <td style="padding:1rem; color:#64748B; font-size:0.85rem;">Feb 10, 2026</td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <a href="ingredient_menadione.html"
+                                        style="text-decoration:none; color:var(--primary); font-size:0.85rem; font-weight:600;">Dossier
+                                        →</a>
+                                </td>
+                            </tr>
+
+                            <!-- By-Product -->
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-weight:600; color:#1E293B;">Meat By-Product Meal</td>
+                                <td
+                                    style="padding:1rem; font-family:'Courier New', monospace; color:var(--primary-light);">
+                                    Renderer ID #940</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#FFF7ED; color:#C2410C; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">NON-SPECIFIC</span>
+                                </td>
+                                <td style="padding:1rem; color:#64748B; font-size:0.85rem;">Feb 08, 2026</td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <a href="ingredient_by_product.html"
+                                        style="text-decoration:none; color:var(--primary); font-size:0.85rem; font-weight:600;">Dossier
+                                        →</a>
+                                </td>
+                            </tr>
+
+                            <!-- Copper Sulfate -->
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-weight:600; color:#1E293B;">Copper Sulfate</td>
+                                <td
+                                    style="padding:1rem; font-family:'Courier New', monospace; color:var(--primary-light);">
+                                    7758-98-7</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#FEF2F2; color:#B91C1C; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">VIOLATION</span>
+                                </td>
+                                <td style="padding:1rem; color:#64748B; font-size:0.85rem;">Feb 05, 2026</td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <a href="ingredient_copper_sulfate.html"
+                                        style="text-decoration:none; color:var(--primary); font-size:0.85rem; font-weight:600;">Dossier
+                                        →</a>
+                                </td>
+                            </tr>
+
+                            <!-- Vitamin E -->
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-weight:600; color:#1E293B;">Vitamin E (Mixed Tocopherols)
+                                </td>
+                                <td
+                                    style="padding:1rem; font-family:'Courier New', monospace; color:var(--primary-light);">
+                                    1406-18-4</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">UNRESTRICTED</span>
+                                </td>
+                                <td style="padding:1rem; color:#64748B; font-size:0.85rem;">Jan 20, 2026</td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <a href="ingredient_vitamin_e.html"
+                                        style="text-decoration:none; color:var(--primary); font-size:0.85rem; font-weight:600;">Dossier
+                                        →</a>
+                                </td>
+                            </tr>
+
+                            <!-- Brown Rice -->
+                            <tr style="border-bottom:1px solid #F1F5F9;">
+                                <td style="padding:1rem; font-weight:600; color:#1E293B;">Whole Grain Brown Rice</td>
+                                <td
+                                    style="padding:1rem; font-family:'Courier New', monospace; color:var(--primary-light);">
+                                    GRAIN-05</td>
+                                <td style="padding:1rem;">
+                                    <span
+                                        style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">UNRESTRICTED</span>
+                                </td>
+                                <td style="padding:1rem; color:#64748B; font-size:0.85rem;">Jan 22, 2026</td>
+                                <td style="padding:1rem; text-align:right;">
+                                    <a href="ingredient_brown_rice.html"
+                                        style="text-decoration:none; color:var(--primary); font-size:0.85rem; font-weight:600;">Dossier
+                                        →</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer style="background:white; border-top:1px solid #E2E8F0; padding:2rem 0; margin-top:4rem;">
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-weight:700; font-size:0.9rem;">KibbleScan Registry.</div>
+            <div style="font-size:0.8rem; color:#64748B; text-align:right;">
+                <div style="margin-bottom:4px;">&copy; 2026 Independent Standard. No Industry Conflict.</div>
+                <div>Data provided for clinical reference. <strong>Consult a Veterinarian.</strong></div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
