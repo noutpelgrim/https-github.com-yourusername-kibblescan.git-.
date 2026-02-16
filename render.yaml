@@ -3,7 +3,7 @@ services:
     name: kibblescan
     env: node
     plan: free
-    buildCommand: npm install && cd backend && npm install
+    buildCommand: cd backend && npm install
     startCommand: node backend/server.js
     envVars:
       - key: NODE_ENV
