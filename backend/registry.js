@@ -26,7 +26,9 @@ const UNRESTRICTED = [
     "vitamin", "mineral", "rice", "broth", "pork lungs", "liver",
     "potassium chloride", "zinc sulfate", "sodium selenite",
     "carrageenan", "guar gum", "locust bean gum", "choline chloride",
-    "thiamine mononitrate", "calcium pantothenate", "riboflavin supplement"
+    "thiamine mononitrate", "calcium pantothenate", "riboflavin supplement",
+    "salt", "ferrous sulfate", "potassium iodide", "copper sulfate",
+    "manganese sulfate", "calcium iodate", "biotin", "folic acid"
 ];
 
 function classifyIngredient(normalizedName) {
