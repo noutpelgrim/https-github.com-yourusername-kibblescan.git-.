@@ -117,7 +117,7 @@ function extractIngredients(text) {
             if (noise.includes(item)) return false;
 
             // Filter out manufacturer info
-            if (item.includes('purina') || item.includes('petcare') || item.includes('usa') || item.includes('mo 63164') || item.includes('louis')) return false;
+            if (item.includes('purina') || item.includes('petcare') || item.includes('usa') || item.includes('mo 63164') || item.includes('louis') || item === 'st') return false;
 
             return true;
         });
