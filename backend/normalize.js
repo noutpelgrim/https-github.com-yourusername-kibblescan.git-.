@@ -99,6 +99,17 @@ function extractIngredients(text) {
     // 5. Normalize and Filter
     const cleanList = rawList
         .map(item => normalizeText(item))
+        .map(item => {
+            // Fix common OCR typos FIRST
+            if (item === 'mamin b-3') return 'vitamin b-3';
+            if (item === 'choline t') return 'choline chloride';
+            if (item === 'sum iodide') return 'potassium iodide';
+            if (item === 'fes') return 'ferrous sulfate';
+            if (item === 'focad') return ''; // trash
+            if (item.startsWith('dden ')) return 'chicken ' + item.split(' ')[1];
+            if (item.startsWith('- ')) return item.substring(2); // Remove bullet point
+            return item;
+        })
         .filter(item => {
             if (!item || item.length < 2) return false;
             // Filter noise words
@@ -109,22 +120,7 @@ function extractIngredients(text) {
             if (item.includes('purina') || item.includes('petcare') || item.includes('usa') || item.includes('mo 63164') || item.includes('louis')) return false;
 
             return true;
-        })
-        .map(item => {
-            // Fix common OCR typos
-            if (item === 'mamin b-3') return 'vitamin b-3';
-            if (item === 'choline t') return 'choline chloride';
-            if (item === 'sum iodide') return 'potassium iodide';
-            if (item === 'fes') return 'ferrous sulfate';
-            if (item === 'focad') return ''; // trash
-            if (item.startsWith('dden ')) return 'chicken ' + item.split(' ')[1]; // Heuristic fix for cut off first word
-            if (item.startsWith('- ')) return item.substring(2); // Remove bullet point
-            if (item === 'vitamin') return ''; // trash
-            if (item === 'supplement') return ''; // trash
-            if (item === '- supplement') return ''; // trash
-            return item;
-        })
-        .filter(item => item.length > 2);
+        });
 
     return cleanList;
 }
