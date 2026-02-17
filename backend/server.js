@@ -139,7 +139,7 @@ app.use((err, req, res, next) => {
     const isDev = NODE_ENV === 'development';
 
     if (err.code === 'LIMIT_FILE_SIZE') {
-        return res.status(400).json({ error: 'File too large. Max 5MB.' });
+        return res.status(400).json({ error: 'File too large. Max 15MB.' });
     }
     if (err.message === 'INVALID_FILE_TYPE') {
         return res.status(400).json({ error: 'Invalid file type. Images only.' });
