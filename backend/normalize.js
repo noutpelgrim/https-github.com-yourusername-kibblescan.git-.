@@ -45,10 +45,40 @@ function extractIngredients(text) {
     }
     // 2. Stop at Guaranteed Analysis
     // 2. Stop at common end-of-section markers
-    const stopPhrases = ['guaranteed analysis', 'daily feeding guide', 'calorie content', 'distributed by', 'manufactured by'];
+
+    // 2. Stop at common end-of-section markers
+    const stopPhrases = [
+        'guaranteed analysis',
+        'daily feeding guide',
+        'calorie content',
+        'distributed by',
+        'manufactured by',
+        'trademarks',
+        'nutritional levels'
+    ];
     for (const phrase of stopPhrases) {
         if (content.toLowerCase().includes(phrase)) {
             content = content.split(new RegExp(phrase, 'i'))[0];
+        }
+    }
+
+    // 2.5 Heuristic Start Finding (if "Ingredients:" missing)
+    if (!text.toLowerCase().includes('ingredients:')) {
+        // Look for common first ingredients or cut off common pre-text
+        const commonStarts = ['chicken', 'beef', 'water', 'meat', 'broth', 'turkey', 'lamb', 'duck'];
+        const lines = content.split('\n');
+        let startIndex = 0;
+
+        // If we see "Moisture" or "Crude", likely the stuff AFTER is the list
+        for (let i = 0; i < lines.length; i++) {
+            const lower = lines[i].toLowerCase();
+            if (lower.includes('moisture') || lower.includes('crude protein') || lower.includes('crude fat')) {
+                startIndex = i + 1; // Start AFTER this line
+            }
+        }
+
+        if (startIndex > 0 && startIndex < lines.length) {
+            content = lines.slice(startIndex).join('\n');
         }
     }
 
@@ -64,12 +94,17 @@ function extractIngredients(text) {
     // 5. Normalize and Filter
     const cleanList = rawList
         .map(item => normalizeText(item))
-        .filter(item => item && item.length > 2); // Filter out empty or tiny noise strings
+        .filter(item => {
+            if (!item || item.length < 2) return false;
+            // Filter noise words
+            const noise = ['crude', 'protein', 'fat', 'fiber', 'moisture', 'min', 'max', 'ash', 'guaranteed', 'analysis'];
+            if (noise.includes(item)) return false;
+            return true;
+        });
 
     return cleanList;
 }
 
-// Alias for backward compatibility if routes import 'cleanText'
 // Alias for backward compatibility if routes import 'cleanText'
 const cleanText = extractIngredients;
 
