@@ -192,31 +192,44 @@ p {
    ========================================= */
 .device-container {
     position: relative;
-    max-width: 360px;
+    width: 100%;
+    max-width: 400px;
+    /* Allow enough width */
     margin: 0 auto;
+    padding: 0 20px;
+    /* Prevent touching edge of screen on mobile */
 }
 
 .iphone-frame {
-    background: var(--primary);
-    border-radius: 50px;
-    padding: 12px;
+    background: #0F172A;
+    /* Match primary */
+    border-radius: 56px;
+    padding: 14px;
     /* Uniform bezel */
-    box-shadow: var(--shadow-device);
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.5);
+    /* Deeper shadow */
     position: relative;
     z-index: 10;
-    border: 4px solid #334155;
-    /* Subtle outer rim for depth */
+    border: 6px solid #334155;
+    /* Visible outer rim */
+    box-sizing: border-box;
+    /* CRITICAL: Includes padding in width */
+    width: 100%;
 }
 
 .screen-content {
     background: #F3F4F6;
-    border-radius: 34px;
-    /* 50px - 12px - 4px = 34px */
+    border-radius: 38px;
+    /* 56px (outer) - 14px (padding) - 4px (correction) */
     overflow: hidden;
-    aspect-ratio: 9/19;
     position: relative;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    /* Force fill */
+    height: 800px;
+    /* Fixed height for stability */
+    box-sizing: border-box;
 }
 
 /* Hide Scrollbar for App Feel */
