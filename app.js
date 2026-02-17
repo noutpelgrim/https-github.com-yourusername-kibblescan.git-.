@@ -128,116 +128,116 @@ function initScanFlow() {
         let stampText = "VOID";
         let stampClass = "stamp void";
 
-    } else if (outcome === 'AMBIGUOUS') {
-        verdictText = "CAUTION";
-        verdictClass = "warning"; // Need to ensure CSS exists or use 'unknown' style with yellow color
-        subtext = "Unrecognized ingredients found.";
-        stampText = "REVIEW";
-        stampClass = "stamp void"; // Or a new class
+        if (outcome === 'AMBIGUOUS') {
+            verdictText = "CAUTION";
+            verdictClass = "warning"; // Need to ensure CSS exists or use 'unknown' style with yellow color
+            subtext = "Unrecognized ingredients found.";
+            stampText = "REVIEW";
+            stampClass = "stamp void"; // Or a new class
 
-        // Inline style fix for now if class missing
-        if (resultVerdict) resultVerdict.style.color = "#EAB308";
+            // Inline style fix for now if class missing
+            if (resultVerdict) resultVerdict.style.color = "#EAB308";
 
-    } else if (outcome === 'VERIFIED') {
-        verdictText = "COMPLIANT"; // Discrepancy: backend says VERIFIED, frontend check was COMPLIANT
-        verdictClass = "safe";
-        subtext = "No restricted ingredients found.";
-        stampText = "APPROVED";
-        stampClass = "stamp approved";
-    }
+        } else if (outcome === 'VERIFIED') {
+            verdictText = "COMPLIANT"; // Discrepancy: backend says VERIFIED, frontend check was COMPLIANT
+            verdictClass = "safe";
+            subtext = "No restricted ingredients found.";
+            stampText = "APPROVED";
+            stampClass = "stamp approved";
+        }
 
-    if (outcome === 'COMPLIANT') {
-        // Keep for backward compatibility if backend sends COMPLIANT
-        verdictText = "COMPLIANT";
-        verdictClass = "safe";
-        subtext = "No restricted ingredients found.";
-        stampText = "APPROVED";
-        stampClass = "stamp approved";
-    } else if (outcome === 'NON-COMPLIANT') {
-        verdictText = "WARNING";
-        verdictClass = "danger";
-        subtext = "Restricted ingredients detected.";
-        stampText = "REJECTED";
-        stampClass = "stamp rejected";
-    }
+        if (outcome === 'COMPLIANT') {
+            // Keep for backward compatibility if backend sends COMPLIANT
+            verdictText = "COMPLIANT";
+            verdictClass = "safe";
+            subtext = "No restricted ingredients found.";
+            stampText = "APPROVED";
+            stampClass = "stamp approved";
+        } else if (outcome === 'NON-COMPLIANT') {
+            verdictText = "WARNING";
+            verdictClass = "danger";
+            subtext = "Restricted ingredients detected.";
+            stampText = "REJECTED";
+            stampClass = "stamp rejected";
+        }
 
-    // Apply Text & Classes
-    if (resultVerdict) {
-        resultVerdict.innerText = verdictText;
-        resultVerdict.classList.add(verdictClass);
-    }
-    if (resultSubtext) resultSubtext.innerText = subtext;
+        // Apply Text & Classes
+        if (resultVerdict) {
+            resultVerdict.innerText = verdictText;
+            resultVerdict.classList.add(verdictClass);
+        }
+        if (resultSubtext) resultSubtext.innerText = subtext;
 
-    if (resultStamp) {
-        resultStamp.innerText = stampText;
-        resultStamp.className = stampClass;
-    }
+        if (resultStamp) {
+            resultStamp.innerText = stampText;
+            resultStamp.className = stampClass;
+        }
 
-    // Render Ingredient List
-    if (resultFindings) {
-        resultFindings.innerHTML = '';
-        if (ingredients && ingredients.length > 0) {
-            ingredients.forEach(ing => {
-                const li = document.createElement('li');
-                li.innerText = ing.name;
-                if (ing.flagged) {
-                    li.style.color = '#EF4444';
-                    li.style.fontWeight = 'bold';
-                    li.innerText += ' ⚠️';
-                }
-                resultFindings.appendChild(li);
-            });
-        } else {
-            resultFindings.innerHTML = '<li style="color:#94A3B8; font-style:italic;">No distinct ingredients identified.</li>';
+        // Render Ingredient List
+        if (resultFindings) {
+            resultFindings.innerHTML = '';
+            if (ingredients && ingredients.length > 0) {
+                ingredients.forEach(ing => {
+                    const li = document.createElement('li');
+                    li.innerText = ing.name;
+                    if (ing.flagged) {
+                        li.style.color = '#EF4444';
+                        li.style.fontWeight = 'bold';
+                        li.innerText += ' ⚠️';
+                    }
+                    resultFindings.appendChild(li);
+                });
+            } else {
+                resultFindings.innerHTML = '<li style="color:#94A3B8; font-style:italic;">No distinct ingredients identified.</li>';
+            }
         }
     }
-}
 
-// -----------------------------------------------------
-// EVENT LISTENERS
-// -----------------------------------------------------
+    // -----------------------------------------------------
+    // EVENT LISTENERS
+    // -----------------------------------------------------
 
-initLocalHistory();
+    initLocalHistory();
 
-// Removed Start Button (Manual Entry) Listener since button is gone from HTML
+    // Removed Start Button (Manual Entry) Listener since button is gone from HTML
 
-if (cameraBtn) {
-    const fileInput = document.getElementById('file-upload-trigger');
+    if (cameraBtn) {
+        const fileInput = document.getElementById('file-upload-trigger');
 
-    cameraBtn.addEventListener('click', () => {
-        fileInput.value = '';
-        fileInput.click();
-    });
+        cameraBtn.addEventListener('click', () => {
+            fileInput.value = '';
+            fileInput.click();
+        });
 
-    fileInput.addEventListener('change', () => {
-        if (fileInput.files.length > 0) {
-            startProcessing(fileInput.files[0]);
-        }
-    });
-}
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                startProcessing(fileInput.files[0]);
+            }
+        });
+    }
 
-if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-        resultView.style.display = 'none';
-        entryView.style.display = 'block';
-    });
-}
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            resultView.style.display = 'none';
+            entryView.style.display = 'block';
+        });
+    }
 
-// Gated Feature Simulators
-const saveBtn = document.getElementById('btn-save-history');
-const monitorBtn = document.getElementById('btn-monitor-drift');
+    // Gated Feature Simulators
+    const saveBtn = document.getElementById('btn-save-history');
+    const monitorBtn = document.getElementById('btn-monitor-drift');
 
-if (saveBtn) {
-    saveBtn.addEventListener('click', () => {
-        alert("ACCOUNT REQUIRED\n\nCreate a profile to save scans to your inventory.");
-    });
-}
+    if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+            alert("ACCOUNT REQUIRED\n\nCreate a profile to save scans to your inventory.");
+        });
+    }
 
-if (monitorBtn) {
-    monitorBtn.addEventListener('click', () => {
-        alert("MONITORING REQUIRED\n\n'Drift Detection' monitors this formula for silent recipe changes.\nEnable monitoring to access this feature.");
-    });
-}
+    if (monitorBtn) {
+        monitorBtn.addEventListener('click', () => {
+            alert("MONITORING REQUIRED\n\n'Drift Detection' monitors this formula for silent recipe changes.\nEnable monitoring to access this feature.");
+        });
+    }
 }
 
 
