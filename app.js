@@ -82,6 +82,14 @@ function initScanFlow() {
             if (result.outcome === 'UNKNOWN_FORMULATION') {
                 processView.style.display = 'none';
                 unknownView.style.display = 'block';
+
+                // POPULATE DEBUG INFO
+                const debugElem = document.getElementById('debug-raw-text');
+                if (debugElem) {
+                    const debugInfo = `REASON: ${result.reason || "N/A"}\n\nRAW OCR:\n${data.rawText || "No text detected"}`;
+                    debugElem.innerText = debugInfo;
+                }
+
                 if (appViewport) appViewport.scrollTop = 0;
                 return;
             }
