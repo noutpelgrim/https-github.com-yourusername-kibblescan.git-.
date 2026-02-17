@@ -114,8 +114,65 @@ function initScanFlow() {
         }
     }
 
-    // ... (Render Logic same as before) ...
-    // Note: Implicitly reusing existing renderResult logic which is fine.
+    // -----------------------------------------------------
+    // UTILITY: Render Results
+    // -----------------------------------------------------
+    function renderResult(outcome, confidence, ingredients) {
+        // Reset State
+        if (resultVerdict) resultVerdict.className = '';
+        if (resultStamp) resultStamp.className = 'stamp';
+
+        let verdictText = "UNKNOWN";
+        let verdictClass = "unknown";
+        let subtext = "Analysis Inconclusive";
+        let stampText = "VOID";
+        let stampClass = "stamp void";
+
+        if (outcome === 'COMPLIANT') {
+            verdictText = "COMPLIANT";
+            verdictClass = "safe";
+            subtext = "No restricted ingredients found.";
+            stampText = "APPROVED";
+            stampClass = "stamp approved";
+        } else if (outcome === 'NON-COMPLIANT') {
+            verdictText = "WARNING";
+            verdictClass = "danger";
+            subtext = "Restricted ingredients detected.";
+            stampText = "REJECTED";
+            stampClass = "stamp rejected";
+        }
+
+        // Apply Text & Classes
+        if (resultVerdict) {
+            resultVerdict.innerText = verdictText;
+            resultVerdict.classList.add(verdictClass);
+        }
+        if (resultSubtext) resultSubtext.innerText = subtext;
+
+        if (resultStamp) {
+            resultStamp.innerText = stampText;
+            resultStamp.className = stampClass;
+        }
+
+        // Render Ingredient List
+        if (resultFindings) {
+            resultFindings.innerHTML = '';
+            if (ingredients && ingredients.length > 0) {
+                ingredients.forEach(ing => {
+                    const li = document.createElement('li');
+                    li.innerText = ing.name;
+                    if (ing.flagged) {
+                        li.style.color = '#EF4444';
+                        li.style.fontWeight = 'bold';
+                        li.innerText += ' ⚠️';
+                    }
+                    resultFindings.appendChild(li);
+                });
+            } else {
+                resultFindings.innerHTML = '<li style="color:#94A3B8; font-style:italic;">No distinct ingredients identified.</li>';
+            }
+        }
+    }
 
     // -----------------------------------------------------
     // EVENT LISTENERS
