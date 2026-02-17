@@ -103,7 +103,13 @@ function initScanFlow() {
         } catch (error) {
             console.error("[CLIENT] Critical Failure:", error);
             processView.style.display = 'none';
+            // Determine if it was a network error vs logical error
+            // Fail-safe to Error View
             errorView.style.display = 'block';
+
+            const errElem = document.getElementById('error-details');
+            if (errElem) errElem.innerText = error.message;
+
             if (appViewport) appViewport.scrollTop = 0;
         }
     }

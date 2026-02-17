@@ -10,7 +10,7 @@ const os = require('os');
 const upload = multer({
     dest: os.tmpdir(), // Use system temp directory
     limits: {
-        fileSize: 5 * 1024 * 1024, // 5MB Limit
+        fileSize: 15 * 1024 * 1024, // 15MB Limit (High-res iPad/iPhone photos)
         files: 1
     },
     fileFilter: (req, file, cb) => {
