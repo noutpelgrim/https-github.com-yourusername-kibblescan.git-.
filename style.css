@@ -200,20 +200,36 @@ p {
     background: var(--primary);
     border-radius: 50px;
     padding: 12px;
+    /* Uniform bezel */
     box-shadow: var(--shadow-device);
     position: relative;
     z-index: 10;
+    border: 4px solid #334155;
+    /* Subtle outer rim for depth */
 }
 
 .screen-content {
     background: #F3F4F6;
-    /* App Bg */
-    border-radius: 38px;
+    border-radius: 34px;
+    /* 50px - 12px - 4px = 34px */
     overflow: hidden;
     aspect-ratio: 9/19;
     position: relative;
     display: flex;
     flex-direction: column;
+}
+
+/* Hide Scrollbar for App Feel */
+#app-viewport::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+#app-viewport {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 /* App Header */
