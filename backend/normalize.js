@@ -44,8 +44,12 @@ function extractIngredients(text) {
         content = content.split(/ingredients:/i)[1];
     }
     // 2. Stop at Guaranteed Analysis
-    if (content.toLowerCase().includes('guaranteed analysis')) {
-        content = content.split(/guaranteed analysis/i)[0];
+    // 2. Stop at common end-of-section markers
+    const stopPhrases = ['guaranteed analysis', 'daily feeding guide', 'calorie content', 'distributed by', 'manufactured by'];
+    for (const phrase of stopPhrases) {
+        if (content.toLowerCase().includes(phrase)) {
+            content = content.split(new RegExp(phrase, 'i'))[0];
+        }
     }
 
     // 3. Pre-process separators
