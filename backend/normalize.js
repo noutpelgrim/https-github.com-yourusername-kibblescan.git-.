@@ -102,7 +102,7 @@ function extractIngredients(text) {
         .filter(item => {
             if (!item || item.length < 2) return false;
             // Filter noise words
-            const noise = ['crude', 'protein', 'fat', 'fiber', 'moisture', 'min', 'max', 'ash', 'guaranteed', 'analysis'];
+            const noise = ['crude', 'protein', 'fat', 'fiber', 'moisture', 'min', 'max', 'ash', 'guaranteed', 'analysis', 'supplement', 'vitamin', 'mineral', 'vitamins', 'minerals'];
             if (noise.includes(item)) return false;
 
             // Filter out manufacturer info
