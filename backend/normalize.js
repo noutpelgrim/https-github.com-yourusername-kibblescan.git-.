@@ -118,6 +118,10 @@ function extractIngredients(text) {
             if (item === 'fes') return 'ferrous sulfate';
             if (item === 'focad') return ''; // trash
             if (item.startsWith('dden ')) return 'chicken ' + item.split(' ')[1]; // Heuristic fix for cut off first word
+            if (item.startsWith('- ')) return item.substring(2); // Remove bullet point
+            if (item === 'vitamin') return ''; // trash
+            if (item === 'supplement') return ''; // trash
+            if (item === '- supplement') return ''; // trash
             return item;
         })
         .filter(item => item.length > 2);
