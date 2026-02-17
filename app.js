@@ -117,78 +117,92 @@ function initScanFlow() {
     // -----------------------------------------------------
     // UTILITY: Render Results
     // -----------------------------------------------------
+    // -----------------------------------------------------
+    // UTILITY: Render Results (Premium Upgrade)
+    // -----------------------------------------------------
     function renderResult(outcome, confidence, ingredients) {
         // Reset State
-        if (resultVerdict) resultVerdict.className = '';
-        if (resultStamp) resultStamp.className = 'stamp';
+        const resultHeader = document.getElementById('result-header');
 
-        let verdictText = "UNVERIFIED";
-        let verdictClass = "unknown";
-        let subtext = "Outcome uncertain.";
-        let stampText = "VOID";
-        let stampClass = "stamp void";
-
-        if (outcome === 'AMBIGUOUS') {
-            verdictText = "CAUTION";
-            verdictClass = "warning"; // Need to ensure CSS exists or use 'unknown' style with yellow color
-            subtext = "Unrecognized ingredients found.";
-            stampText = "REVIEW";
-            stampClass = "stamp void"; // Or a new class
-
-            // Inline style fix for now if class missing
-            if (resultVerdict) resultVerdict.style.color = "#EAB308";
-
-        } else if (outcome === 'VERIFIED') {
-            verdictText = "COMPLIANT"; // Discrepancy: backend says VERIFIED, frontend check was COMPLIANT
-            verdictClass = "safe";
-            subtext = "No restricted ingredients found.";
-            stampText = "APPROVED";
-            stampClass = "stamp approved";
+        // Apply Glass Card Style
+        if (resultHeader) {
+            resultHeader.className = 'glass-card'; // Removes inline styles if any, or add to list
+            resultHeader.style.textAlign = 'center';
+            resultHeader.style.padding = '30px';
+            resultHeader.style.marginBottom = '20px';
         }
 
-        if (outcome === 'COMPLIANT') {
-            // Keep for backward compatibility if backend sends COMPLIANT
-            verdictText = "COMPLIANT";
-            verdictClass = "safe";
-            subtext = "No restricted ingredients found.";
-            stampText = "APPROVED";
-            stampClass = "stamp approved";
-        } else if (outcome === 'NON-COMPLIANT') {
-            verdictText = "WARNING";
-            verdictClass = "danger";
-            subtext = "Restricted ingredients detected.";
-            stampText = "REJECTED";
-            stampClass = "stamp rejected";
+        let iconHtml = '';
+        let verdictHtml = '';
+        let subtextHtml = '';
+
+        if (outcome === 'VERIFIED' || outcome === 'COMPLIANT') {
+            // GREEN SHIELD
+            iconHtml = `<div class="outcome-icon icon-pulse-green" style="background:rgba(16, 185, 129, 0.1); color:#10B981;">
+                <ion-icon name="shield-checkmark"></ion-icon>
+            </div>`;
+            verdictHtml = `<div class="result-verdict-large" style="color:#10B981;">VERIFIED</div>`;
+            subtextHtml = `<div style="color:#475569; font-weight:500;">Safe for consumption.</div>`;
+        } else if (outcome === 'AMBIGUOUS' || outcome === 'UNKNOWN_FORMULATION') {
+            // YELLOW ALERT
+            iconHtml = `<div class="outcome-icon icon-blink-yellow" style="background:rgba(234, 179, 8, 0.1); color:#EAB308;">
+                <ion-icon name="alert-circle"></ion-icon>
+            </div>`;
+            verdictHtml = `<div class="result-verdict-large" style="color:#EAB308;">ANALYZING</div>`;
+            subtextHtml = `<div style="color:#475569;">Incomplete data detected.</div>`;
+        } else {
+            // RED WARNING
+            iconHtml = `<div class="outcome-icon" style="background:rgba(239, 68, 68, 0.1); color:#EF4444;">
+                <ion-icon name="warning"></ion-icon>
+            </div>`;
+            verdictHtml = `<div class="result-verdict-large" style="color:#EF4444;">RESTRICTED</div>`;
+            subtextHtml = `<div style="color:#475569;">Ingredients flagged.</div>`;
         }
 
-        // Apply Text & Classes
-        if (resultVerdict) {
-            resultVerdict.innerText = verdictText;
-            resultVerdict.classList.add(verdictClass);
+        // Inject HTML
+        if (resultHeader) {
+            resultHeader.innerHTML = `
+                ${iconHtml}
+                ${verdictHtml}
+                ${subtextHtml}
+                <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; color:#94A3B8; margin-top:15px;">
+                    Confidence: ${(confidence * 100).toFixed(0)}%
+                </div>
+            `;
         }
-        if (resultSubtext) resultSubtext.innerText = subtext;
 
-        if (resultStamp) {
-            resultStamp.innerText = stampText;
-            resultStamp.className = stampClass;
-        }
-
-        // Render Ingredient List
+        // Render Ingredient List with Stagger
+        const resultFindings = document.getElementById('result-findings');
         if (resultFindings) {
             resultFindings.innerHTML = '';
+            resultFindings.style.background = 'transparent'; // Remove white bg for glass feel
+            resultFindings.style.border = 'none';
+
             if (ingredients && ingredients.length > 0) {
-                ingredients.forEach(ing => {
-                    const li = document.createElement('li');
-                    li.innerText = ing.name;
-                    if (ing.flagged) {
-                        li.style.color = '#EF4444';
-                        li.style.fontWeight = 'bold';
-                        li.innerText += ' ⚠️';
-                    }
+                ingredients.forEach((ing, index) => {
+                    const li = document.createElement('div'); // Div for better control
+                    li.className = 'stagger-entry';
+                    li.style.animationDelay = `${index * 50}ms`;
+                    li.style.background = 'white';
+                    li.style.marginBottom = '8px';
+                    li.style.padding = '12px 16px';
+                    li.style.borderRadius = '12px';
+                    li.style.display = 'flex';
+                    li.style.justifyContent = 'space-between';
+                    li.style.alignItems = 'center';
+                    li.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
+
+                    let statusIcon = '<ion-icon name="checkmark-circle" style="color:#CBD5E1;"></ion-icon>';
+                    if (ing.flagged) statusIcon = '<ion-icon name="alert-circle" style="color:#EF4444;"></ion-icon>';
+
+                    li.innerHTML = `
+                        <span style="font-weight:600; color:#1E293B; text-transform:capitalize;">${ing.name}</span>
+                        ${statusIcon}
+                    `;
                     resultFindings.appendChild(li);
                 });
             } else {
-                resultFindings.innerHTML = '<li style="color:#94A3B8; font-style:italic;">No distinct ingredients identified.</li>';
+                resultFindings.innerHTML = '<div style="text-align:center; padding:20px; color:#94A3B8;">No data extracted.</div>';
             }
         }
     }
