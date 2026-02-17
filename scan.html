@@ -134,11 +134,21 @@
                     </div>
 
                     <div id="scan-unknown" style="display:none; text-align:center; padding-top:4rem;">
-                        <ion-icon name="cloud-offline"
-                            style="font-size:3rem; color:#64748B; margin-bottom:1rem;"></ion-icon>
-                        <h3>Unknown Product</h3>
-                        <button onclick="location.reload()" class="btn-primary" style="margin-top:1rem;">Try
-                            Again</button>
+                        <ion-icon name="help-circle-outline" style="font-size:4rem; color:#94A3B8;"></ion-icon>
+                        <h3>Analysis Inconclusive</h3>
+                        <p style="color:#64748B; margin-bottom:1.5rem;">Could not identify ingredients list.<br>Ensure
+                            text is clear and well-lit.</p>
+                        <button onclick="location.reload()" class="btn-primary">Try Again</button>
+
+                        <div
+                            style="margin-top: 2rem; text-align: left; background: #f1f5f9; padding: 10px; border-radius: 8px; font-size: 0.75rem;">
+                            <strong style="display:block; margin-bottom:5px; color:#475569;">Debug Info (Tap to
+                                Copy):</strong>
+                            <div id="debug-raw-text"
+                                style="white-space: pre-wrap; word-break: break-word; color:#334155; max-height: 100px; overflow-y: auto; user-select: text;">
+                                Waiting for data...
+                            </div>
+                        </div>
                     </div>
 
                 </div>
