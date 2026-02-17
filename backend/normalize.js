@@ -47,6 +47,7 @@ function extractIngredients(text) {
     // 2. Stop at common end-of-section markers
 
     // 2. Stop at common end-of-section markers
+    // 2. Stop at common end-of-section markers
     const stopPhrases = [
         'guaranteed analysis',
         'daily feeding guide',
@@ -54,7 +55,11 @@ function extractIngredients(text) {
         'distributed by',
         'manufactured by',
         'trademarks',
-        'nutritional levels'
+        'nutritional levels',
+        'netutional levels', // Common OCR typo for nutritional
+        'aafco',
+        'find cassic', // Specific to this label noise
+        'formula with'
     ];
     for (const phrase of stopPhrases) {
         if (content.toLowerCase().includes(phrase)) {
@@ -101,7 +106,7 @@ function extractIngredients(text) {
             if (noise.includes(item)) return false;
 
             // Filter out manufacturer info
-            if (item.includes('purina') || item.includes('petcare') || item.includes('usa') || item.includes('mo 63164')) return false;
+            if (item.includes('purina') || item.includes('petcare') || item.includes('usa') || item.includes('mo 63164') || item.includes('louis')) return false;
 
             return true;
         })
