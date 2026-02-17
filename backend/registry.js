@@ -23,7 +23,10 @@ const UNRESTRICTED = [
     "chicken", "beef", "lamb", "turkey", "salmon", "duck",
     "chicken meal", "beef meal", "brown rice", "sweet potato",
     "peas", "whole corn", "wheat", "oats", "flaxseed",
-    "vitamin", "mineral", "rice"
+    "vitamin", "mineral", "rice", "broth", "pork lungs", "liver",
+    "potassium chloride", "zinc sulfate", "sodium selenite",
+    "carrageenan", "guar gum", "locust bean gum", "choline chloride",
+    "thiamine mononitrate", "calcium pantothenate", "riboflavin supplement"
 ];
 
 function classifyIngredient(normalizedName) {

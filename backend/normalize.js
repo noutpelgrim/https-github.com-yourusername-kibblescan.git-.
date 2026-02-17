@@ -99,8 +99,23 @@ function extractIngredients(text) {
             // Filter noise words
             const noise = ['crude', 'protein', 'fat', 'fiber', 'moisture', 'min', 'max', 'ash', 'guaranteed', 'analysis'];
             if (noise.includes(item)) return false;
+
+            // Filter out manufacturer info
+            if (item.includes('purina') || item.includes('petcare') || item.includes('usa') || item.includes('mo 63164')) return false;
+
             return true;
-        });
+        })
+        .map(item => {
+            // Fix common OCR typos
+            if (item === 'mamin b-3') return 'vitamin b-3';
+            if (item === 'choline t') return 'choline chloride';
+            if (item === 'sum iodide') return 'potassium iodide';
+            if (item === 'fes') return 'ferrous sulfate';
+            if (item === 'focad') return ''; // trash
+            if (item.startsWith('dden ')) return 'chicken ' + item.split(' ')[1]; // Heuristic fix for cut off first word
+            return item;
+        })
+        .filter(item => item.length > 2);
 
     return cleanList;
 }
