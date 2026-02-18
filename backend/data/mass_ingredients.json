@@ -1,0 +1,338 @@
+[
+    {
+        "name": "Artificial Color",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Corn Syrup",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Xylitol",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Sorbitol",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Propyl Gallate",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "BHA (Butylated Hydroxyanisole)",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "BHT (Butylated Hydroxytoluene)",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Ethoxyquin",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Red 40",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Yellow 5",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Yellow 6",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Blue 2",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Menadione Sodium Bisulfite Complex",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Propylene Glycol",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Titanium Dioxide",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Meat By-Products",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Poultry By-Products",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Animal Digest",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Animal Fat",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Meat Meal",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Bone Meal",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Corn Gluten Meal",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Wheat Gluten",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Soybean Meal",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Natural Flavor",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Glycerin",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Cellulose",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Brewers Rice",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Powdered Cellulose",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Chicken",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Beef",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Lamb",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Turkey",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Duck",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Salmon",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whitefish",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Trout",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chicken Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Turkey Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Lamb Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Salmon Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sweet Potato",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Potato",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Peas",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Lentils",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chickpeas",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Carrots",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Spinach",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Blueberries",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Cranberries",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pumpkin",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Apples",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Brown Rice",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Oatmeal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Barley",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Quinoa",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Flaxseed",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chia Seed",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Coconut Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Fish Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sunflower Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Taurine",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Vitamin A Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Vitamin D3 Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Vitamin E Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Vitamin B12 Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Riboflavin Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Niacin",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Calcium Pantothenate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Folic Acid",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Biotin",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Thiamine Mononitrate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pyridoxine Hydrochloride",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Zinc Proteinate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Iron Proteinate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Copper Proteinate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Manganese Proteinate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sodium Selenite",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Calcium Iodate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Potassium Chloride",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Chicory Root",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Lactobacillus Acidophilus Fermentation Product",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Bifidobacterium Animalis Fermentation Product",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Rosemary Extract",
+        "classification": "UNRESTRICTED"
+    }
+]
