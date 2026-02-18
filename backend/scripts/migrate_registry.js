@@ -37,10 +37,21 @@ async function migrate() {
     try {
         const client = await pool.connect();
 
+        // Load Mass Ingredients from JSON
+        const massIngPath = require('path').join(__dirname, '../data/mass_ingredients.json');
+        let massIngredients = [];
+        try {
+            massIngredients = require(massIngPath);
+            console.log(`📄 Loaded ${massIngredients.length} ingredients from mass_ingredients.json`);
+        } catch (e) {
+            console.warn("⚠️  Could not load mass_ingredients.json:", e.message);
+        }
+
         const allIngredients = [
             ...VIOLATIONS.map(name => ({ name, classification: 'VIOLATION' })),
             ...NON_SPECIFIC.map(name => ({ name, classification: 'NON-SPECIFIC' })),
-            ...UNRESTRICTED.map(name => ({ name, classification: 'UNRESTRICTED' }))
+            ...UNRESTRICTED.map(name => ({ name, classification: 'UNRESTRICTED' })),
+            ...massIngredients // These are already objects {name, classification}
         ];
 
         console.log(`📦 Found ${allIngredients.length} ingredients to migrate.`);
