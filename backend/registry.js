@@ -59,6 +59,7 @@ async function init() {
             logger.warn("[REGISTRY] Database empty. Using hardcoded fallback.");
             lastError = "Database returned 0 rows";
         }
+    } catch (err) {
         lastError = err.message;
         logger.error("[REGISTRY] Failed to load from DB (Fallback active)", { error: err.message });
     }
