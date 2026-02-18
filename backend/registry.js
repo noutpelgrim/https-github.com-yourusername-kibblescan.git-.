@@ -81,4 +81,13 @@ function classifyIngredient(normalizedName) {
     return "UNRESOLVED";
 }
 
-module.exports = { classifyIngredient, init };
+function getStats() {
+    return {
+        violations: VIOLATIONS.length,
+        non_specific: NON_SPECIFIC.length,
+        unrestricted: UNRESTRICTED.length,
+        source: (VIOLATIONS.length > 20) ? 'LIKELY_DB_OR_MASS_IMPORT' : 'FALLBACK_OR_EMPTY'
+    };
+}
+
+module.exports = { classifyIngredient, init, getStats };

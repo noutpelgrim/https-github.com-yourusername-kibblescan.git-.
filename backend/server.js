@@ -109,6 +109,23 @@ app.get('/health', async (req, res) => {
     res.status(code).json(healthStatus);
 });
 
+// DEBUG: Registry Status
+app.get('/api/debug/status', async (req, res) => {
+    const regStats = registry.getStats ? registry.getStats() : { error: 'registry.getStats not defined' };
+    const dbHealth = await db.healthCheck();
+
+    res.json({
+        service: 'KibbleScan Backend',
+        registry: regStats,
+        db: dbHealth,
+        test_classification: {
+            chicken: registry.classifyIngredient('chicken'),
+            xylitol: registry.classifyIngredient('xylitol'),
+            random_junk: registry.classifyIngredient('random_junk')
+        }
+    });
+});
+
 const protectedRoutes = require('./routes/protected');
 
 // API Routes
