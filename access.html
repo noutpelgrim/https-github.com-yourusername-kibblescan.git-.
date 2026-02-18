@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Access & Infrastructure — KibbleScan</title>
-    <link rel="stylesheet" href="style.css?v=3.1" />
+    <link rel="stylesheet" href="style.css?v=4.0" />
 </head>
 
 <body>
@@ -166,24 +166,50 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <script>
-        Paddle.Initialize({
-            token: "test_8772b40c927a726a3190b415cd9",
+        <script>
+            Paddle.Initialize({
+                token: "test_8772b40c927a726a3190b415cd9",
             environment: "sandbox"
         });
 
-        function startCheckout(priceId) {
-            Paddle.Checkout.open({
-                items: [{
-                    priceId: priceId,
-                    quantity: 1
-                }],
-                settings: {
-                    successUrl: window.location.origin + '/success.html',
-                    displayMode: 'overlay',
-                    theme: 'light'
+            function startCheckout(priceId) {
+                Paddle.Checkout.open({
+                    items: [{
+                        priceId: priceId,
+                        quantity: 1
+                    }],
+                    settings: {
+                        successUrl: window.location.origin + '/success.html',
+                        displayMode: 'overlay',
+                        theme: 'light'
+                    }
+                });
+        }
+
+        // Nuclear Hover Fallback
+        document.querySelectorAll('.glass-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px) scale(1.05)';
+                    card.style.backgroundColor = 'white';
+                    card.style.borderColor = '#0F172A';
+                    card.style.boxShadow = '0 25px 50px -12px rgba(0,0,0,0.25)';
+                    card.style.cursor = 'pointer';
+                });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            card.style.backgroundColor = '';
+            card.style.borderColor = '';
+            card.style.boxShadow = '';
+            card.style.cursor = '';
+
+            // Re-apply featured style if needed (basic hack)
+            if (card.classList.contains('featured')) {
+                card.style.transform = 'scale(1.02)';
+            card.style.borderColor = '#0F172A';
                 }
             });
-        }
+        });
     </script>
 </body>
 
