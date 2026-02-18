@@ -109,7 +109,7 @@ app.get('/health', async (req, res) => {
     res.status(code).json(healthStatus);
 });
 
-// DEBUG: Registry Status
+// DEBUG: Registry Status (Diagnostics Endpoint)
 app.get('/api/debug/status', async (req, res) => {
     const regStats = registry.getStats ? registry.getStats() : { error: 'registry.getStats not defined' };
     const dbHealth = await db.healthCheck();
