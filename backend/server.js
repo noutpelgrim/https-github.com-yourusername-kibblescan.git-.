@@ -111,20 +111,39 @@ app.get('/health', async (req, res) => {
 });
 
 // DEBUG: Registry Status (Diagnostics Endpoint)
+// DEBUG: Registry Status (Diagnostics Endpoint)
 app.get('/api/debug/status', async (req, res) => {
     const regStats = registry.getStats ? registry.getStats() : { error: 'registry.getStats not defined' };
     const dbHealth = await db.healthCheck();
 
+    let dbCount = 'unknown';
+    try {
+        const countRes = await db.query('SELECT count(*) FROM ingredients');
+        dbCount = countRes.rows[0].count;
+    } catch (e) {
+        dbCount = `Error: ${e.message}`;
+    }
+
     res.json({
         service: 'KibbleScan Backend',
         registry: regStats,
-        db: dbHealth,
+        db_health: dbHealth,
+        raw_db_count: dbCount,
         test_classification: {
             chicken: registry.classifyIngredient('chicken'),
             xylitol: registry.classifyIngredient('xylitol'),
             random_junk: registry.classifyIngredient('random_junk')
         }
     });
+});
+
+app.get('/api/debug/reload', async (req, res) => {
+    try {
+        await registry.init();
+        res.json({ message: 'Registry reloaded', stats: registry.getStats() });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
 });
 
 const protectedRoutes = require('./routes/protected');
