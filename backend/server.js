@@ -126,7 +126,7 @@ app.get('/api/debug/status', async (req, res) => {
 
     res.json({
         service: 'KibbleScan Backend',
-        version: '1.2.4', // Fix Route Syntax (Crash fix)
+        version: '1.2.5', // Fix Normalization (Newlines)
         registry: regStats,
         db_health: dbHealth,
         raw_db_count: dbCount,
