@@ -45,8 +45,53 @@ app.use('/api/webhook/paddle', paddleWebhookRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Upgrade Flows
-app.use('/api/clinical', clinicalRequestRoutes);
+app.get('/api/ping', (req, res) => res.send('pong'));
+
+// DEBUG: Registry Status (Diagnostics Endpoint)
+app.get('/api/debug/status', async (req, res) => {
+    const regStats = registry.getStats ? registry.getStats() : { error: 'registry.getStats not defined' };
+    const dbHealth = await db.healthCheck();
+
+    let dbCount = 'unknown';
+    try {
+        const countRes = await db.query('SELECT count(*) FROM ingredients');
+        dbCount = countRes.rows[0].count;
+    } catch (e) {
+        dbCount = `Error: ${e.message}`;
+    }
+
+    res.json({
+        service: 'KibbleScan Backend',
+        version: '1.2.6', // Debugging 404 on last_scan
+        registry: regStats,
+        db_health: dbHealth,
+        raw_db_count: dbCount,
+        test_classification: {
+            chicken: registry.classifyIngredient('chicken'),
+            xylitol: registry.classifyIngredient('xylitol'),
+            random_junk: registry.classifyIngredient('random_junk')
+        }
+    });
+});
+
+app.get('/api/debug/reload', async (req, res) => {
+    try {
+        await registry.init();
+        res.json({ message: 'Registry reloaded', stats: registry.getStats() });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
+app.get('/api/debug/last_scan', async (req, res) => {
+    try {
+        const result = await db.query('SELECT * FROM scans ORDER BY created_at DESC LIMIT 1');
+        if (result.rows.length === 0) return res.json({ message: "No scans found in DB." });
+        res.json(result.rows[0]);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
 
 // --- RATE LIMITING (Memory-Based) ---
 const requestCounts = new Map();
@@ -111,51 +156,7 @@ app.get('/health', async (req, res) => {
 });
 
 // DEBUG: Registry Status (Diagnostics Endpoint)
-// DEBUG: Registry Status (Diagnostics Endpoint)
-app.get('/api/debug/status', async (req, res) => {
-    const regStats = registry.getStats ? registry.getStats() : { error: 'registry.getStats not defined' };
-    const dbHealth = await db.healthCheck();
 
-    let dbCount = 'unknown';
-    try {
-        const countRes = await db.query('SELECT count(*) FROM ingredients');
-        dbCount = countRes.rows[0].count;
-    } catch (e) {
-        dbCount = `Error: ${e.message}`;
-    }
-
-    res.json({
-        service: 'KibbleScan Backend',
-        version: '1.2.5', // Fix Normalization (Newlines)
-        registry: regStats,
-        db_health: dbHealth,
-        raw_db_count: dbCount,
-        test_classification: {
-            chicken: registry.classifyIngredient('chicken'),
-            xylitol: registry.classifyIngredient('xylitol'),
-            random_junk: registry.classifyIngredient('random_junk')
-        }
-    });
-});
-
-app.get('/api/debug/reload', async (req, res) => {
-    try {
-        await registry.init();
-        res.json({ message: 'Registry reloaded', stats: registry.getStats() });
-    } catch (e) {
-        res.status(500).json({ error: e.message });
-    }
-});
-
-app.get('/api/debug/last_scan', async (req, res) => {
-    try {
-        const result = await db.query('SELECT * FROM scans ORDER BY created_at DESC LIMIT 1');
-        if (result.rows.length === 0) return res.json({ message: "No scans found in DB." });
-        res.json(result.rows[0]);
-    } catch (e) {
-        res.status(500).json({ error: e.message });
-    }
-});
 
 const protectedRoutes = require('./routes/protected');
 
