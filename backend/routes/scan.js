@@ -5,6 +5,7 @@ const { cleanText } = require('../normalize');
 const { classifyFormulation } = require('../classifier');
 const fs = require('fs');
 const os = require('os');
+const db = require('../db');
 
 // Setup Disk Storage (Spill to Disk to prevent RAM exhaustion)
 const upload = multer({
@@ -124,6 +125,28 @@ router.post('/analyze', upload.single('receipt'), async (req, res) => {
         }
 
         const result = classifyFormulation(ingredientsList, confidence);
+
+        // 5. Persist Scan Result
+        try {
+            // If user is authenticated, we might have req.user from middleware
+            // But this route is currently public/rate-limited. 
+            // We'll store NULL for user_id for now (or a session ID if available)
+            const userId = req.user ? req.user.id : null;
+
+            await db.query(`
+                INSERT INTO scans (verdict, raw_text, ingredients_found, user_id)
+                VALUES ($1, $2, $3, $4)
+            `, [
+                result.outcome,             // Verdict
+                rawText,                    // Raw OCR Text
+                JSON.stringify(result),     // Full Result JSON
+                userId                      // Optional User ID
+            ]);
+            console.log("[SCAN] Result saved to database.");
+        } catch (dbErr) {
+            console.error("[SCAN] Failed to save scan to DB:", dbErr.message);
+            // Don't fail the request, just log it.
+        }
 
         res.json({
             message: 'Audit Complete',
