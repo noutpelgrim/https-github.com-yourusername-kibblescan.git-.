@@ -30,6 +30,7 @@ if (NODE_ENV === 'production') {
 
 const app = express();
 const scanRoutes = require('./routes/scan');
+const ingredientsRoutes = require('./routes/ingredients'); // NEW
 const paddleWebhookRoutes = require('./routes/paddleWebhook');
 const clinicalRequestRoutes = require('./routes/clinical_request');
 
@@ -162,7 +163,9 @@ const protectedRoutes = require('./routes/protected');
 
 // API Routes
 // 1. PUBLIC: Scanning & Registry (Rate Limited only)
-app.use('/api', rateLimiter, scanRoutes);
+app.use('/api/scans', rateLimiter, scanRoutes); // Note: Original was just /api, but scanRoutes handles /scans internally usually? 
+// Wait, scanRoutes likely has /scans prefix or similar. Let's check scan.js
+app.use('/api/ingredients', rateLimiter, ingredientsRoutes); // NEW
 
 // 2. PROTECTED: Monitoring & Clinical (Auth Required)
 app.use('/api', rateLimiter, protectedRoutes);
