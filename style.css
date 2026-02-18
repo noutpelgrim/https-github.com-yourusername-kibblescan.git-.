@@ -794,8 +794,146 @@ p {
     /* Print Styles */
     @media print {
 
-        .navbar,
-        .no-print {
+        /* =========================================
+   10. MODAL & HISTORY UI
+   ========================================= */
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            display: flex;
+            align-items: flex-end;
+            /* Slide up from bottom */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-panel {
+            background: white;
+            width: 100%;
+            height: 80%;
+            /* Takes up most of screen */
+            border-radius: 24px 24px 0 0;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.active .modal-panel {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        #btn-close-history {
+            background: #F1F5F9;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--primary-light);
+        }
+
+        .history-list-container {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .history-item:hover {
+            border-color: #CBD5E1;
+            transform: scale(0.99);
+        }
+
+        .h-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .h-icon.safe {
+            background: var(--safe-bg);
+            color: var(--safe);
+        }
+
+        .h-icon.risk {
+            background: var(--risk-bg);
+            color: var(--risk);
+        }
+
+        .h-icon.warn {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .h-info {
+            flex: 1;
+        }
+
+        .h-date {
+            font-size: 0.75rem;
+            color: #94A3B8;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .h-verdict {
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: block;
+        }
+
+        .h-arrow {
+            color: #CBD5E1;
+            font-size: 1.2rem;
+        }
+
+        .hidden {
             display: none !important;
         }
     }

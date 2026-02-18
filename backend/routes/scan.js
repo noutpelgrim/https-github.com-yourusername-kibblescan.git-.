@@ -163,4 +163,21 @@ router.post('/analyze', upload.single('receipt'), async (req, res) => {
     }
 });
 
+// GET /recent - Fetch last 20 scans (Global for now)
+router.get('/recent', async (req, res) => {
+    try {
+        const result = await db.query(`
+            SELECT id, verdict, created_at, 
+                   raw_text, ingredients_found 
+            FROM scans 
+            ORDER BY created_at DESC 
+            LIMIT 20
+        `);
+        res.json(result.rows);
+    } catch (err) {
+        console.error("[HISTORY] Failed to fetch recent scans:", err);
+        res.status(500).json({ error: "Failed to fetch history" });
+    }
+});
+
 module.exports = router;

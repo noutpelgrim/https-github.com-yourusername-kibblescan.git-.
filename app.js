@@ -318,119 +318,127 @@ function addNewLogEntry(container) {
 }
 
 
-/* \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d
-   PHASE 5: HISTORY & SEARCH
-   \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d */
+// -----------------------------------------------------
+// PHASE 5: HISTORY & REMOTE FETCH
+// -----------------------------------------------------
 
-function initLocalHistory() {
-    const list = document.getElementById('local-history-list');
-    const container = document.getElementById('local-history-container');
-    if (!list || !container) return;
+const btnHistory = document.getElementById('btn-show-history');
+const modalHistory = document.getElementById('history-modal');
+const btnCloseHistory = document.getElementById('btn-close-history');
+const historyList = document.getElementById('history-list');
 
-    const history = JSON.parse(localStorage.getItem('kibble_scan_history') || '[]');
+if (btnHistory && modalHistory) {
+    // Open Modal
+    btnHistory.addEventListener('click', () => {
+        modalHistory.classList.remove('hidden');
+        // Small delay to trigger CSS transition
+        setTimeout(() => {
+            modalHistory.classList.add('active');
+        }, 10);
+        fetchScanHistory(); // Fetch fresh data
+    });
 
-    if (history.length > 0) {
-        container.style.display = 'block';
-        list.innerHTML = '';
-        history.forEach(item => {
-            const div = document.createElement('div');
-            div.style.cssText = "background:white; border:1px solid #E2E8F0; padding:10px; border-radius:6px; font-size:0.85rem; display:flex; justify-content:space-between; align-items:center;";
-            div.innerHTML = `
-                <div>
-                    <div style="font-weight:600; color:#1E293B;">${item.name}</div>
-                    <div style="font-size:0.75rem; color:#64748B;">${item.date}</div>
-                </div>
-                <div style="font-weight:700; font-size:0.75rem; color:${item.status === 'Non-Compliant' ? '#EF4444' : '#10B981'};">
-                    ${item.status === 'Non-Compliant' ? 'FAIL' : 'PASS'}
-                </div>
-            `;
-            list.appendChild(div);
-        });
-    }
-}
-
-function saveLocalScan(result) {
-    const newScan = {
-        name: "Scan #" + Math.floor(Math.random() * 1000), // Could improve with detected names later
-        status: result ? (result.outcome === 'VERIFIED' ? 'Compliant' : 'Non-Compliant') : 'Non-Compliant',
-        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    // Close Modal
+    const closeHistory = () => {
+        modalHistory.classList.remove('active');
+        setTimeout(() => {
+            modalHistory.classList.add('hidden');
+        }, 300); // Wait for transition
     };
 
-    let history = JSON.parse(localStorage.getItem('kibble_scan_history') || '[]');
+    btnCloseHistory.addEventListener('click', closeHistory);
 
-    // Add to top
-    history.unshift(newScan);
-    if (history.length > 3) history = history.slice(0, 3);
-
-    localStorage.setItem('kibble_scan_history', JSON.stringify(history));
-}
-
-function initMainSearch() {
-    const btn = document.getElementById('btn-main-search');
-    const input = document.getElementById('main-search-input');
-
-    if (!btn || !input) return;
-
-    btn.addEventListener('click', () => {
-        if (input.value.trim() !== '') {
-            window.location.href = `registry.html?q=${encodeURIComponent(input.value.trim())}`;
-        }
-    });
-
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && input.value.trim() !== '') {
-            window.location.href = `registry.html?q=${encodeURIComponent(input.value.trim())}`;
-        }
+    // click outside to close
+    modalHistory.addEventListener('click', (e) => {
+        if (e.target === modalHistory) closeHistory();
     });
 }
 
-function initRegistrySearch() {
-    const searchInput = document.getElementById('registry-search-input');
-    if (!searchInput) return;
+async function fetchScanHistory() {
+    if (!historyList) return;
+    historyList.innerHTML = '<div style="text-align:center; padding:20px; color:#94A3B8;">Loading history...</div>';
 
-    // 1. Handle URL Params (from index.html)
-    const urlParams = new URLSearchParams(window.location.search);
-    const query = urlParams.get('q');
+    try {
+        const res = await fetch('/api/recent'); // Ensure this matches backend route
+        if (!res.ok) throw new Error("Failed to load");
+        const scans = await res.json();
+        renderHistoryList(scans);
+    } catch (e) {
+        console.error("History Error:", e);
+        historyList.innerHTML = '<div style="text-align:center; padding:20px; color:#EF4444;">Failed to load history.<br>Try again later.</div>';
+    }
+}
 
-    if (query) {
-        searchInput.value = query;
-        performSearch(query);
+function renderHistoryList(scans) {
+    historyList.innerHTML = '';
+    if (scans.length === 0) {
+        historyList.innerHTML = '<div style="text-align:center; padding:40px; color:#94A3B8;">No scans recorded yet.</div>';
+        return;
     }
 
-    // 2. Handle Live Input
-    searchInput.addEventListener('input', (e) => {
-        performSearch(e.target.value);
-    });
+    scans.forEach(scan => {
+        const date = new Date(scan.created_at);
+        const timeAgo = Math.floor((new Date() - date) / 60000); // Minutes
+        let timeStr = timeAgo < 60 ? `${timeAgo}m ago` : `${Math.floor(timeAgo / 60)}h ago`;
+        if (timeAgo > 1440) timeStr = date.toLocaleDateString();
 
-    function performSearch(term) {
-        term = term.toLowerCase();
-        const rows = document.querySelectorAll('tbody tr');
-        let hasResults = false;
+        // Determine Style
+        let iconClass = 'warn';
+        let iconName = 'help-circle';
+        if (scan.verdict === 'VERIFIED' || scan.verdict === 'COMPLIANT') {
+            iconClass = 'safe';
+            iconName = 'shield-checkmark';
+        } else if (scan.verdict === 'NON_COMPLIANT' || scan.verdict === 'RESTRICTED') {
+            iconClass = 'risk';
+            iconName = 'warning';
+        }
 
-        rows.forEach(row => {
-            const text = row.innerText.toLowerCase();
-            if (term === '' || text.includes(term)) {
-                row.style.display = '';
-                hasResults = true;
-            } else {
-                row.style.display = 'none';
-            }
+        const el = document.createElement('div');
+        el.className = 'history-item';
+        el.innerHTML = `
+                <div class="h-icon ${iconClass}">
+                    <ion-icon name="${iconName}"></ion-icon>
+                </div>
+                <div class="h-info">
+                    <span class="h-verdict" style="color:var(--primary)">${scan.verdict.replace('_', ' ')}</span>
+                    <span class="h-date">${timeStr}</span>
+                </div>
+                <ion-icon name="chevron-forward" class="h-arrow"></ion-icon>
+            `;
+
+        // Click -> Load Result
+        el.addEventListener('click', () => {
+            // Parse ingredientsJSON if stored as string, or use directly
+            let ingredients = scan.ingredients_found;
+            if (typeof ingredients === 'string') ingredients = JSON.parse(ingredients);
+
+            // If ingredients object has wrapper (e.g. { ingredients: [...] })
+            const list = ingredients.ingredients || ingredients;
+
+            // Close Modal
+            modalHistory.classList.remove('active');
+            setTimeout(() => {
+                modalHistory.classList.add('hidden');
+            }, 300);
+
+            // Render Main View
+            renderResult(scan.verdict, 1.0, list); // Confidence assumed 1.0 for history
+
+            // Switch View
+            const entryView = document.getElementById('scan-entry');
+            const resultView = document.getElementById('scan-result');
+            if (entryView) entryView.style.display = 'none';
+            if (resultView) resultView.style.display = 'block';
         });
 
-        // Toggle "No Results" message
-        const noResults = document.getElementById('registry-no-results');
-        const searchTermDisplay = document.getElementById('registry-search-term');
-
-        if (noResults) {
-            if (hasResults) {
-                noResults.style.display = 'none';
-            } else {
-                noResults.style.display = 'block';
-                if (searchTermDisplay) searchTermDisplay.innerText = `"${term}"`;
-            }
-        }
-    }
+        historyList.appendChild(el);
+    });
 }
+
+// Dummy init functions to keep old calls safe
+function initLocalHistory() { }
+function initRegistrySearch() { }
+function initMainSearch() { }
 
 document.addEventListener('DOMContentLoaded', () => {
     initScanFlow();
