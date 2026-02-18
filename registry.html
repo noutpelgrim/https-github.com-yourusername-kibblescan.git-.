@@ -68,7 +68,7 @@
             </div>
 
             <!-- LIVE ACTIVITY STREAM (Product Lookup) -->
-            <div style="margin-bottom:4rem;">
+            <div id="live-feed-section" style="margin-bottom:4rem; transition: opacity 0.3s ease;">
                 <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:1rem;">
                     <h3
                         style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--primary-light);">
@@ -165,12 +165,12 @@
             </div>
 
             <!-- INGREDIENT STANDARDS (Static Lookups) -->
-            <div>
+            <div id="results-section">
                 <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:1rem;">
-                    <h3
+                    <h3 id="results-title"
                         style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--primary-light);">
                         Restricted Substance Index</h3>
-                    <div style="font-size:0.8rem; color:#64748B;">
+                    <div id="results-count" style="font-size:0.8rem; color:#64748B;">
                         Displaying 3 of 152 Restricted Agents
                     </div>
                 </div>
