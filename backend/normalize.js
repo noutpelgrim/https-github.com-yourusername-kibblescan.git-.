@@ -125,28 +125,37 @@ function extractIngredients(text) {
     const cleanList = rawList
         .map(item => normalizeText(item))
         .map(item => {
-            // Fix common OCR typos FIRST
+            // Fix common OCR typos & Cleanup
             if (item === 'mamin b-3') return 'vitamin b-3';
             if (item === 'choline t') return 'choline chloride';
             if (item === 'sum iodide') return 'potassium iodide';
-            if (item.includes('jodate')) return item.replace('jodate', 'iodate'); // calcium jodate -> calcium iodate
+            if (item.includes('jodate')) return item.replace('jodate', 'iodate');
             if (item === 'fes') return 'ferrous sulfate';
-            if (item === 'focad') return ''; // trash
+            if (item === 'focad') return '';
+            if (item.includes('dis and fats')) return 'oils and fats'; // Fix "dis and fats"
+            if (item === 'linseed 0') return 'linseed'; // Fix trailing zero
+
+            // Remove "including X" phrases (e.g. "including 4% chicken")
+            if (item.startsWith('including')) return '';
+
+            // Remove contextual fluff "in the vegetable kibbles"
+            if (item.includes('in the') && item.includes('kibble')) return '';
+
             if (item.startsWith('dden ')) return 'chicken ' + item.split(' ')[1];
-            if (item.startsWith('- ')) return item.substring(2); // Remove bullet point
+            if (item.startsWith('- ')) return item.substring(2);
             return item;
         })
         .filter(item => {
             if (!item || item.length < 2) return false;
             // Filter noise words
-            const noise = ['crude', 'protein', 'fat', 'fiber', 'moisture', 'min', 'max', 'ash', 'guaranteed', 'analysis', 'supplement', 'vitamin', 'mineral', 'vitamins', 'minerals', 'ingredients'];
+            const noise = ['crude', 'protein', 'fat', 'fiber', 'moisture', 'min', 'max', 'ash', 'guaranteed', 'analysis', 'supplement', 'vitamin', 'mineral', 'vitamins', 'minerals', 'ingredients', 'composition'];
             if (noise.includes(item)) return false;
 
             // Filter out manufacturer info
             if (item.includes('purina') || item.includes('petcare') || item.includes('usa') || item.includes('mo 63164') || item.includes('louis') || item === 'st') return false;
 
             // Filter junk header fragments
-            if (item.includes('de in') && item.length < 10) return false; // "de in" junk
+            if (item.includes('de in') && item.length < 10) return false;
             if (item === 'sa') return false;
 
             return true;
