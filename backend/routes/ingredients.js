@@ -75,4 +75,40 @@ router.get('/search', async (req, res) => {
     }
 });
 
+/**
+ * GET /api/ingredients/:id
+ * Fetch single ingredient details.
+ */
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await db.query('SELECT * FROM ingredients WHERE id = $1', [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Ingredient not found" });
+        }
+
+        const row = result.rows[0];
+
+        // Map status
+        let status = 'UNKNOWN';
+        if (row.classification === 'VIOLATION') status = 'RESTRICTED';
+        else if (row.classification === 'NON-SPECIFIC') status = 'WARNING';
+        else if (row.classification === 'UNRESTRICTED') status = 'SAFE';
+
+        res.json({
+            id: row.id,
+            name: row.name,
+            description: row.description,
+            classification: row.classification, // Original
+            status_label: status,
+            slug: row.slug
+        });
+
+    } catch (err) {
+        logger.error("[API] Get Ingredient Failed", { id: req.params.id, error: err.message });
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
 module.exports = router;

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>Ingredient Dossier - KibbleScan</title>
+    <link rel="stylesheet" href="style.css?v=6.2">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</head>
+
+<body style="background:#F8FAFC; color:#1E293B;">
+    <div class="container">
+        <!-- Infrastructure Nav -->
+        <nav class="navbar" style="padding:1rem 0;">
+            <a href="index.html" class="logo" style="font-size:1.1rem;">KibbleScan</a>
+            <div class="nav-right" style="gap:1rem;">
+                <a href="registry.html" class="nav-link" style="color:#0F172A; font-weight:600;">Registry</a>
+                <a href="access.html" class="nav-link">Access</a>
+                <a href="protocol.html" class="nav-link">Protocol</a>
+                <a href="scan.html" class="btn-primary" style="padding:8px 16px; font-size:0.9rem;">Scan</a>
+            </div>
+        </nav>
+
+        <div style="padding:4rem 0; max-width:800px; margin:0 auto;">
+
+            <!-- Back Link -->
+            <a href="registry.html"
+                style="display:flex; align-items:center; gap:6px; color:#64748B; text-decoration:none; font-size:0.9rem; margin-bottom:2rem; font-weight:500;">
+                <ion-icon name="arrow-back"></ion-icon> Back to Registry
+            </a>
+
+            <!-- Loading State -->
+            <div id="loading-state" style="text-align:center; padding:4rem;">
+                <ion-icon name="sync"
+                    style="font-size:2rem; color:#94A3B8; animation:spin 1s linear infinite;"></ion-icon>
+                <div style="margin-top:1rem; color:#64748B;">Retrieving Clinical Dossier...</div>
+            </div>
+
+            <!-- Error State -->
+            <div id="error-state"
+                style="display:none; text-align:center; padding:4rem; background:white; border-radius:12px; border:1px solid #FECACA;">
+                <ion-icon name="alert-circle" style="font-size:3rem; color:#EF4444; margin-bottom:1rem;"></ion-icon>
+                <h2 style="margin:0; color:#1E293B;">Record Not Found</h2>
+                <p style="color:#64748B; margin-top:0.5rem;">The requested ingredient ID does not exist in the active
+                    registry.</p>
+            </div>
+
+            <!-- Content State -->
+            <div id="content-state" style="display:none; animation:fadeIn 0.5s ease-out;">
+
+                <!-- Header -->
+                <div
+                    style="background:white; padding:2.5rem; border-radius:12px; border:1px solid #E2E8F0; box-shadow:var(--shadow-card); margin-bottom:2rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:1rem;">
+                        <div>
+                            <div
+                                style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em; color:#64748B; margin-bottom:0.5rem;">
+                                Official Substance Name</div>
+                            <h1 id="ing-name" style="margin:0; font-size:2rem; letter-spacing:-0.02em;">Loading...</h1>
+                        </div>
+                        <span id="ing-badge"
+                            style="padding:4px 12px; border-radius:6px; font-weight:700; font-size:0.9rem; letter-spacing:0.05em;">LOADING</span>
+                    </div>
+
+                    <div
+                        style="display:flex; gap:2rem; margin-top:2rem; border-top:1px solid #F1F5F9; padding-top:1.5rem;">
+                        <div>
+                            <div style="font-size:0.75rem; color:#94A3B8; text-transform:uppercase; margin-bottom:4px;">
+                                CAS Number</div>
+                            <div style="font-family:'Courier New', monospace; font-weight:600;">--</div>
+                        </div>
+                        <div>
+                            <div style="font-size:0.75rem; color:#94A3B8; text-transform:uppercase; margin-bottom:4px;">
+                                Risk Category</div>
+                            <div id="ing-class" style="font-weight:600;">--</div>
+                        </div>
+                        <div>
+                            <div style="font-size:0.75rem; color:#94A3B8; text-transform:uppercase; margin-bottom:4px;">
+                                Last Audit</div>
+                            <div style="font-weight:600;">${new Date().toLocaleDateString()}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Body -->
+                <div style="display:grid; grid-template-columns: 2fr 1fr; gap:2rem;">
+
+                    <!-- Main Description -->
+                    <div
+                        style="background:white; padding:2rem; border-radius:12px; border:1px solid #E2E8F0; box-shadow:var(--shadow-card);">
+                        <h3
+                            style="margin-top:0; font-size:1.1rem; border-bottom:1px solid #F1F5F9; padding-bottom:1rem; margin-bottom:1.5rem;">
+                            Toxicological Assessment</h3>
+                        <p id="ing-description" style="line-height:1.7; color:#334155; font-size:1.05rem;">
+                            Description loading...
+                        </p>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div style="display:flex; flex-direction:column; gap:1.5rem;">
+                        <div style="background:#0F172A; color:white; padding:1.5rem; border-radius:12px;">
+                            <h4 style="margin:0 0 1rem 0; font-size:0.95rem; color:#94A3B8;">Clinical Reference</h4>
+                            <ul
+                                style="padding-left:1.2rem; margin:0; font-size:0.9rem; color:#E2E8F0; line-height:1.6;">
+                                <li style="margin-bottom:8px;">FDA CFR Title 21</li>
+                                <li style="margin-bottom:8px;">EFSA Scientific Opinion</li>
+                                <li>AAFCO Official Publication</li>
+                            </ul>
+                        </div>
+
+                        <div style="background:white; padding:1.5rem; border-radius:12px; border:1px solid #E2E8F0;">
+                            <h4 style="margin:0 0 0.5rem 0; font-size:0.95rem;">Export Data</h4>
+                            <p style="margin:0 0 1rem 0; font-size:0.85rem; color:#64748B;">Download full spectrum
+                                analysis.</p>
+                            <button class="btn-primary" style="width:100%; font-size:0.85rem; padding:8px;">Download
+                                PDF</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+
+            if (!id) {
+                window.location.href = 'registry.html';
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/ingredients/${id}`);
+
+                if (!res.ok) throw new Error("Not Found");
+
+                const data = await res.json();
+                renderPage(data);
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loading-state').style.display = 'none';
+                document.getElementById('error-state').style.display = 'block';
+            }
+        });
+
+        function renderPage(item) {
+            document.getElementById('loading-state').style.display = 'none';
+            document.getElementById('content-state').style.display = 'block';
+
+            document.getElementById('ing-name').textContent = item.name;
+            document.getElementById('ing-description').textContent = item.description || "No specific toxicological data on file for this ingredient.";
+            document.getElementById('ing-class').textContent = item.classification;
+
+            // Badge Logic
+            const badge = document.getElementById('ing-badge');
+
+            if (item.status_label === 'RESTRICTED') {
+                badge.style.background = '#FEF2F2';
+                badge.style.color = '#B91C1C';
+                badge.textContent = 'RESTRICTED AGENT';
+            } else if (item.status_label === 'WARNING') {
+                badge.style.background = '#FFF7ED';
+                badge.style.color = '#C2410C';
+                badge.textContent = 'WARNING';
+            } else if (item.status_label === 'SAFE') {
+                badge.style.background = '#ECFDF5';
+                badge.style.color = '#065F46';
+                badge.textContent = 'SAFE / UNRESTRICTED';
+            }
+        }
+    </script>
+    <style>
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</body>
+
+</html>
