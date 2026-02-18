@@ -126,6 +126,7 @@ app.get('/api/debug/status', async (req, res) => {
 
     res.json({
         service: 'KibbleScan Backend',
+        version: '1.2.0', // Explicit version tag for deployment verification
         registry: regStats,
         db_health: dbHealth,
         raw_db_count: dbCount,
