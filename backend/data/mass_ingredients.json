@@ -354,5 +354,245 @@
     {
         "name": "Vitamin A Supplement",
         "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Meat",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Poultry",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Fish",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Poultry Meal",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Fish Meal",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Meat and Bone Meal",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Ground Corn",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Ground Wheat",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Wheat Flour",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Corn Starch",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Soy Flour",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Soy Grits",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Sorghum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Millet",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Tapioca Starch",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Potato Starch",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pea Protein",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Potato Protein",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Alfalfa Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sun-Cured Alfalfa Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Egg Product",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Egg Product",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Canola Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Soybean Oil",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Corn Oil",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Vegetable Oil",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Olive Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Safflower Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Menhaden Fish Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Herring Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Guar Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Carrageenan",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Cassia Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Xanthan Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Locust Bean Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Mixed Tocopherols",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Citric Acid",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Zinc Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Ferrous Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Copper Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Manganese Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sodium Tripolyphosphate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dicalcium Phosphate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Monocalcium Phosphate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Calcium Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "L-Carnitine",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Beta-Carotene",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Glucosamine Hydrochloride",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chondroitin Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Venison",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Venison Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Bison",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Rabbit",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Rabbit Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Duck Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Boar",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Goat",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Kangaroo",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pheasant",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Quail",
+        "classification": "UNRESTRICTED"
     }
 ]
