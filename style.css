@@ -690,12 +690,15 @@ p {
     }
 
     .glass-card:hover {
-        transform: translateY(-8px) scale(1.02);
+        transform: translateY(-8px) scale(1.02) !important;
+        background: #fff !important;
+        /* Visual confirmation */
         box-shadow:
             0 20px 25px -5px rgba(0, 0, 0, 0.1),
-            0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
         z-index: 10;
-        border-color: rgba(255, 255, 255, 0.8);
+        border-color: rgba(255, 255, 255, 1) !important;
+        cursor: pointer;
     }
 
     .glass-card.featured {
@@ -705,8 +708,8 @@ p {
     }
 
     .glass-card.featured:hover {
-        transform: translateY(-8px) scale(1.04);
-        /* Popping even more */
+        transform: translateY(-8px) scale(1.04) !important;
+        background: #fff !important;
     }
 
     .result-verdict-large {
