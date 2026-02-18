@@ -594,5 +594,53 @@
     {
         "name": "Quail",
         "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Cereals",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Meat and Animal Derivatives",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Derivatives of Vegetable Origin",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Oils and Fats",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Various Sugars",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Vegetable Protein Extracts",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Yeasts",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Minerals",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Seeds",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Linseed",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chicory Extract",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Hydrolysed Yeast",
+        "classification": "UNRESTRICTED"
     }
 ]

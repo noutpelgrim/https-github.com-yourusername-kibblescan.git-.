@@ -62,7 +62,7 @@ app.get('/api/debug/status', async (req, res) => {
 
     res.json({
         service: 'KibbleScan Backend',
-        version: '1.2.8', // Expanding Registry (Mass Import)
+        version: '1.2.9', // UK/EU Label Support
         registry: regStats,
         db_health: dbHealth,
         raw_db_count: dbCount,

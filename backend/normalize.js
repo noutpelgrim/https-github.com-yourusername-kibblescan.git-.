@@ -42,14 +42,18 @@ function extractIngredients(text) {
     // 1. Scope to Ingredients section
     if (content.toLowerCase().includes('ingredients:')) {
         content = content.split(/ingredients:/i)[1];
+    } else if (content.toLowerCase().includes('composition:')) {
+        content = content.split(/composition:/i)[1]; // EU/UK Standard
+    } else if (content.toLowerCase().includes('composition')) {
+        // Sometimes colon is missing or hard to read
+        content = content.split(/composition/i)[1];
     }
-    // 2. Stop at Guaranteed Analysis
-    // 2. Stop at common end-of-section markers
 
-    // 2. Stop at common end-of-section markers
     // 2. Stop at common end-of-section markers
     const stopPhrases = [
         'guaranteed analysis',
+        'analytical constituents', // EU/UK Standard
+        'additives', // EU/UK Standard
         'daily feeding guide',
         'calorie content',
         'distributed by',
