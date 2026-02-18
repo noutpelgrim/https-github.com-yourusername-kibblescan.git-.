@@ -9,99 +9,169 @@
 </head>
 
 <body>
-
-    <!-- Nav Integration (Preserved from original project for navigation continuity) -->
-    <div class="container" style="margin-bottom:0;">
-        <nav class="navbar" style="padding:1rem 0;">
-            <a href="index.html" class="logo" style="font-size:1.1rem;">KibbleScan</a>
-            <div class="nav-right" style="gap:1rem;">
+    <!-- Nav Integration -->
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo">KibbleScan</a>
+            <div class="nav-right">
                 <a href="registry.html" class="nav-link">Registry</a>
                 <a href="protocol.html" class="nav-link">Protocol</a>
+                <a href="scan.html" class="nav-btn">Start Audit</a>
             </div>
         </nav>
     </div>
 
-    <main class="access-container">
-
-        <!-- Opening Statement -->
-        <section class="access-intro">
-            <h1>Access & Infrastructure</h1>
-            <p>
-                KibbleScan is structured as a public ingredient registry.
-                Ingredient-level verification is always free.
-                Monitoring and workflow tools fund ongoing surveillance infrastructure.
+    <!-- Hero Section -->
+    <section class="section">
+        <div class="container text-center max-w-md">
+            <span class="section-label" style="color:#10B981;">Infrastructure & Formatting</span>
+            <h1 class="section-title">Public Safety First.</h1>
+            <p style="font-size:1.1rem; color:#475569;">
+                KibbleScan is a public utility. Ingredient verification is always free.
+                Advanced monitoring funds our continuous toxicology surveillance.
             </p>
-        </section>
+        </div>
+    </section>
 
-        <!-- Public Access -->
-        <section class="access-tier">
-            <h2>Public Access — Free</h2>
-            <ul>
-                <li>Unlimited scans</li>
-                <li>Full ingredient registry access</li>
-                <li>Toxicology classifications</li>
-                <li>Ambiguity explanations</li>
-                <li>Protocol documentation</li>
-            </ul>
-            <a href="scan.html" class="btn-primary" style="text-align:center;">Start Scanning</a>
-        </section>
+    <!-- Pricing Grid -->
+    <section class="section" style="padding-top:0;">
+        <div class="container">
+            <div class="pricing-grid"
+                style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem; align-items:start;">
 
-        <!-- Monitoring -->
-        <section class="access-tier">
-            <h2>Monitoring Access — $6/month or $59/year</h2>
-            <ul>
-                <li>Save products</li>
-                <li>Silent formulation change alerts</li>
-                <li>Scan history</li>
-                <li>Multi-pet tracking</li>
-                <li>Ongoing registry monitoring</li>
-            </ul>
-            <button onclick="startCheckout()" class="btn-primary" style="text-align:center;">Enable Monitoring</button>
-            <p class="secondary-link" style="text-align:center; margin-top:1rem;">
-                <a href="scan.html">Continue with public access</a>
-            </p>
-        </section>
+                <!-- FREE TIER -->
+                <div class="glass-card" style="padding:2rem; border-top:4px solid #10B981;">
+                    <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Public Access</h3>
+                    <div
+                        style="font-size:2rem; font-weight:800; margin-bottom:1.5rem; font-family:var(--font-heading);">
+                        $0 <span style="font-size:1rem; color:#94A3B8; font-weight:500;">/ forever</span></div>
 
-        <!-- Clinical -->
-        <section class="access-tier">
-            <h2>Clinical Access — $39/month per clinic</h2>
-            <ul>
-                <li>Batch lookup</li>
-                <li>PDF export</li>
-                <li>Citation export</li>
-                <li>Historical tracking</li>
-                <li>Audit documentation</li>
-            </ul>
-            <a href="clinical.html" class="btn-primary" style="text-align:center; background:#0F172A;">Request Clinical
-                Access</a>
-        </section>
+                    <ul style="list-style:none; padding:0; margin:0 0 2rem 0;">
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="checkmark-circle" style="color:#10B981; font-size:1.2rem;"></ion-icon>
+                            <span>Unlimited Scans</span>
+                        </li>
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="checkmark-circle" style="color:#10B981; font-size:1.2rem;"></ion-icon>
+                            <span>Full Registry Access</span>
+                        </li>
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="checkmark-circle" style="color:#10B981; font-size:1.2rem;"></ion-icon>
+                            <span>Toxicology Alerts</span>
+                        </li>
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="checkmark-circle" style="color:#10B981; font-size:1.2rem;"></ion-icon>
+                            <span>Protocol Documentation</span>
+                        </li>
+                    </ul>
+                    <a href="scan.html" class="btn-primary"
+                        style="background:white; color:#0F172A; border:1px solid #E2E8F0; width:100%; display:block; text-align:center; box-shadow:none;">Start
+                        Scanning</a>
+                </div>
 
-        <!-- Institutional -->
-        <section class="access-tier" style="border:none; text-align:center; padding:1rem;">
-            <h2>Institutional Access — Custom</h2>
-            <p style="text-align:center; color:#64748B;">
-                For universities, researchers, and regulatory bodies.
-            </p>
-            <a href="mailto:research@kibblescan.io" class="btn-primary"
-                style="background:white; color:#64748B; border:1px solid #E2E8F0; box-shadow:none;">Contact for
-                Institutional Access</a>
-        </section>
+                <!-- MONITORING TIER (Highlighted) -->
+                <div class="glass-card"
+                    style="padding:2rem; border:2px solid #0F172A; position:relative; transform:scale(1.02); box-shadow:0 25px 50px -12px rgba(0,0,0,0.1);">
+                    <div
+                        style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#0F172A; color:white; padding:4px 12px; border-radius:100px; font-size:0.75rem; font-weight:700; text-transform:uppercase;">
+                        Recommended</div>
 
-    </main>
+                    <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Monitoring</h3>
+                    <div
+                        style="font-size:2rem; font-weight:800; margin-bottom:1.5rem; font-family:var(--font-heading);">
+                        $6 <span style="font-size:1rem; color:#94A3B8; font-weight:500;">/ month</span></div>
+
+                    <ul style="list-style:none; padding:0; margin:0 0 2rem 0;">
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="shield-checkmark" style="color:#0F172A; font-size:1.2rem;"></ion-icon>
+                            <strong>Everything in Free</strong>
+                        </li>
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="save-outline" style="color:#0F172A; font-size:1.2rem;"></ion-icon>
+                            <span>Save Products & History</span>
+                        </li>
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="pulse-outline" style="color:#0F172A; font-size:1.2rem;"></ion-icon>
+                            <span>Silent Drift Alerts</span>
+                        </li>
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="paw-outline" style="color:#0F172A; font-size:1.2rem;"></ion-icon>
+                            <span>Multi-Pet Tracking</span>
+                        </li>
+                    </ul>
+                    <button onclick="startCheckout('pri_01khcchknvqv3w3dc9r2c5jpwj')" class="btn-primary"
+                        style="width:100%;">Enable Monitoring</button>
+                    <div style="text-align:center; margin-top:1rem; font-size:0.8rem; color:#64748B;">or $59 / year
+                        (Save 18%)</div>
+                </div>
+
+                <!-- CLINICAL TIER -->
+                <div class="glass-card" style="padding:2rem; border-top:4px solid #3B82F6;">
+                    <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Clinical</h3>
+                    <div
+                        style="font-size:2rem; font-weight:800; margin-bottom:1.5rem; font-family:var(--font-heading);">
+                        $39 <span style="font-size:1rem; color:#94A3B8; font-weight:500;">/ clinic</span></div>
+
+                    <ul style="list-style:none; padding:0; margin:0 0 2rem 0;">
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="medkit-outline" style="color:#3B82F6; font-size:1.2rem;"></ion-icon>
+                            <span>Batch Ingredient Lookup</span>
+                        </li>
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="document-text-outline" style="color:#3B82F6; font-size:1.2rem;"></ion-icon>
+                            <span>PDF & Citation Export</span>
+                        </li>
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="time-outline" style="color:#3B82F6; font-size:1.2rem;"></ion-icon>
+                            <span>Historical Audit Logs</span>
+                        </li>
+                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
+                            <ion-icon name="file-tray-full-outline" style="color:#3B82F6; font-size:1.2rem;"></ion-icon>
+                            <span>Compliance Documentation</span>
+                        </li>
+                    </ul>
+                    <button onclick="startCheckout('pri_01khccg37dc7v5542hr7a65vb7')" class="btn-primary"
+                        style="background:#0F172A; width:100%;">Request Access</button>
+                </div>
+
+            </div>
+
+            <!-- Institutional -->
+            <div style="text-align:center; margin-top:4rem; padding:2rem; background:#F1F5F9; border-radius:16px;">
+                <h4 style="margin-bottom:0.5rem;">Institutional & Regulatory Access</h4>
+                <p style="max-width:600px; margin:0 auto 1.5rem auto; font-size:0.9rem;">
+                    For universities, research bodies, and regulatory agencies requiring raw data access or API
+                    integration.
+                </p>
+                <a href="mailto:research@kibblescan.io"
+                    style="color:#0F172A; font-weight:600; text-decoration:none; border-bottom:1px solid #0F172A;">Contact
+                    Research Division &rarr;</a>
+            </div>
+
+        </div>
+    </section>
 
     <!-- Footer Integration -->
-    <footer style="border-top:1px solid #E2E8F0; padding:2rem 0; margin-top:2rem;">
+    <footer style="border-top:1px solid #E2E8F0; padding:2rem 0; margin-top:0;">
         <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
             <div style="font-weight:700; font-size:0.9rem;">KibbleScan Access.</div>
             <div style="font-size:0.8rem; color:#64748B; text-align:right;">
                 <div style="margin-bottom:4px;">&copy; 2026 Independent Standard. No Industry Conflict.</div>
-                <div>Funds enable ongoing surveillance. <strong>Safety data is never gated.</strong></div>
+                <div>Funds enable ongoing surveillance. <strong style="color:#0F172A;">Safety data is never
+                        gated.</strong></div>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
     <script>
-        // Paddle Checkout Logic
+        Paddle.Initialize({
+            token: "test_8772b40c927a726a3190b415cd9",
+            environment: "sandbox"
+        });
+
         function startCheckout(priceId) {
             Paddle.Checkout.open({
                 items: [{
@@ -115,33 +185,6 @@
                 }
             });
         }
-
-        // Monitoring Button
-        const monitorBtn = document.querySelector('button[onclick="startCheckout()"]');
-        if (monitorBtn) {
-            monitorBtn.innerText = "Enable Monitoring";
-            monitorBtn.onclick = function () {
-                startCheckout('pri_01khcchknvqv3w3dc9r2c5jpwj'); // Monitoring Plan
-            };
-        }
-
-        // Clinical Button (Convert <a> to trigger checkout)
-        const clinicalLink = document.querySelector('a[href="clinical.html"]');
-        if (clinicalLink) {
-            clinicalLink.href = "#";
-            clinicalLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                startCheckout('pri_01khccg37dc7v5542hr7a65vb7'); // Clinical Access
-            });
-        }
-    </script>
-    <!-- Paddle.js -->
-    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-    <script>
-        Paddle.Initialize({
-            token: "test_8772b40c927a726a3190b415cd9",
-            environment: "sandbox"
-        });
     </script>
 </body>
 
