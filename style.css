@@ -806,135 +806,6 @@ p {
     @media print {
 
         /* =========================================
-   10. MODAL & HISTORY UI
-   ========================================= */
-        .modal-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 50;
-            display: flex;
-            align-items: flex-end;
-            /* Slide up from bottom */
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-panel {
-            background: white;
-            width: 100%;
-            height: 80%;
-            /* Takes up most of screen */
-            border-radius: 24px 24px 0 0;
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .modal-overlay.active .modal-panel {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #F1F5F9;
-        }
-
-        .modal-header h3 {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: 800;
-        }
-
-        #btn-close-history {
-            background: #F1F5F9;
-            border: none;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: var(--primary-light);
-        }
-
-        .history-list-container {
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .history-item {
-            background: white;
-            border: 1px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .history-item:hover {
-            border-color: #CBD5E1;
-            transform: scale(0.99);
-        }
-
-        .h-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .h-icon.safe {
-            background: var(--safe-bg);
-            color: var(--safe);
-        }
-
-        .h-icon.risk {
-            background: var(--risk-bg);
-            color: var(--risk);
-        }
-
-        .h-icon.warn {
-            background: #FEF3C7;
-            color: #D97706;
-        }
-
-        .h-info {
-            flex: 1;
-        }
-
-        .h-date {
-            font-size: 0.75rem;
-            color: #94A3B8;
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .h-verdict {
-            font-weight: 700;
             font-size: 0.9rem;
             display: block;
         }
@@ -950,243 +821,243 @@ p {
     }
 
     /* Mobile Adjustments */
-    @media (max-width: 768px) {
-        .hero-wrapper {
-            padding: 3rem 0;
+        @media (max-width: 768px) {
+            .hero-wrapper {
+                padding: 3rem 0;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .btn-primary {
+                width: 100%;
+                text-align: center;
+                display: block;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
         }
 
-        .hero-text h1 {
-            font-size: 2.2rem;
+        /* Access Page Grid */
+        .access-grid {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            margin-bottom: 6rem;
+        }
+
+        .access-card {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .access-card.highlight {
+            background: #1E293B;
+            color: white;
+            border: 1px solid #334155;
+        }
+
+        .access-card.highlight .text-muted {
+            color: #94A3B8;
+        }
+
+
+        /* =========================================
+   7. VERTICAL ACCESS LAYOUT (Refactor)
+   ========================================= */
+        .access-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            max-width: 800px;
+            margin: 0 auto 6rem auto;
+        }
+
+        .access-row {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 3rem;
+            display: grid;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .access-row {
+                grid-template-columns: 1.5fr 1fr;
+            }
+        }
+
+        .access-row.highlight {
+            background: #1E293B;
+            color: white;
+            border-color: #334155;
+        }
+
+        .access-row.highlight .text-muted {
+            color: #94A3B8;
+        }
+
+        .access-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .access-meta {
+            font-size: 0.9rem;
+            color: var(--primary-light);
+        }
+
+        .access-row.highlight .access-meta {
+            color: #94A3B8;
+        }
+
+        .feature-list-vertical {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .feature-list-vertical li {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 1rem;
+        }
+
+
+
+        /* User Provided Access Page Styles */
+        .access-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .access-intro {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .access-tier {
+            margin-bottom: 60px;
+            padding: 30px;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            background: white;
+        }
+
+        .access-tier h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #111;
+        }
+
+        .access-tier ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+
+        .access-tier li {
+            margin-bottom: 8px;
+            color: #444;
         }
 
         .btn-primary {
-            width: 100%;
+            display: inline-block;
+            padding: 12px 20px;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .secondary-link {
+            margin-top: 10px;
             text-align: center;
-            display: block;
         }
 
-        .cta-group {
-            flex-direction: column;
+        .secondary-link a {
+            font-size: 14px;
+            color: #555;
+            text-decoration: underline;
         }
-    }
-
-    /* Access Page Grid */
-    .access-grid {
-        display: grid;
-        gap: 2rem;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        margin-bottom: 6rem;
-    }
-
-    .access-card {
-        background: white;
-        border: 1px solid #E2E8F0;
-        border-radius: 8px;
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .access-card.highlight {
-        background: #1E293B;
-        color: white;
-        border: 1px solid #334155;
-    }
-
-    .access-card.highlight .text-muted {
-        color: #94A3B8;
-    }
 
 
-    /* =========================================
-   7. VERTICAL ACCESS LAYOUT (Refactor)
-   ========================================= */
-    .access-stack {
-        display: flex;
-        flex-direction: column;
-        gap: 4rem;
-        max-width: 800px;
-        margin: 0 auto 6rem auto;
-    }
-
-    .access-row {
-        background: white;
-        border: 1px solid #E2E8F0;
-        border-radius: 12px;
-        padding: 3rem;
-        display: grid;
-        gap: 2rem;
-        align-items: center;
-    }
-
-    @media (min-width: 768px) {
-        .access-row {
-            grid-template-columns: 1.5fr 1fr;
-        }
-    }
-
-    .access-row.highlight {
-        background: #1E293B;
-        color: white;
-        border-color: #334155;
-    }
-
-    .access-row.highlight .text-muted {
-        color: #94A3B8;
-    }
-
-    .access-price {
-        font-size: 2.5rem;
-        font-weight: 700;
-        line-height: 1;
-        margin-bottom: 0.5rem;
-    }
-
-    .access-meta {
-        font-size: 0.9rem;
-        color: var(--primary-light);
-    }
-
-    .access-row.highlight .access-meta {
-        color: #94A3B8;
-    }
-
-    .feature-list-vertical {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 2rem 0;
-        display: grid;
-        gap: 12px;
-    }
-
-    .feature-list-vertical li {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        font-size: 1rem;
-    }
-
-
-
-    /* User Provided Access Page Styles */
-    .access-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 60px 20px;
-    }
-
-    .access-intro {
-        margin-bottom: 60px;
-        text-align: center;
-    }
-
-    .access-tier {
-        margin-bottom: 60px;
-        padding: 30px;
-        border: 1px solid #eaeaea;
-        border-radius: 12px;
-        background: white;
-    }
-
-    .access-tier h2 {
-        margin-bottom: 20px;
-        font-size: 1.5rem;
-        color: #111;
-    }
-
-    .access-tier ul {
-        margin-bottom: 20px;
-        padding-left: 20px;
-        list-style-type: disc;
-    }
-
-    .access-tier li {
-        margin-bottom: 8px;
-        color: #444;
-    }
-
-    .btn-primary {
-        display: inline-block;
-        padding: 12px 20px;
-        background: #111;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 500;
-        transition: opacity 0.2s;
-        border: none;
-        cursor: pointer;
-    }
-
-    .btn-primary:hover {
-        opacity: 0.9;
-    }
-
-    .secondary-link {
-        margin-top: 10px;
-        text-align: center;
-    }
-
-    .secondary-link a {
-        font-size: 14px;
-        color: #555;
-        text-decoration: underline;
-    }
-
-
-    /* User Modal Styles */
-    .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .modal.hidden {
-        display: none;
-    }
-
-    .modal-content {
-        background: white;
-        padding: 30px;
-        max-width: 500px;
-        border-radius: 12px;
-    }
-
-    .modal-microcopy {
-        font-size: 12px;
-        color: #777;
-        margin-top: 15px;
-    }
-
-    @keyframes scan-line {
-        0% {
+        /* User Modal Styles */
+        .modal {
+            position: fixed;
             top: 0;
-            opacity: 1;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        50% {
-            top: 100%;
-            opacity: 1;
+        .modal.hidden {
+            display: none;
         }
 
-        51% {
-            top: 0;
-            opacity: 0;
+        .modal-content {
+            background: white;
+            padding: 30px;
+            max-width: 500px;
+            border-radius: 12px;
         }
 
-        52% {
-            top: 0;
-            opacity: 1;
+        .modal-microcopy {
+            font-size: 12px;
+            color: #777;
+            margin-top: 15px;
         }
 
-        100% {
-            top: 100%;
-            opacity: 1;
+        @keyframes scan-line {
+            0% {
+                top: 0;
+                opacity: 1;
+            }
+
+            50% {
+                top: 100%;
+                opacity: 1;
+            }
+
+            51% {
+                top: 0;
+                opacity: 0;
+            }
+
+            52% {
+                top: 0;
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 1;
+            }
         }
-    }

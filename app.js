@@ -382,15 +382,30 @@ function renderHistoryList(scans) {
         let timeStr = timeAgo < 60 ? `${timeAgo}m ago` : `${Math.floor(timeAgo / 60)}h ago`;
         if (timeAgo > 1440) timeStr = date.toLocaleDateString();
 
+        // Smart Title Extraction (First line or first few words of raw text)
+        let title = "Unknown Product";
+        if (scan.raw_text) {
+            // 1. Try first non-empty line
+            const lines = scan.raw_text.split('\n').filter(l => l.trim().length > 3);
+            if (lines.length > 0) {
+                title = lines[0].substring(0, 25); // Cap length
+                if (lines[0].length > 25) title += "...";
+            }
+        }
+
         // Determine Style
         let iconClass = 'warn';
         let iconName = 'help-circle';
+        let verdictLabel = "ANALYSIS";
+
         if (scan.verdict === 'VERIFIED' || scan.verdict === 'COMPLIANT') {
             iconClass = 'safe';
             iconName = 'shield-checkmark';
+            verdictLabel = "SAFE";
         } else if (scan.verdict === 'NON_COMPLIANT' || scan.verdict === 'RESTRICTED') {
             iconClass = 'risk';
             iconName = 'warning';
+            verdictLabel = "FLAGGED";
         }
 
         const el = document.createElement('div');
@@ -400,8 +415,12 @@ function renderHistoryList(scans) {
                     <ion-icon name="${iconName}"></ion-icon>
                 </div>
                 <div class="h-info">
-                    <span class="h-verdict" style="color:var(--primary)">${scan.verdict.replace('_', ' ')}</span>
-                    <span class="h-date">${timeStr}</span>
+                    <span class="h-name">${title}</span>
+                    <div class="h-meta">
+                        <span>${verdictLabel}</span>
+                        <span>•</span>
+                        <span>${timeStr}</span>
+                    </div>
                 </div>
                 <ion-icon name="chevron-forward" class="h-arrow"></ion-icon>
             `;
