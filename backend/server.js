@@ -62,7 +62,7 @@ app.get('/api/debug/status', async (req, res) => {
 
     res.json({
         service: 'KibbleScan Backend',
-        version: '1.2.10', // Polish EU Artifacts
+        version: '1.2.11', // Phase 2 Registry Expansion
         registry: regStats,
         db_health: dbHealth,
         raw_db_count: dbCount,

@@ -642,5 +642,133 @@
     {
         "name": "Hydrolysed Yeast",
         "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Maize",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Maize Gluten",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Maize Flour",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Dehydrated Poultry Protein",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Dehydrated Chicken Protein",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Molluscs and Crustaceans",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Milk and Milk Derivatives",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Bakery Products",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Egg and Egg Derivatives",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Algae",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Spirulina",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Kelp",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Yucca Schidigera",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Glucosamine",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chondroitin",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "MSM (Methylsulfonylmethane)",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Green Lipped Mussel",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Cranberry Extract",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Potassium Sorbate",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Sodium Ascorbate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Calcium Propionate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Iron Oxide",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Sulphur Dioxide",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Sodium Nitrite",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Sodium Metabisulphite",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Karaya Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Tara Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Konjac Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pectin",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Inulin",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Fructooligosaccharides (FOS)",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Mannanoligosaccharides (MOS)",
+        "classification": "UNRESTRICTED"
     }
 ]
