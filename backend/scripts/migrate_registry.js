@@ -63,10 +63,17 @@ async function migrate() {
         client.release();
     } catch (err) {
         console.error("\n❌ Migration Failed:", err);
-        process.exit(1); // Fail build if migration fails
+        // Do not exit process here, let server handle it
+        throw err;
     } finally {
-        pool.end();
+        // Do not close pool here if imported, but since it uses its own pool instance...
+        // Actually, if we import this, we should probably share the pool or close this specific one.
+        await pool.end();
     }
 }
 
-migrate();
+module.exports = { migrate };
+
+if (require.main === module) {
+    migrate().catch(() => process.exit(1));
+}

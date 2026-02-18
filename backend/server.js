@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const store = require('./services/store');
 const registry = require('./registry');
+const { migrate } = require('./scripts/migrate_registry');
 
 // --- ENVIRONMENT GUARDS ---
 const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -174,7 +175,8 @@ app.use((err, req, res, next) => {
 // Initialize Services & Start Server
 (async () => {
     try {
-        await store.init();
+        await store.init(); // Create Tables
+        await migrate();    // Seed Data (Safe to run multiple times)
         await registry.init(); // Load Ingredients from DB
 
         app.listen(PORT, '0.0.0.0', () => {
