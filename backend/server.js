@@ -126,18 +126,15 @@ app.get('/api/debug/status', async (req, res) => {
 
     res.json({
         service: 'KibbleScan Backend',
-        res.json({
-            service: 'KibbleScan Backend',
-            version: '1.2.2', // Bump for Last Scan Debugging
-            registry: regStats,
-            db_health: dbHealth,
-            raw_db_count: dbCount,
-            test_classification: {
-                chicken: registry.classifyIngredient('chicken'),
-                xylitol: registry.classifyIngredient('xylitol'),
-                random_junk: registry.classifyIngredient('random_junk')
-            }
-        });
+        version: '1.2.3', // Fix Syntax Error & Bump
+        registry: regStats,
+        db_health: dbHealth,
+        raw_db_count: dbCount,
+        test_classification: {
+            chicken: registry.classifyIngredient('chicken'),
+            xylitol: registry.classifyIngredient('xylitol'),
+            random_junk: registry.classifyIngredient('random_junk')
+        }
     });
 
     app.get('/api/debug/reload', async (req, res) => {
