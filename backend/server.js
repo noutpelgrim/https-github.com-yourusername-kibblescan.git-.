@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const store = require('./services/store');
+const registry = require('./registry');
 
 // --- ENVIRONMENT GUARDS ---
 const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -156,4 +157,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     logger.info(`Server active`, { port: PORT, env: NODE_ENV });
     store.init();
+    registry.init();
 });
