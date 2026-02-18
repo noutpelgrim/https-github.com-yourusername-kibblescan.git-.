@@ -48,7 +48,10 @@ async function init() {
             UNRESTRICTED = [];
 
             res.rows.forEach(row => {
-                // ...
+                const name = row.name.toLowerCase();
+                if (row.classification === 'VIOLATION') VIOLATIONS.push(name);
+                else if (row.classification === 'NON-SPECIFIC') NON_SPECIFIC.push(name);
+                else if (row.classification === 'UNRESTRICTED') UNRESTRICTED.push(name);
             });
             logger.info(`[REGISTRY] Loaded ${res.rows.length} ingredients from Database.`);
             lastError = null;
@@ -56,13 +59,30 @@ async function init() {
             logger.warn("[REGISTRY] Database empty. Using hardcoded fallback.");
             lastError = "Database returned 0 rows";
         }
-    } catch (err) {
         lastError = err.message;
         logger.error("[REGISTRY] Failed to load from DB (Fallback active)", { error: err.message });
     }
 }
 
-// ...
+function classifyIngredient(normalizedName) {
+    // 1. Check Violations FIRST (Safety Critical)
+    for (const key of VIOLATIONS) {
+        if (normalizedName.includes(key)) return "VIOLATION";
+    }
+
+    // 2. Check Non-Specific (Warning)
+    for (const key of NON_SPECIFIC) {
+        if (normalizedName.includes(key)) return "NON-SPECIFIC";
+    }
+
+    // 3. Check Unrestricted (Safe)
+    for (const key of UNRESTRICTED) {
+        if (normalizedName.includes(key)) return "UNRESTRICTED";
+    }
+
+    // Default to UNRESOLVED (Treat as Ambiguous per User Rule)
+    return "UNRESOLVED";
+}
 
 function getStats() {
     return {
