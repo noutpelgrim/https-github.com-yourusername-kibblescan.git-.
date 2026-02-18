@@ -63,6 +63,7 @@ async function migrate() {
         client.release();
     } catch (err) {
         console.error("\n❌ Migration Failed:", err);
+        process.exit(1); // Fail build if migration fails
     } finally {
         pool.end();
     }

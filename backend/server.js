@@ -154,8 +154,18 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
-    logger.info(`Server active`, { port: PORT, env: NODE_ENV });
-    store.init();
-    registry.init();
-});
+// Initialize Services & Start Server
+(async () => {
+    try {
+        await store.init();
+        await registry.init(); // Load Ingredients from DB
+
+        app.listen(PORT, '0.0.0.0', () => {
+            logger.info(`Server running on port ${PORT}`);
+            console.log(`> KibbleScan Backend active on port ${PORT}`);
+        });
+    } catch (err) {
+        logger.error("Failed to start server", { error: err.message });
+        process.exit(1);
+    }
+})();
