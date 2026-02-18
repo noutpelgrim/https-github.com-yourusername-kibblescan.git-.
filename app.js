@@ -330,6 +330,7 @@ const historyList = document.getElementById('history-list');
 if (btnHistory && modalHistory) {
     // Open Modal
     btnHistory.addEventListener('click', () => {
+        modalHistory.style.display = 'flex'; // Override inline none
         modalHistory.classList.remove('hidden');
         // Small delay to trigger CSS transition
         setTimeout(() => {
@@ -343,6 +344,7 @@ if (btnHistory && modalHistory) {
         modalHistory.classList.remove('active');
         setTimeout(() => {
             modalHistory.classList.add('hidden');
+            modalHistory.style.display = 'none'; // Restore inline none
         }, 300); // Wait for transition
     };
 
