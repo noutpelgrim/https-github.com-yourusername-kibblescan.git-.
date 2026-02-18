@@ -334,5 +334,25 @@
     {
         "name": "Rosemary Extract",
         "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Calcium Carbonate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Agar-Agar",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Magnesium Proteinate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Potassium Iodide",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Vitamin A Supplement",
+        "classification": "UNRESTRICTED"
     }
 ]

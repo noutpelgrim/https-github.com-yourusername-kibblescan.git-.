@@ -92,9 +92,24 @@ function extractIngredients(text) {
     // e.g. "Chicken Fat (preserved with BHA)" -> "Chicken Fat , preserved with BHA ,"
     content = content.replace(/[()]/g, ',');
 
-    // 4. Split by delimiters
-    // Comma, Semicolon, Newline, Period
-    const rawList = content.split(/[,;\n\.]/);
+    // 4. Smart Split (Comma vs Newline)
+    // If the text has significant commas, treat newlines as wrapping (spaces).
+    // Otherwise, treat newlines as delimiters.
+    const commaCount = (content.match(/,/g) || []).length;
+    let rawList;
+
+    if (commaCount > 3) {
+        // Comma-separated list (newlines are just formatting)
+        // 1. Replace newlines with spaces
+        content = content.replace(/\n/g, ' ');
+        // 2. Remove "Ingredients" header if it got merged
+        content = content.replace(/^ingredients\s+/i, '');
+        // 3. Split by comma (and semicolon/period)
+        rawList = content.split(/[,;\.]/);
+    } else {
+        // Newline-separated list
+        rawList = content.split(/[,;\n\.]/);
+    }
 
     // 5. Normalize and Filter
     const cleanList = rawList
