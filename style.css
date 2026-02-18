@@ -698,6 +698,17 @@ p {
         border-color: rgba(255, 255, 255, 0.8);
     }
 
+    .glass-card.featured {
+        transform: scale(1.02);
+        border: 2px solid #0F172A;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    }
+
+    .glass-card.featured:hover {
+        transform: translateY(-8px) scale(1.04);
+        /* Popping even more */
+    }
+
     .result-verdict-large {
         font-family: var(--font-heading);
         font-weight: 800;
