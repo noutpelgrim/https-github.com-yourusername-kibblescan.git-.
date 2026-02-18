@@ -126,7 +126,7 @@ app.get('/api/debug/status', async (req, res) => {
 
     res.json({
         service: 'KibbleScan Backend',
-        version: '1.2.3', // Fix Syntax Error & Bump
+        version: '1.2.4', // Fix Route Syntax (Crash fix)
         registry: regStats,
         db_health: dbHealth,
         raw_db_count: dbCount,
@@ -136,84 +136,85 @@ app.get('/api/debug/status', async (req, res) => {
             random_junk: registry.classifyIngredient('random_junk')
         }
     });
+});
 
-    app.get('/api/debug/reload', async (req, res) => {
-        try {
-            await registry.init();
-            res.json({ message: 'Registry reloaded', stats: registry.getStats() });
-        } catch (e) {
-            res.status(500).json({ error: e.message });
-        }
+app.get('/api/debug/reload', async (req, res) => {
+    try {
+        await registry.init();
+        res.json({ message: 'Registry reloaded', stats: registry.getStats() });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
+app.get('/api/debug/last_scan', async (req, res) => {
+    try {
+        const result = await db.query('SELECT * FROM scans ORDER BY created_at DESC LIMIT 1');
+        if (result.rows.length === 0) return res.json({ message: "No scans found in DB." });
+        res.json(result.rows[0]);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
+const protectedRoutes = require('./routes/protected');
+
+// API Routes
+// 1. PUBLIC: Scanning & Registry (Rate Limited only)
+app.use('/api', rateLimiter, scanRoutes);
+
+// 2. PROTECTED: Monitoring & Clinical (Auth Required)
+app.use('/api', rateLimiter, protectedRoutes);
+
+// Page Routes
+app.get('/clinical', (req, res) => {
+    res.sendFile(path.join(__dirname, '../clinical.html'));
+});
+
+// Fallback for API (404)
+app.use('/api/*', (req, res) => {
+    res.status(404).json({ error: 'API Endpoint Not Found' });
+});
+
+// SPA Fallback / Default Route
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../index.html'));
+});
+
+// CENTRAL ERROR HANDLER
+app.use((err, req, res, next) => {
+    logger.error(`Server Error`, { error: err.message, stack: err.stack });
+
+    const isDev = NODE_ENV === 'development';
+
+    if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ error: 'File too large. Max 15MB.' });
+    }
+    if (err.message === 'INVALID_FILE_TYPE') {
+        return res.status(400).json({ error: 'Invalid file type. Images only.' });
+    }
+
+    const statusCode = err.statusCode || 500;
+
+    res.status(statusCode).json({
+        error: isDev ? err.message : 'Internal Server Error',
+        ...(isDev && { stack: err.stack })
     });
+});
 
-    app.get('/api/debug/last_scan', async (req, res) => {
-        try {
-            const result = await db.query('SELECT * FROM scans ORDER BY created_at DESC LIMIT 1');
-            if (result.rows.length === 0) return res.json({ message: "No scans found in DB." });
-            res.json(result.rows[0]);
-        } catch (e) {
-            res.status(500).json({ error: e.message });
-        }
-    });
+// Initialize Services & Start Server
+(async () => {
+    try {
+        await store.init(); // Create Tables
+        await migrate();    // Seed Data (Safe to run multiple times)
+        await registry.init(); // Load Ingredients from DB
 
-    const protectedRoutes = require('./routes/protected');
-
-    // API Routes
-    // 1. PUBLIC: Scanning & Registry (Rate Limited only)
-    app.use('/api', rateLimiter, scanRoutes);
-
-    // 2. PROTECTED: Monitoring & Clinical (Auth Required)
-    app.use('/api', rateLimiter, protectedRoutes);
-
-    // Page Routes
-    app.get('/clinical', (req, res) => {
-        res.sendFile(path.join(__dirname, '../clinical.html'));
-    });
-
-    // Fallback for API (404)
-    app.use('/api/*', (req, res) => {
-        res.status(404).json({ error: 'API Endpoint Not Found' });
-    });
-
-    // SPA Fallback / Default Route
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../index.html'));
-    });
-
-    // CENTRAL ERROR HANDLER
-    app.use((err, req, res, next) => {
-        logger.error(`Server Error`, { error: err.message, stack: err.stack });
-
-        const isDev = NODE_ENV === 'development';
-
-        if (err.code === 'LIMIT_FILE_SIZE') {
-            return res.status(400).json({ error: 'File too large. Max 15MB.' });
-        }
-        if (err.message === 'INVALID_FILE_TYPE') {
-            return res.status(400).json({ error: 'Invalid file type. Images only.' });
-        }
-
-        const statusCode = err.statusCode || 500;
-
-        res.status(statusCode).json({
-            error: isDev ? err.message : 'Internal Server Error',
-            ...(isDev && { stack: err.stack })
+        app.listen(PORT, '0.0.0.0', () => {
+            logger.info(`Server running on port ${PORT}`);
+            console.log(`> KibbleScan Backend active on port ${PORT}`);
         });
-    });
-
-    // Initialize Services & Start Server
-    (async () => {
-        try {
-            await store.init(); // Create Tables
-            await migrate();    // Seed Data (Safe to run multiple times)
-            await registry.init(); // Load Ingredients from DB
-
-            app.listen(PORT, '0.0.0.0', () => {
-                logger.info(`Server running on port ${PORT}`);
-                console.log(`> KibbleScan Backend active on port ${PORT}`);
-            });
-        } catch (err) {
-            logger.error("Failed to start server", { error: err.message });
-            process.exit(1);
-        }
-    })();
+    } catch (err) {
+        logger.error("Failed to start server", { error: err.message });
+        process.exit(1);
+    }
+})();
