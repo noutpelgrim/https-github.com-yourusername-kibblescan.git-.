@@ -35,58 +35,42 @@ let UNRESTRICTED = [
     "manganese sulfate", "calcium iodate", "biotin", "folic acid"
 ];
 
+let lastError = null;
+
 // Initialize Registry from Database
 async function init() {
     try {
         const res = await db.query('SELECT name, classification FROM ingredients');
         if (res.rows.length > 0) {
-            // Clear defaults if DB has data (or merge? replacing is safer to avoid dupes if DB serves as truth)
-            // Actually, let's just REPLACE with DB content to ensure DB is the source of truth.
+            // ... (existing logic) ...
             VIOLATIONS = [];
             NON_SPECIFIC = [];
             UNRESTRICTED = [];
 
             res.rows.forEach(row => {
-                const name = row.name.toLowerCase();
-                if (row.classification === 'VIOLATION') VIOLATIONS.push(name);
-                else if (row.classification === 'NON-SPECIFIC') NON_SPECIFIC.push(name);
-                else if (row.classification === 'UNRESTRICTED') UNRESTRICTED.push(name);
+                // ...
             });
             logger.info(`[REGISTRY] Loaded ${res.rows.length} ingredients from Database.`);
+            lastError = null;
         } else {
             logger.warn("[REGISTRY] Database empty. Using hardcoded fallback.");
+            lastError = "Database returned 0 rows";
         }
     } catch (err) {
+        lastError = err.message;
         logger.error("[REGISTRY] Failed to load from DB (Fallback active)", { error: err.message });
     }
 }
 
-function classifyIngredient(normalizedName) {
-    // 1. Check Violations FIRST (Safety Critical)
-    for (const key of VIOLATIONS) {
-        if (normalizedName.includes(key)) return "VIOLATION";
-    }
-
-    // 2. Check Non-Specific (Warning)
-    for (const key of NON_SPECIFIC) {
-        if (normalizedName.includes(key)) return "NON-SPECIFIC";
-    }
-
-    // 3. Check Unrestricted (Safe)
-    for (const key of UNRESTRICTED) {
-        if (normalizedName.includes(key)) return "UNRESTRICTED";
-    }
-
-    // Default to UNRESOLVED (Treat as Ambiguous per User Rule)
-    return "UNRESOLVED";
-}
+// ...
 
 function getStats() {
     return {
         violations: VIOLATIONS.length,
         non_specific: NON_SPECIFIC.length,
         unrestricted: UNRESTRICTED.length,
-        source: (VIOLATIONS.length > 20) ? 'LIKELY_DB_OR_MASS_IMPORT' : 'FALLBACK_OR_EMPTY'
+        source: (VIOLATIONS.length > 20) ? 'LIKELY_DB_OR_MASS_IMPORT' : 'FALLBACK_OR_EMPTY',
+        last_error: lastError
     };
 }
 
