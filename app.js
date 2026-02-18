@@ -384,47 +384,94 @@ function renderHistoryList(scans) {
         let timeStr = timeAgo < 60 ? `${timeAgo}m ago` : `${Math.floor(timeAgo / 60)}h ago`;
         if (timeAgo > 1440) timeStr = date.toLocaleDateString();
 
-        // Smart Title Extraction (First line or first few words of raw text)
+        // SMART TITLE EXTRACTION
         let title = "Unknown Product";
+        let subLabel = "";
+
+        // 1. Try to get brand/name from structured data (if we had it, but we only have ingredients list usually)
+        // 2. Fallback to smarter raw text parsing
         if (scan.raw_text) {
-            // 1. Try first non-empty line
-            const lines = scan.raw_text.split('\n').filter(l => l.trim().length > 3);
+            const lines = scan.raw_text.split('\n')
+                .map(l => l.trim())
+                .filter(l => l.length > 4) // Ignore tiny lines
+                .filter(l => !/^\d+/.test(l)) // Ignore lines starting with numbers (weights, phones)
+                .filter(l => !/^(tel|fax|www|http)/i.test(l)); // Ignore contact info
+
             if (lines.length > 0) {
-                title = lines[0].substring(0, 25); // Cap length
-                if (lines[0].length > 25) title += "...";
+                // Capitalize first letter of each word for prettiness
+                title = lines[0].replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+                if (title.length > 30) title = title.substring(0, 28) + "...";
+
+                if (lines.length > 1) {
+                    subLabel = lines[1].substring(0, 30);
+                }
             }
         }
 
-        // Determine Style
+        // Determine Style & Labels
         let iconClass = 'warn';
         let iconName = 'help-circle';
         let verdictLabel = "ANALYSIS";
+        let verdictColor = "#94A3B8";
 
         if (scan.verdict === 'VERIFIED' || scan.verdict === 'COMPLIANT') {
             iconClass = 'safe';
             iconName = 'shield-checkmark';
             verdictLabel = "SAFE";
+            verdictColor = "#10B981";
         } else if (scan.verdict === 'NON_COMPLIANT' || scan.verdict === 'RESTRICTED') {
             iconClass = 'risk';
             iconName = 'warning';
             verdictLabel = "FLAGGED";
+            verdictColor = "#EF4444";
+        } else {
+            verdictLabel = "COMPLETE"; // Fixed typo
         }
 
         const el = document.createElement('div');
         el.className = 'history-item';
+        // Inline styles for immediate "Card" look without waiting for CSS flush
+        el.style.cssText = `
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            transition: transform 0.1s;
+        `;
+
         el.innerHTML = `
-                <div class="h-icon ${iconClass}">
+                <div class="h-icon" style="
+                    width: 40px; 
+                    height: 40px; 
+                    border-radius: 50%; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    font-size: 1.5rem;
+                    background: ${iconClass === 'safe' ? '#ECFDF5' : (iconClass === 'risk' ? '#FEF2F2' : '#F1F5F9')};
+                    color: ${iconClass === 'safe' ? '#10B981' : (iconClass === 'risk' ? '#EF4444' : '#64748B')};
+                    flex-shrink: 0;
+                ">
                     <ion-icon name="${iconName}"></ion-icon>
                 </div>
-                <div class="h-info">
-                    <span class="h-name">${title}</span>
-                    <div class="h-meta">
-                        <span>${verdictLabel}</span>
+                
+                <div class="h-info" style="flex: 1; min-width: 0;">
+                    <div style="font-weight: 700; color: #1E293B; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        ${title}
+                    </div>
+                    <div style="font-size: 0.75rem; color: #64748B; display: flex; align-items: center; gap: 6px; margin-top: 2px;">
+                        <span style="color:${verdictColor}; font-weight:600; letter-spacing:0.5px;">${verdictLabel}</span>
                         <span>•</span>
                         <span>${timeStr}</span>
                     </div>
                 </div>
-                <ion-icon name="chevron-forward" class="h-arrow"></ion-icon>
+                
+                <ion-icon name="chevron-forward" style="color:#CBD5E1; font-size:1.2rem;"></ion-icon>
             `;
 
         // Click -> Load Result
