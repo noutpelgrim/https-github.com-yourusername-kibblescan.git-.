@@ -62,7 +62,7 @@ app.get('/api/debug/status', async (req, res) => {
 
     res.json({
         service: 'KibbleScan Backend',
-        version: '1.2.6', // Debugging 404 on last_scan
+        version: '1.2.7', // Fix Header Parsing & Typos
         registry: regStats,
         db_health: dbHealth,
         raw_db_count: dbCount,

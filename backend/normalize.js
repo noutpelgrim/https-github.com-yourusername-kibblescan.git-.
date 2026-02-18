@@ -100,11 +100,17 @@ function extractIngredients(text) {
 
     if (commaCount > 3) {
         // Comma-separated list (newlines are just formatting)
-        // 1. Replace newlines with spaces
+        // 1. Join split lines with hyphen (agar- \n agar -> agar-agar)
+        content = content.replace(/-\s+/g, '-');
+
+        // 2. Replace remaining newlines with spaces
         content = content.replace(/\n/g, ' ');
-        // 2. Remove "Ingredients" header if it got merged
-        content = content.replace(/^ingredients\s+/i, '');
-        // 3. Split by comma (and semicolon/period)
+
+        // 3. Robust Header Removal (with or without colon)
+        // Matches "Ingredients" followed by optional colon, spaces, or newline
+        content = content.replace(/ingredients[:\s]*/i, '');
+
+        // 4. Split by comma (and semicolon/period)
         rawList = content.split(/[,;\.]/);
     } else {
         // Newline-separated list
@@ -119,6 +125,7 @@ function extractIngredients(text) {
             if (item === 'mamin b-3') return 'vitamin b-3';
             if (item === 'choline t') return 'choline chloride';
             if (item === 'sum iodide') return 'potassium iodide';
+            if (item.includes('jodate')) return item.replace('jodate', 'iodate'); // calcium jodate -> calcium iodate
             if (item === 'fes') return 'ferrous sulfate';
             if (item === 'focad') return ''; // trash
             if (item.startsWith('dden ')) return 'chicken ' + item.split(' ')[1];
@@ -128,11 +135,15 @@ function extractIngredients(text) {
         .filter(item => {
             if (!item || item.length < 2) return false;
             // Filter noise words
-            const noise = ['crude', 'protein', 'fat', 'fiber', 'moisture', 'min', 'max', 'ash', 'guaranteed', 'analysis', 'supplement', 'vitamin', 'mineral', 'vitamins', 'minerals'];
+            const noise = ['crude', 'protein', 'fat', 'fiber', 'moisture', 'min', 'max', 'ash', 'guaranteed', 'analysis', 'supplement', 'vitamin', 'mineral', 'vitamins', 'minerals', 'ingredients'];
             if (noise.includes(item)) return false;
 
             // Filter out manufacturer info
             if (item.includes('purina') || item.includes('petcare') || item.includes('usa') || item.includes('mo 63164') || item.includes('louis') || item === 'st') return false;
+
+            // Filter junk header fragments
+            if (item.includes('de in') && item.length < 10) return false; // "de in" junk
+            if (item === 'sa') return false;
 
             return true;
         });
