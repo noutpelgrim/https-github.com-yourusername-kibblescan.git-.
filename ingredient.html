@@ -79,7 +79,7 @@
                         <div>
                             <div style="font-size:0.75rem; color:#94A3B8; text-transform:uppercase; margin-bottom:4px;">
                                 Last Audit</div>
-                            <div style="font-weight:600;">${new Date().toLocaleDateString()}</div>
+                            <div id="audit-date" style="font-weight:600;">--</div>
                         </div>
                     </div>
                 </div>
@@ -158,6 +158,9 @@
             document.getElementById('ing-name').textContent = item.name;
             document.getElementById('ing-description').textContent = item.description || "No specific toxicological data on file for this ingredient.";
             document.getElementById('ing-class').textContent = item.classification;
+
+            // Set Date
+            document.getElementById('audit-date').textContent = new Date().toLocaleDateString();
 
             // Badge Logic
             const badge = document.getElementById('ing-badge');
