@@ -212,6 +212,11 @@
                     const noResults = document.getElementById('registry-no-results');
                     const searchTermDisplay = document.getElementById('registry-search-term');
 
+                    // NEW: Elements to toggle
+                    const liveFeedSection = document.getElementById('live-feed-section');
+                    const resultsTitle = document.getElementById('results-title');
+                    const resultsCount = document.getElementById('results-count');
+
                     let debounceTimer;
 
                     searchInput.addEventListener('input', (e) => {
@@ -220,9 +225,11 @@
                         clearTimeout(debounceTimer);
                         debounceTimer = setTimeout(() => {
                             if (query.length < 2) {
-                                // Reset to empty state or default list?
-                                // Let's show empty state for now or maybe top 10 violations?
-                                // For now, just keep previous or clear.
+                                // Restore Default View (Show Live Feed)
+                                if (liveFeedSection) liveFeedSection.style.display = 'block';
+                                if (resultsTitle) resultsTitle.textContent = "Restricted Substance Index";
+                                if (resultsCount) resultsCount.textContent = "Displaying 3 of 152 Restricted Agents";
+
                                 if (query.length === 0) {
                                     tableBody.innerHTML = `
                                         <tr>
@@ -235,18 +242,25 @@
                                 }
                                 return;
                             }
+
+                            // Active Search Mode (Hide Live Feed)
+                            if (liveFeedSection) liveFeedSection.style.display = 'none';
+                            if (resultsTitle) resultsTitle.textContent = `Search Results for "${query}"`;
+                            if (resultsCount) resultsCount.textContent = "Searching...";
+
                             fetchIngredients(query);
                         }, 300);
                     });
 
                     async function fetchIngredients(query) {
                         try {
-                            // Show Loading (Optional: Small spinner in search bar?)
-
                             const res = await fetch(`/api/ingredients/search?q=${encodeURIComponent(query)}`);
                             const data = await res.json();
 
                             renderRows(data, query);
+
+                            // Update Count
+                            if (resultsCount) resultsCount.textContent = `${data.length} matches found`;
 
                         } catch (err) {
                             console.error("Search failed", err);
