@@ -476,27 +476,50 @@ function renderHistoryList(scans) {
 
         // Click -> Load Result
         el.addEventListener('click', () => {
-            // Parse ingredientsJSON if stored as string, or use directly
-            let ingredients = scan.ingredients_found;
-            if (typeof ingredients === 'string') ingredients = JSON.parse(ingredients);
+            console.log("[HISTORY] Item clicked:", scan.id); // Validates click
 
-            // If ingredients object has wrapper (e.g. { ingredients: [...] })
-            const list = ingredients.ingredients || ingredients;
+            try {
+                // 1. Close Modal Immediately (UX First)
+                if (typeof modalHistory !== 'undefined') {
+                    modalHistory.classList.remove('active');
+                    setTimeout(() => {
+                        modalHistory.classList.add('hidden');
+                        if (modalHistory.style) modalHistory.style.display = 'none';
+                    }, 300);
+                }
 
-            // Close Modal
-            modalHistory.classList.remove('active');
-            setTimeout(() => {
-                modalHistory.classList.add('hidden');
-            }, 300);
+                // 2. Safely Parse Data
+                let list = [];
+                try {
+                    let raw = scan.ingredients_found;
+                    if (typeof raw === 'string') raw = JSON.parse(raw);
+                    list = (raw && raw.ingredients) ? raw.ingredients : raw;
+                    if (!Array.isArray(list)) list = [];
+                } catch (parseErr) {
+                    console.warn("Data parsing failed:", parseErr);
+                    list = [];
+                }
 
-            // Render Main View
-            renderResult(scan.verdict, 1.0, list); // Confidence assumed 1.0 for history
+                // 3. Switch View *BEFORE* Render (So if render fails, we at least see the result screen)
+                const entryView = document.getElementById('scan-entry');
+                const resultView = document.getElementById('scan-result');
+                const viewport = document.getElementById('app-viewport');
 
-            // Switch View
-            const entryView = document.getElementById('scan-entry');
-            const resultView = document.getElementById('scan-result');
-            if (entryView) entryView.style.display = 'none';
-            if (resultView) resultView.style.display = 'block';
+                if (entryView) entryView.style.display = 'none';
+                if (resultView) {
+                    resultView.style.display = 'block';
+                    if (viewport) viewport.scrollTop = 0; // Scroll to top
+                }
+
+                // 4. Render Trigger
+                if (typeof renderResult === 'function') {
+                    renderResult(scan.verdict, 1.0, list);
+                }
+
+            } catch (err) {
+                console.error("[CRITICAL] History Click Error:", err);
+                alert("Could not load scan. Please try again.");
+            }
         });
 
         historyList.appendChild(el);
