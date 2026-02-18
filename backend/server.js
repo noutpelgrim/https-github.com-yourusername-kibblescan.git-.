@@ -147,6 +147,16 @@ app.get('/api/debug/reload', async (req, res) => {
     }
 });
 
+app.get('/api/debug/last_scan', async (req, res) => {
+    try {
+        const result = await db.query('SELECT * FROM scans ORDER BY created_at DESC LIMIT 1');
+        if (result.rows.length === 0) return res.json({ message: "No scans found in DB." });
+        res.json(result.rows[0]);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+
 const protectedRoutes = require('./routes/protected');
 
 // API Routes
