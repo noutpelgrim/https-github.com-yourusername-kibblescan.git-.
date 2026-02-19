@@ -3,7 +3,7 @@ services:
     name: kibblescan
     env: node
     plan: free
-    buildCommand: chmod +x build_render.sh && ./build_render.sh
+    buildCommand: npm install
     startCommand: node backend/server.js
     envVars:
       - key: NODE_ENV
