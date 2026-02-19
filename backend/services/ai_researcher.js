@@ -1,9 +1,6 @@
 const OpenAI = require('openai');
 const logger = require('../utils/logger');
 
-const OpenAI = require('openai');
-const logger = require('../utils/logger');
-
 let openai = null;
 
 function getClient() {
