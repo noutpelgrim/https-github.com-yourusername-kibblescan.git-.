@@ -79,16 +79,46 @@ router.get('/search', async (req, res) => {
  * GET /api/ingredients/:id
  * Fetch single ingredient details.
  */
+// ... imports
+const aiResearcher = require('../services/ai_researcher');
+
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const result = await db.query('SELECT * FROM ingredients WHERE id = $1', [id]);
+        let result = await db.query('SELECT * FROM ingredients WHERE id = $1', [id]);
 
         if (result.rows.length === 0) {
             return res.status(404).json({ error: "Ingredient not found" });
         }
 
-        const row = result.rows[0];
+        let row = result.rows[0];
+
+        // --- AI HYDRATION LOGIC ---
+        // If description is missing or empty, generate it on the fly.
+        if (!row.description || row.description.trim().length === 0) {
+
+            // Only attempt if API Key is present to avoid errors
+            if (process.env.OPENAI_API_KEY) {
+                const dossier = await aiResearcher.generateDossier(row.name);
+
+                if (dossier) {
+                    // Update Database
+                    await db.query(
+                        `UPDATE ingredients 
+                         SET description = $1, classification = $2 
+                         WHERE id = $3`,
+                        [dossier.description, dossier.classification, id]
+                    );
+
+                    // Update local object to return fresh data
+                    row.description = dossier.description;
+                    row.classification = dossier.classification;
+
+                    logger.info(`[Hydration] AI updated ingredient: ${row.name}`);
+                }
+            }
+        }
+        // --------------------------
 
         // Map status
         let status = 'UNKNOWN';
