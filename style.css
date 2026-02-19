@@ -1085,6 +1085,70 @@ p {
 }
 
 /* UTILITY: Hidden State (Crucial) */
-.hidden {
-    display: none !important;
+/* =========================================
+   10. MOBILE RESPONSE (Nav & Footer)
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* Navbar Stacking */
+    .navbar {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem 0;
+    }
+
+    .nav-right {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .nav-link {
+        display: block;
+        padding: 0.5rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Footer Stacking */
+    .footer-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+        text-align: center;
+        padding: 2rem 0;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        font-size: 0.9rem;
+        color: var(--primary-light);
+    }
+}
+
+/* Desktop defaults for footer (replaces inline) */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--primary-light);
+}
 }
