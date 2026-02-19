@@ -24,10 +24,16 @@ pool.on('error', (err, client) => {
 async function healthCheck() {
     try {
         const start = Date.now();
-        await pool.query('SELECT 1');
+
+        // Timeout after 2 seconds
+        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('DB_TIMEOUT')), 2000));
+        const query = pool.query('SELECT 1');
+
+        await Promise.race([query, timeout]);
+
         return { status: 'healthy', latency: Date.now() - start };
     } catch (e) {
-        logger.error('Database health check failed', { error: e.message });
+        // logger.error('Database health check failed', { error: e.message });
         return { status: 'unhealthy', error: e.message };
     }
 }
