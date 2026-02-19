@@ -16,8 +16,9 @@ const logger = require('../utils/logger');
 
 // Test Connection
 pool.on('error', (err, client) => {
-    logger.error('Unexpected error on idle database client', { error: err.message });
-    process.exit(-1);
+    // logger.error('Unexpected error on idle database client', { error: err.message });
+    console.error('Unexpected error on idle database client', err.message);
+    // process.exit(-1); // Do not crash the server on DB glitch
 });
 
 async function healthCheck() {

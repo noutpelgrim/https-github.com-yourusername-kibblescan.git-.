@@ -210,19 +210,28 @@ app.use((err, req, res, next) => {
 });
 
 // Initialize Services & Start Server
+// Start listening IMMEDIATELY to satisfy Render health check
+const server = app.listen(PORT, '0.0.0.0', () => {
+    logger.info(`Server running on port ${PORT}`);
+    console.log(`> KibbleScan Backend active on port ${PORT}`);
+});
+
+// Run DB Initialization in Background
 (async () => {
     try {
+        console.log("🔹 Initializing Store...");
         await store.init(); // Create Tables
-        await migrate();    // Seed Data (Safe to run multiple times)
+
+        console.log("🔹 Migrating Data...");
+        await migrate();    // Seed Data
+
+        console.log("🔹 Loading Registry...");
         await registry.init(); // Load Ingredients from DB
 
-        app.listen(PORT, '0.0.0.0', () => {
-            logger.info(`Server running on port ${PORT}`);
-            console.log(`> KibbleScan Backend active on port ${PORT}`);
-        });
+        console.log("✅ Initialization Complete.");
     } catch (err) {
-        console.error("FATAL: Failed to start server:", err); // Force visible log
-        logger.error("Failed to start server", { error: err.message });
-        process.exit(1);
+        console.error("❌ BACKGROUND INIT FAILED:", err);
+        logger.error("Failed to initialize background services", { error: err.message });
+        // Do NOT process.exit(1), keep the web server running!
     }
 })();
