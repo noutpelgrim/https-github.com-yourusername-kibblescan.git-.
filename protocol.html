@@ -9,30 +9,29 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <style>
         @media print {
+            body * {
+                visibility: hidden;
+            }
 
-            .navbar,
+            #print-area,
+            #print-area * {
+                visibility: visible;
+            }
+
+            #print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
             .no-print,
-            .nav-btn,
-            button,
-            #btn-dl-text,
-            .logo {
+            .navbar,
+            nav,
+            button {
                 display: none !important;
-            }
-
-            body {
-                background: white !important;
-                color: black !important;
-            }
-
-            .container {
-                width: 100% !important;
-                max-width: none !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            h1 {
-                margin-top: 0 !important;
             }
         }
     </style>
