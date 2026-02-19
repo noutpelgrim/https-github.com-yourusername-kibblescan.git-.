@@ -551,12 +551,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateOnlineStatus() {
         if (!navigator.onLine) {
             showToast("You are offline. Scans may be limited.", "warn");
-        } else {
-            showToast("Connection restored.", "success");
+        } else if (navigator.onLine) {
+            // Optional: Show "Restored" only if we were previously offline (complicated state), 
+            // or just show it. Ideally we don't spam "Restored" on every load.
+            // For now, let's only show "Restored" on the EVENT, not initial check.
         }
     }
-    window.addEventListener('online', updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
+    // Initial Check
+    if (!navigator.onLine) {
+        showToast("You are offline. Scans may be limited.", "warn");
+    }
+
+    // Event Listeners
+    window.addEventListener('online', () => showToast("Connection restored.", "success"));
+    window.addEventListener('offline', () => showToast("You are offline. Scans may be limited.", "warn"));
 });
 
 // Helper for Toasts (Simple implementation)
