@@ -1,9 +1,21 @@
 const OpenAI = require('openai');
 const logger = require('../utils/logger');
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+const OpenAI = require('openai');
+const logger = require('../utils/logger');
+
+let openai = null;
+
+function getClient() {
+    if (!openai) {
+        // Safe initialization - won't crash if key is missing, 
+        // but calls will fail (handled in generateDossier)
+        openai = new OpenAI({
+            apiKey: process.env.OPENAI_API_KEY || 'skippable-if-missing',
+        });
+    }
+    return openai;
+}
 
 /**
  * Generates a clinical dossier for a given ingredient.
@@ -14,7 +26,12 @@ async function generateDossier(ingredientName) {
     try {
         logger.info(`[AI Researcher] Generating dossier for: ${ingredientName}`);
 
-        const response = await openai.chat.completions.create({
+        if (!process.env.OPENAI_API_KEY) {
+            logger.warn("[AI Researcher] Skipped: No API Key");
+            return null;
+        }
+
+        const response = await getClient().chat.completions.create({
             model: "gpt-4o-mini", // Cost-effective, fast model
             messages: [
                 {
