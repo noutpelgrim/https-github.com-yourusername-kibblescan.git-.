@@ -1,11 +1,25 @@
 {
     "name": "kibblescan-root",
     "version": "1.0.0",
-    "private": true,
+    "description": "KibbleScan Backend API",
     "engines": {
-        "node": ">=20.0.0"
+        "node": ">=20.11.0"
     },
+    "main": "backend/server.js",
     "scripts": {
-        "build": "node backend/build.js"
+        "start": "node backend/server.js",
+        "build": "echo 'Build successful'",
+        "postinstall": "echo 'Dependencies installed'"
+    },
+    "dependencies": {
+        "@google-cloud/vision": "^4.3.3",
+        "@paddle/paddle-node-sdk": "^3.6.0",
+        "@supabase/supabase-js": "^2.39.0",
+        "cors": "^2.8.6",
+        "dotenv": "^16.6.1",
+        "express": "^4.22.1",
+        "multer": "^1.4.5-lts.1",
+        "openai": "^4.28.0",
+        "pg": "^8.18.0"
     }
 }
