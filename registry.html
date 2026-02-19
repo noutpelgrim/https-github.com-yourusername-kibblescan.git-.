@@ -180,31 +180,36 @@
             </div>
 
 
-            <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
-                <thead style="background:#F8FAFC; border-bottom:1px solid #E2E8F0;">
-                    <tr>
-                        <th
-                            style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
-                            Official Name</th>
-                        <th
-                            style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
-                            Description / Risk</th>
-                        <th
-                            style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
-                            Status</th>
-                        <th style="text-align:right; padding:12px 1rem;"></th>
-                    </tr>
-                </thead>
-                <tbody id="registry-table-body">
-                    <!-- Populated by JS -->
-                    <tr>
-                        <td colspan="4" style="padding:4rem; text-align:center; color:#94A3B8;">
-                            <ion-icon name="search" style="font-size:2rem; margin-bottom:1rem; opacity:0.5;"></ion-icon>
-                            <div>Enter an ingredient name to search the toxicology grid.</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div
+                style="overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:1rem; border-radius:8px; border:1px solid #E2E8F0;">
+                <table style="width:100%; border-collapse:collapse; font-size:0.9rem; min-width:600px;">
+                    <!-- Min-width ensures it doesn't squish -->
+                    <thead style="background:#F8FAFC; border-bottom:1px solid #E2E8F0;">
+                        <tr>
+                            <th
+                                style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                Official Name</th>
+                            <th
+                                style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                Description / Risk</th>
+                            <th
+                                style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                Status</th>
+                            <th style="text-align:right; padding:12px 1rem;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="registry-table-body">
+                        <!-- Populated by JS -->
+                        <tr>
+                            <td colspan="4" style="padding:4rem; text-align:center; color:#94A3B8;">
+                                <ion-icon name="search"
+                                    style="font-size:2rem; margin-bottom:1rem; opacity:0.5;"></ion-icon>
+                                <div>Enter an ingredient name to search the toxicology grid.</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
