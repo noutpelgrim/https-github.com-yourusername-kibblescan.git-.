@@ -1134,6 +1134,36 @@ p {
         font-size: 0.9rem;
         color: var(--primary-light);
     }
+
+    /* Search Bar Stacking */
+    .search-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-container ion-icon {
+        display: none;
+        /* Hide icon on mobile to save space if needed, or keep it */
+    }
+
+    .search-container input {
+        width: 100%;
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #E2E8F0 !important;
+    }
+
+    .search-container button {
+        width: 100%;
+    }
+}
+
+/* Desktop defaults */
+.search-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 /* Desktop defaults for footer (replaces inline) */
