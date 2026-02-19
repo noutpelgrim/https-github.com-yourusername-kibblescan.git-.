@@ -64,7 +64,7 @@ function initScanFlow() {
             const formData = new FormData();
             formData.append('receipt', fileBlob);
 
-            const response = await fetch('/api/analyze', {
+            const response = await fetch('/api/scans/analyze', {
                 method: 'POST',
                 body: formData
             });
