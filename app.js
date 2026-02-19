@@ -537,4 +537,48 @@ document.addEventListener('DOMContentLoaded', () => {
     initLiveLogs();
     initRegistrySearch();
     initMainSearch();
+
+    // --- PWA SERVICE WORKER REGISTRATION ---
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => console.log('[Client] SW Registered:', reg.scope))
+                .catch(err => console.error('[Client] SW Registration Failed:', err));
+        });
+    }
+
+    // --- OFFLINE DETECTION ---
+    function updateOnlineStatus() {
+        if (!navigator.onLine) {
+            showToast("You are offline. Scans may be limited.", "warn");
+        } else {
+            showToast("Connection restored.", "success");
+        }
+    }
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
 });
+
+// Helper for Toasts (Simple implementation)
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.background = type === 'warn' ? '#DC2626' : (type === 'success' ? '#16A34A' : '#334155');
+    toast.style.color = 'white';
+    toast.style.padding = '10px 20px';
+    toast.style.borderRadius = '20px';
+    toast.style.zIndex = '10000';
+    toast.style.fontSize = '0.9rem';
+    toast.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+    toast.style.transition = 'opacity 0.5s';
+
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
