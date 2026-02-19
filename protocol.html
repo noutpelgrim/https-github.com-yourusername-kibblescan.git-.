@@ -5,13 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KibbleScan - Methodology</title>
-    <link rel="stylesheet" href="style.css?v=8.7">
+    <link rel="stylesheet" href="style.css?v=8.8">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <style>
+        @media print {
+
+            .navbar,
+            .no-print,
+            .nav-btn,
+            button,
+            #btn-dl-text,
+            .logo {
+                display: none !important;
+            }
+
+            body {
+                background: white !important;
+                color: black !important;
+            }
+
+            .container {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            h1 {
+                margin-top: 0 !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="container" id="print-area">
-        <nav class="navbar">
+        <nav class="navbar no-print">
             <a href="index.html" class="logo">KibbleScan.</a>
             <div class="nav-right">
                 <a href="registry.html" class="nav-link">Registry</a>
@@ -26,17 +55,16 @@
                     <h1>Clinical Methodology v2.4</h1>
                     <p>Our standard is derived from peer-reviewed veterinary toxicology, not marketing trends.</p>
                 </div>
-                <div style="text-align:right; display:flex; gap:10px; align-items:center;">
-                    <button id="btn-dl-text" class="no-print"
+                <div class="no-print" style="text-align:right; display:flex; gap:10px; align-items:center;">
+                    <button id="btn-dl-text"
                         style="background:white; border:1px solid #CBD5E1; padding:8px 12px; border-radius:6px; font-size:0.8rem; cursor:pointer; color:#475569;">
                         <ion-icon name="document-text-outline" style="vertical-align:middle;"></ion-icon> .TXT
                     </button>
-                    <button onclick="window.print()" class="no-print"
+                    <button onclick="window.print()"
                         style="background:#0F172A; color:white; border:1px solid #0F172A; padding:8px 12px; border-radius:6px; font-size:0.8rem; cursor:pointer;">
                         <ion-icon name="print-outline" style="vertical-align:middle;"></ion-icon> Print / PDF
                     </button>
-                    <div class="no-print"
-                        style="font-size:0.7rem; color:var(--safe); margin-top:4px; text-align:right;">
+                    <div style="font-size:0.7rem; color:var(--safe); margin-top:4px; text-align:right;">
                         <ion-icon name="checkmark-circle" style="vertical-align:middle;"></ion-icon> Reviewed Feb 2026
                     </div>
                 </div>
