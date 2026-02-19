@@ -1,0 +1,482 @@
+[
+    {
+        "name": "Venison",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Venison Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Bison",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Bison Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Kangaroo",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Kangaroo Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Rabbit",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Rabbit Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Boar",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Wild Boar",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Goat",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Goat Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Quail",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Quail Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pheasant",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Alligator",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Trout",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Ocean Whitefish",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Atlantic Salmon",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sockeye Salmon",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Menhaden Fish Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Herring Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whitefish Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Salmon Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pollock Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Catfish Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Tuna Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Krill Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Egg Product",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Egg Product",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Hydrolyzed Soy Protein",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Corn Gluten",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Wheat Flour",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Wheat Middlings",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Soy Flour",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Soy Grits",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Brewer's Rice",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Ground Rice",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Ground Corn",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Ground Wheat",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Barley",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pearled Barley",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Cracked Pearled Barley",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Oat Groats",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Steel Cut Oats",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Grain Sorghum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Millet",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Spelt",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Quinoa",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chia Seed",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pumpkin",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Butternut Squash",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Zucchini",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Spinach",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Kale",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Broccoli",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Carrots",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Peas",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Green Peas",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Yellow Peas",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chickpeas",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Lentils",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Red Lentils",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Green Lentils",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Navy Beans",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Kidney Beans",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pinto Beans",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Tapioca Starch",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Potato Starch",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pea Starch",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sweet Potato",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Beet Pulp",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Chicory Root",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Inulin",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Tomato Pomace",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Tomato Pomace",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Apple Pomace",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Apple Pomace",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Blueberries",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Cranberries",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Raspberries",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Blackberries",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pomegranate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Kelp",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Kelp",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Alfalfa Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sun-Cured Alfalfa Meal",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Parsley",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Parsley",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Lactobacillus acidophilus",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Bifidobacterium animalis",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Lactobacillus reuteri",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Lactobacillus casei",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Enterococcus faecium",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Bacillus subtilis",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Bacillus licheniformis",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Aspergillus oryzae",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Trichoderma longibrachiatum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Rhizopus oryzae",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Candida rugosa",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Saccharomyces cerevisiae",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Brewer's Yeast",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Selenium Yeast",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Monosodium Phosphate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Calcium Phosphate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Tricalcium Phosphate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Magnesium Oxide",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Magnesium Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Copper Proteinate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Iron Proteinate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Manganese Proteinate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Zinc Proteinate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Selenium Yeast",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Calcium Iodate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Cobalt Carbonate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Cobalt Proteinate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Vitamin A Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Ascorbic Acid (Vitamin C)",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "L-Ascorbyl-2-Polyphosphate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sodium Tripolyphosphate",
+        "classification": "NON-SPECIFIC"
+    }
+]

@@ -1,0 +1,490 @@
+[
+    {
+        "name": "BHA (Butylated Hydroxyanisole)",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "BHT (Butylated Hydroxytoluene)",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Ethoxyquin",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Propylene Glycol",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Titanium Dioxide",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Red 40",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Yellow 5",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Yellow 6",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Blue 2",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Menadione Sodium Bisulfite Complex",
+        "classification": "VIOLATION"
+    },
+    {
+        "name": "Sodium Tripolyphosphate",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Tetrasodium Pyrophosphate",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Carrageenan",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Guar Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Xanthan Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Cassia Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Locust Bean Gum",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Agar-Agar",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Meat and Animal Derivatives",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Vegetable Protein Extracts",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Derivatives of Vegetable Origin",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Fish and Fish Derivatives",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Cereals",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Oils and Fats",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Various Sugars",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Yeasts",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Hydrolyzed Animal Protein",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Dehydrated Poultry Protein",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Maize Gluten",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Wheat Gluten",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Soya Meal",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Beet Pulp",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chicory Pulp",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Fructo-Oligosaccharides (FOS)",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Mannan-Oligosaccharides (MOS)",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Yucca Schidigera",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Marigold Extract",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Rosemary Extract",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Tocopherol-Rich Extracts",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "L-Carnitine",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Taurine",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "DL-Methionine",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "L-Lysine",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Vitamin A Acetate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Vitamin D3 Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Vitamin E Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Thiamine Mononitrate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Riboflavin Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Niacin Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Calcium Pantothenate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pyridoxine Hydrochloride",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Folic Acid",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Biotin",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Vitamin B12 Supplement",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Choline Chloride",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Calcium Carbonate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dicalcium Phosphate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Potassium Chloride",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sodium Selenite",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Zinc Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Iron Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Copper Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Manganese Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Potassium Iodide",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Glucosamine Hydrochloride",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chondroitin Sulfate",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Methylsulfonylmethane (MSM)",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Green Lipped Mussel",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Turmeric",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Bacillus coagulans Fermentation Product",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Lactobacillus acidophilus Fermentation Product",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Bifidobacterium animalis Fermentation Product",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Dried Enterococcus faecium Fermentation Product",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chicken Fat",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Beef Fat",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pork Fat",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Salmon Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Fish Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Sunflower Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Flaxseed Oil",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Canola Oil",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Soybean Oil",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Corn Oil",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Vegetable Oil",
+        "classification": "NON-SPECIFIC"
+    },
+    {
+        "name": "Chicken Liver",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Beef Liver",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Lamb Liver",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pork Liver",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Turkey Liver",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Duck Liver",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chicken Heart",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Beef Heart",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Lamb Heart",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Pork Heart",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Turkey Heart",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Duck Heart",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Chicken Gizzard",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Turkey Gizzard",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Duck Gizzard",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Green Tripe",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Beef Tripe",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Lamb Tripe",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Venison Tripe",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Goat Tripe",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Chicken",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Beef",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Lamb",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Turkey",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Duck",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Salmon",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Mackerel",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Haddock",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Cod",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Pollock",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Trout",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Sardine",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Anchovy",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Herring",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Tilapia",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Catfish",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Tuna",
+        "classification": "UNRESTRICTED"
+    },
+    {
+        "name": "Whole Whitefish",
+        "classification": "UNRESTRICTED"
+    }
+]

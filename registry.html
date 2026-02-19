@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- Cache Control -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Global Toxicology Registry - KibbleScan</title>
-    <link rel="stylesheet" href="style.css?v=6.2">
+    <link rel="stylesheet" href="style.css?v=7.0">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="app.js?v=6.2" defer></script>
 </head>
@@ -63,8 +63,8 @@
                                 style="font-family:'Courier New'; font-weight:600;">"..."</span>. This entity may be
                             unindexed or operating under a shell company.
                         </p>
-                        <button onclick="alert('Priority Request Logged. Surveillance node allocated.')"
-                            style="background:#0F172A; border:1px solid #0F172A; color:white; padding:10px 16px; border-radius:6px; font-weight:600; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; gap:8px;">
+                        <button id="btn-request-surveillance"
+                            style="background:#0F172A; border:1px solid #0F172A; color:white; padding:10px 16px; border-radius:6px; font-weight:600; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; gap:8px; transition: all 0.2s;">
                             <ion-icon name="add-circle"></ion-icon> Request Surveillance
                         </button>
                     </div>
@@ -85,190 +85,208 @@
                     </div>
                 </div>
 
-                <div style="background:white; border-radius:8px; border:1px solid #E2E8F0; overflow:hidden;">
-                    <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
-                        <thead style="background:#F8FAFC; border-bottom:1px solid #E2E8F0;">
-                            <tr>
-                                <th
-                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
-                                    Timestamp</th>
-                                <th
-                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
-                                    Product / Formula</th>
-                                <th
-                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
-                                    Batch ID</th>
-                                <th
-                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
-                                    Audit Result</th>
-                                <th style="text-align:right; padding:12px 1rem;"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="border-bottom:1px solid #F1F5F9;">
-                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">14:02 UTC
-                                </td>
-                                <td style="padding:1rem; font-weight:500;">Purina Pro Plan / Savor</td>
-                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
-                                    0-38100-13180-2</td>
-                                <td style="padding:1rem;">
-                                    <span
-                                        style="background:#FEF2F2; color:#991B1B; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">NON-COMPLIANT</span>
-                                </td>
-                                <td style="padding:1rem; text-align:right;">
-                                    <a href="product_report.html?id=8821"
-                                        style="color:var(--primary); text-decoration:none; font-size:0.85rem;">View
-                                        Report →</a>
-                                </td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #F1F5F9;">
-                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">14:01 UTC
-                                </td>
-                                <td style="padding:1rem; font-weight:500;">Royal Canin / Gastrointestinal</td>
-                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
-                                    0-30111-78901-5</td>
-                                <td style="padding:1rem;">
-                                    <span
-                                        style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">VERIFIED</span>
-                                </td>
-                                <td style="padding:1rem; text-align:right;">
-                                    <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
-                                </td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #F1F5F9;">
-                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">13:58 UTC
-                                </td>
-                                <td style="padding:1rem; font-weight:500;">Pedigree / Adult Complete</td>
-                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
-                                    0-23100-11001-2</td>
-                                <td style="padding:1rem;">
-                                    <span
-                                        style="background:#FEF2F2; color:#991B1B; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">NON-COMPLIANT</span>
-                                </td>
-                                <td style="padding:1rem; text-align:right;">
-                                    <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
-                                </td>
-                            </tr>
-                            <tr style="border-bottom:1px solid #F1F5F9;">
-                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">13:55 UTC
-                                </td>
-                                <td style="padding:1rem; font-weight:500;">Blue Buffalo / Life Protection</td>
-                                <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
-                                    0-84024-30001-9</td>
-                                <td style="padding:1rem;">
-                                    <span
-                                        style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">VERIFIED</span>
-                                </td>
-                                <td style="padding:1rem; text-align:right;">
-                                    <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+                    <thead style="background:#F8FAFC; border-bottom:1px solid #E2E8F0;">
+                        <tr>
+                            <th
+                                style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                Timestamp</th>
+                            <th
+                                style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                Product / Formula</th>
+                            <th
+                                style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                Batch ID</th>
+                            <th
+                                style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                                Audit Result</th>
+                            <th style="text-align:right; padding:12px 1rem;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom:1px solid #F1F5F9;">
+                            <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">14:02 UTC
+                            </td>
+                            <td style="padding:1rem; font-weight:500;">Purina Pro Plan / Savor</td>
+                            <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
+                                0-38100-13180-2</td>
+                            <td style="padding:1rem;">
+                                <span
+                                    style="background:#FEF2F2; color:#991B1B; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">NON-COMPLIANT</span>
+                            </td>
+                            <td style="padding:1rem; text-align:right;">
+                                <a href="product_report.html?id=8821"
+                                    style="color:var(--primary); text-decoration:none; font-size:0.85rem;">View
+                                    Report →</a>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #F1F5F9;">
+                            <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">14:01 UTC
+                            </td>
+                            <td style="padding:1rem; font-weight:500;">Royal Canin / Gastrointestinal</td>
+                            <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
+                                0-30111-78901-5</td>
+                            <td style="padding:1rem;">
+                                <span
+                                    style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">VERIFIED</span>
+                            </td>
+                            <td style="padding:1rem; text-align:right;">
+                                <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #F1F5F9;">
+                            <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">13:58 UTC
+                            </td>
+                            <td style="padding:1rem; font-weight:500;">Pedigree / Adult Complete</td>
+                            <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
+                                0-23100-11001-2</td>
+                            <td style="padding:1rem;">
+                                <span
+                                    style="background:#FEF2F2; color:#991B1B; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">NON-COMPLIANT</span>
+                            </td>
+                            <td style="padding:1rem; text-align:right;">
+                                <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom:1px solid #F1F5F9;">
+                            <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">13:55 UTC
+                            </td>
+                            <td style="padding:1rem; font-weight:500;">Blue Buffalo / Life Protection</td>
+                            <td style="padding:1rem; font-family:'Courier New', monospace; color:#64748B;">
+                                0-84024-30001-9</td>
+                            <td style="padding:1rem;">
+                                <span
+                                    style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">VERIFIED</span>
+                            </td>
+                            <td style="padding:1rem; text-align:right;">
+                                <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- INGREDIENT STANDARDS (Static Lookups) -->
+        <div id="results-section">
+            <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:1rem;">
+                <h3 id="results-title"
+                    style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--primary-light);">
+                    Restricted Substance Index</h3>
+                <div id="results-count" style="font-size:0.8rem; color:#64748B;">
+                    Displaying 3 of 152 Restricted Agents
                 </div>
             </div>
 
-            <!-- INGREDIENT STANDARDS (Static Lookups) -->
-            <div id="results-section">
-                <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:1rem;">
-                    <h3 id="results-title"
-                        style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--primary-light);">
-                        Restricted Substance Index</h3>
-                    <div id="results-count" style="font-size:0.8rem; color:#64748B;">
-                        Displaying 3 of 152 Restricted Agents
-                    </div>
-                </div>
 
-                <div style="background:white; border-radius:8px; border:1px solid #E2E8F0; overflow:hidden;">
-                    <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
-                        <thead style="background:#F8FAFC; border-bottom:1px solid #E2E8F0;">
-                            <tr>
-                                <th
-                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
-                                    Official Name</th>
-                                <th
-                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
-                                    Description / Risk</th>
-                                <th
-                                    style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
-                                    Status</th>
-                                <th style="text-align:right; padding:12px 1rem;"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="registry-table-body">
-                            <!-- Populated by JS -->
-                            <tr>
-                                <td colspan="4" style="padding:4rem; text-align:center; color:#94A3B8;">
-                                    <ion-icon name="search"
-                                        style="font-size:2rem; margin-bottom:1rem; opacity:0.5;"></ion-icon>
-                                    <div>Enter an ingredient name to search the toxicology grid.</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+                <thead style="background:#F8FAFC; border-bottom:1px solid #E2E8F0;">
+                    <tr>
+                        <th
+                            style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                            Official Name</th>
+                        <th
+                            style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                            Description / Risk</th>
+                        <th
+                            style="text-align:left; padding:12px 1rem; color:#64748B; font-weight:600; font-size:0.75rem; text-transform:uppercase;">
+                            Status</th>
+                        <th style="text-align:right; padding:12px 1rem;"></th>
+                    </tr>
+                </thead>
+                <tbody id="registry-table-body">
+                    <!-- Populated by JS -->
+                    <tr>
+                        <td colspan="4" style="padding:4rem; text-align:center; color:#94A3B8;">
+                            <ion-icon name="search" style="font-size:2rem; margin-bottom:1rem; opacity:0.5;"></ion-icon>
+                            <div>Enter an ingredient name to search the toxicology grid.</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    const searchInput = document.getElementById('registry-search-input');
-                    const tableBody = document.getElementById('registry-table-body');
-                    const noResults = document.getElementById('registry-no-results');
-                    const searchTermDisplay = document.getElementById('registry-search-term');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('registry-search-input');
+            const tableBody = document.getElementById('registry-table-body');
+            const noResults = document.getElementById('registry-no-results');
+            const searchTermDisplay = document.getElementById('registry-search-term');
 
-                    // NEW: Elements to toggle
-                    const liveFeedSection = document.getElementById('live-feed-section');
-                    const resultsTitle = document.getElementById('results-title');
-                    const resultsCount = document.getElementById('results-count');
+            // NEW: Elements to toggle
+            const liveFeedSection = document.getElementById('live-feed-section');
 
-                    let debounceTimer;
+            const resultsTitle = document.getElementById('results-title');
+            const resultsCount = document.getElementById('results-count');
+            const btnRequest = document.getElementById('btn-request-surveillance');
 
-                    searchInput.addEventListener('input', (e) => {
-                        const query = e.target.value.trim();
+            if (btnRequest) {
+                btnRequest.addEventListener('click', () => {
+                    // Simulate API call
+                    const originalText = btnRequest.innerHTML;
+                    btnRequest.innerHTML = `<ion-icon name="sync" class="spin"></ion-icon> Allocating Node...`;
+                    btnRequest.style.opacity = '0.7';
 
-                        clearTimeout(debounceTimer);
-                        debounceTimer = setTimeout(() => {
-                            if (query.length < 2) {
-                                // Restore Default View (Show Live Feed)
-                                if (liveFeedSection) liveFeedSection.style.display = 'block';
-                                if (resultsTitle) resultsTitle.textContent = "Restricted Substance Index";
-                                if (resultsCount) resultsCount.textContent = "Displaying 3 of 152 Restricted Agents";
+                    setTimeout(() => {
+                        btnRequest.innerHTML = `<ion-icon name="checkmark-circle"></ion-icon> Surveillance Active`;
+                        btnRequest.style.background = '#10B981'; // Green
+                        btnRequest.style.borderColor = '#10B981';
+                        btnRequest.style.opacity = '1';
+                        btnRequest.disabled = true;
+                    }, 1200);
+                });
+            }
 
-                                if (query.length === 0) {
-                                    tableBody.innerHTML = `
+            let debounceTimer;
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    if (query.length < 2) {
+                        // Restore Default View (Show Live Feed)
+                        if (liveFeedSection) liveFeedSection.style.display = 'block';
+                        if (resultsTitle) resultsTitle.textContent = "Restricted Substance Index";
+                        if (resultsCount) resultsCount.textContent = "Displaying 3 of 152 Restricted Agents";
+
+                        if (query.length === 0) {
+                            tableBody.innerHTML = `
                                         <tr>
                                             <td colspan="4" style="padding:4rem; text-align:center; color:#94A3B8;">
                                                 <ion-icon name="search" style="font-size:2rem; margin-bottom:1rem; opacity:0.5;"></ion-icon>
                                                 <div>Enter an ingredient name to search the toxicology grid.</div>
                                             </td>
                                         </tr>`;
-                                    noResults.style.display = 'none';
-                                }
-                                return;
-                            }
+                            noResults.style.display = 'none';
+                        }
+                        return;
+                    }
 
-                            // Active Search Mode (Hide Live Feed)
-                            if (liveFeedSection) liveFeedSection.style.display = 'none';
-                            if (resultsTitle) resultsTitle.textContent = `Search Results for "${query}"`;
-                            if (resultsCount) resultsCount.textContent = "Searching...";
+                    // Active Search Mode (Hide Live Feed)
+                    if (liveFeedSection) liveFeedSection.style.display = 'none';
+                    if (resultsTitle) resultsTitle.textContent = `Search Results for "${query}"`;
+                    if (resultsCount) resultsCount.textContent = "Searching...";
 
-                            fetchIngredients(query);
-                        }, 300);
-                    });
+                    fetchIngredients(query);
+                }, 300);
+            });
 
-                    async function fetchIngredients(query) {
-                        try {
-                            const res = await fetch(`/api/ingredients/search?q=${encodeURIComponent(query)}`);
-                            const data = await res.json();
+            async function fetchIngredients(query) {
+                try {
+                    const res = await fetch(`/api/ingredients/search?q=${encodeURIComponent(query)}`);
+                    const data = await res.json();
 
-                            renderRows(data, query);
+                    renderRows(data, query);
 
-                            // Update Count
-                            if (resultsCount) resultsCount.textContent = `${data.length} matches found`;
+                    // Update Count
+                    if (resultsCount) resultsCount.textContent = `${data.length} matches found`;
 
-                        } catch (err) {
-                            console.error("Search failed", err);
-                            tableBody.innerHTML = `
+                } catch (err) {
+                    console.error("Search failed", err);
+                    tableBody.innerHTML = `
                                 <tr>
                                     <td colspan="4" style="padding:4rem; text-align:center; color:#EF4444;">
                                         <ion-icon name="alert-circle" style="font-size:2rem; margin-bottom:1rem;"></ion-icon>
@@ -276,40 +294,40 @@
                                         <div style="font-size:0.8rem; margin-top:8px;">Ensure server is running and database is connected.</div>
                                     </td>
                                 </tr>`;
-                        }
+                }
+            }
+
+            function renderRows(data, query) {
+                tableBody.innerHTML = '';
+
+                if (data.length === 0) {
+                    noResults.style.display = 'block';
+                    searchTermDisplay.textContent = `"${query}"`;
+                    return;
+                }
+
+                noResults.style.display = 'none';
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.style.borderBottom = '1px solid #F1F5F9';
+
+                    // Color Logic
+                    let badgeBg = '#F1F5F9';
+                    let badgeColor = '#64748B';
+
+                    if (item.status_label === 'RESTRICTED') {
+                        badgeBg = '#FEF2F2';
+                        badgeColor = '#B91C1C';
+                    } else if (item.status_label === 'WARNING') {
+                        badgeBg = '#FFF7ED';
+                        badgeColor = '#C2410C';
+                    } else if (item.status_label === 'SAFE') {
+                        badgeBg = '#ECFDF5';
+                        badgeColor = '#065F46';
                     }
 
-                    function renderRows(data, query) {
-                        tableBody.innerHTML = '';
-
-                        if (data.length === 0) {
-                            noResults.style.display = 'block';
-                            searchTermDisplay.textContent = `"${query}"`;
-                            return;
-                        }
-
-                        noResults.style.display = 'none';
-
-                        data.forEach(item => {
-                            const row = document.createElement('tr');
-                            row.style.borderBottom = '1px solid #F1F5F9';
-
-                            // Color Logic
-                            let badgeBg = '#F1F5F9';
-                            let badgeColor = '#64748B';
-
-                            if (item.status_label === 'RESTRICTED') {
-                                badgeBg = '#FEF2F2';
-                                badgeColor = '#B91C1C';
-                            } else if (item.status_label === 'WARNING') {
-                                badgeBg = '#FFF7ED';
-                                badgeColor = '#C2410C';
-                            } else if (item.status_label === 'SAFE') {
-                                badgeBg = '#ECFDF5';
-                                badgeColor = '#065F46';
-                            }
-
-                            row.innerHTML = `
+                    row.innerHTML = `
                                 <td style="padding:1rem; font-weight:600; color:#1E293B;">${item.name}</td>
                                 <td style="padding:1rem; color:#64748B; font-size:0.9rem; max-width:300px; line-height:1.4;">
                                     ${item.description || '<span style="opacity:0.5">No description on file.</span>'}
@@ -323,13 +341,13 @@
                                     <a href="ingredient.html?id=${item.id}" style="color:var(--primary); font-size:0.85rem; font-weight:600; cursor:pointer; text-decoration:none;">Dossier →</a>
                                 </td>
                             `;
-                            tableBody.appendChild(row);
-                        });
-                    }
+                    tableBody.appendChild(row);
                 });
-            </script>
+            }
+        });
+    </script>
 
-        </div>
+    </div>
 
     </div>
     </div>

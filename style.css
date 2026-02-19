@@ -458,15 +458,19 @@ p {
 /* =========================================
    6. TESTIMONIALS (Proof)
    ========================================= */
-.proof-grid {
-    display: grid;
-    gap: 2rem;
-    margin-top: 2rem;
-}
+display: grid;
+gap: 2rem;
+margin-top: 2rem;
+grid-template-columns: 1fr !important;
+/* Default to single column for mobile */
+width: 100%;
+max-width: 100%;
+overflow-wrap: break-word;
+word-break: break-all;
 
 @media (min-width: 768px) {
     .proof-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 

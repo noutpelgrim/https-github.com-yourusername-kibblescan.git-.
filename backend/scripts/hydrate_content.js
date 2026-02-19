@@ -177,7 +177,7 @@ async function run() {
             // Update if description is empty or force update if needed (here we only do empty)
             const res = await db.query(
                 `UPDATE ingredients 
-                 SET description = $1, last_updated = NOW() 
+                 SET description = $1
                  WHERE name ILIKE $2`,
                 [data.description, name]
             );
