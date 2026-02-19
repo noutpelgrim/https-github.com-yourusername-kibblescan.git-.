@@ -840,7 +840,10 @@ p {
         footer,
         .nav-right,
         .nav-btn,
-        button {
+        button,
+        nav,
+        .logo,
+        a.logo {
             display: none !important;
         }
 
