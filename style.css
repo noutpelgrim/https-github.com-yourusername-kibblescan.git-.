@@ -373,7 +373,7 @@ p {
 }
 
 .max-w-md {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
 }
 
@@ -1261,10 +1261,10 @@ p {
 
 .step-card {
     background: white;
-    padding: 2.5rem 2rem;
+    padding: 2.5rem 2.5rem;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-card);
-    text-align: center;
+    text-align: left;
     border: 1px solid #E2E8F0;
 }
 
@@ -1279,7 +1279,7 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1.5rem auto;
+    margin: 0 0 1.5rem 0;
 }
 
 .step-title {
