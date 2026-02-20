@@ -22,46 +22,38 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="section">
+    <section class="section" style="padding-bottom: 2rem;">
         <div class="container text-center max-w-md">
-            <span class="section-label" style="color:#10B981;">Infrastructure & Formatting</span>
-            <h1 class="section-title">Public Safety First.</h1>
+            <h1 class="section-title">Pricing Plans</h1>
             <p style="font-size:1.1rem; color:#475569;">
-                KibbleScan is a public utility. Ingredient verification is always free.
-                Advanced monitoring funds our continuous toxicology surveillance.
+                Simple, clear access for pet owners and veterinary clinics.
             </p>
         </div>
     </section>
 
-    <!-- Pricing Grid -->
+    <!-- Section 1: Pet Owner Plans -->
     <section class="section" style="padding-top:0;">
         <div class="container">
+            <div style="text-align:center; margin-bottom: 2rem;">
+                <h2 style="font-size:1.5rem; color:#1E293B;">Pet Owner Plans</h2>
+            </div>
             <div class="pricing-grid"
-                style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem; align-items:start;">
+                style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem; align-items:start; max-width:800px; margin: 0 auto;">
 
                 <!-- FREE TIER -->
                 <div class="glass-card" style="padding:2rem; border-top:4px solid #10B981;">
-                    <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Public Access</h3>
+                    <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Free</h3>
                     <div
                         style="font-size:2rem; font-weight:800; margin-bottom:1.5rem; font-family:var(--font-heading);">
-                        $0 <span style="font-size:1rem; color:#94A3B8; font-weight:500;">/ forever</span></div>
-
+                        $0</div>
                     <ul style="list-style:none; padding:0; margin:0 0 2rem 0;">
                         <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
                             <ion-icon name="checkmark-circle" style="color:#10B981; font-size:1.2rem;"></ion-icon>
-                            <span>Unlimited Scans</span>
+                            <span>Ingredient scan</span>
                         </li>
                         <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
                             <ion-icon name="checkmark-circle" style="color:#10B981; font-size:1.2rem;"></ion-icon>
-                            <span>Full Registry Access</span>
-                        </li>
-                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
-                            <ion-icon name="checkmark-circle" style="color:#10B981; font-size:1.2rem;"></ion-icon>
-                            <span>Toxicology Alerts</span>
-                        </li>
-                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
-                            <ion-icon name="checkmark-circle" style="color:#10B981; font-size:1.2rem;"></ion-icon>
-                            <span>Protocol Documentation</span>
+                            <span>Basic classification</span>
                         </li>
                     </ul>
                     <a href="scan.html" class="btn-primary"
@@ -69,84 +61,68 @@
                         Scanning</a>
                 </div>
 
-                <!-- MONITORING TIER (Highlighted) -->
-                <div class="glass-card featured" style="padding:2rem; position:relative;">
-                    <div
-                        style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#0F172A; color:white; padding:4px 12px; border-radius:100px; font-size:0.75rem; font-weight:700; text-transform:uppercase;">
-                        Recommended</div>
-
-                    <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Monitoring</h3>
+                <!-- PRO TIER -->
+                <div class="glass-card featured" style="padding:2rem; position:relative; border:2px solid #0F172A;">
+                    <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Pro</h3>
                     <div
                         style="font-size:2rem; font-weight:800; margin-bottom:1.5rem; font-family:var(--font-heading);">
-                        $6 <span style="font-size:1rem; color:#94A3B8; font-weight:500;">/ month</span></div>
+                        $5 <span style="font-size:1rem; color:#94A3B8; font-weight:500;">/ month</span></div>
 
                     <ul style="list-style:none; padding:0; margin:0 0 2rem 0;">
                         <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
                             <ion-icon name="shield-checkmark" style="color:#0F172A; font-size:1.2rem;"></ion-icon>
-                            <strong>Everything in Free</strong>
+                            <span>Unlimited scans</span>
                         </li>
                         <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
-                            <ion-icon name="save-outline" style="color:#0F172A; font-size:1.2rem;"></ion-icon>
-                            <span>Save Products & History</span>
+                            <ion-icon name="shield-checkmark" style="color:#0F172A; font-size:1.2rem;"></ion-icon>
+                            <span>Product monitoring</span>
                         </li>
                         <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
-                            <ion-icon name="pulse-outline" style="color:#0F172A; font-size:1.2rem;"></ion-icon>
-                            <span>Silent Drift Alerts</span>
-                        </li>
-                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
-                            <ion-icon name="paw-outline" style="color:#0F172A; font-size:1.2rem;"></ion-icon>
-                            <span>Multi-Pet Tracking</span>
+                            <ion-icon name="shield-checkmark" style="color:#0F172A; font-size:1.2rem;"></ion-icon>
+                            <span>Formulation change tracking</span>
                         </li>
                     </ul>
                     <button onclick="startCheckout('pri_01khcchknvqv3w3dc9r2c5jpwj')" class="btn-primary"
-                        style="width:100%;">Enable Monitoring</button>
-                    <div style="text-align:center; margin-top:1rem; font-size:0.8rem; color:#64748B;">or $59 / year
-                        (Save 18%)</div>
+                        style="width:100%;">Upgrade to Pro</button>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Veterinary Clinic Plan -->
+    <section class="section" style="padding-top:2rem; padding-bottom: 4rem;">
+        <div class="container">
+            <div style="text-align:center; margin-bottom: 2rem;">
+                <h2 style="font-size:1.5rem; color:#1E293B;">Veterinary Clinic Plan</h2>
+            </div>
+            <div class="pricing-grid"
+                style="display:grid; grid-template-columns: 1fr; max-width:400px; margin: 0 auto;">
 
                 <!-- CLINICAL TIER -->
                 <div class="glass-card" style="padding:2rem; border-top:4px solid #3B82F6;">
-                    <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Clinical</h3>
+                    <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Professional</h3>
                     <div
                         style="font-size:2rem; font-weight:800; margin-bottom:1.5rem; font-family:var(--font-heading);">
-                        $39 <span style="font-size:1rem; color:#94A3B8; font-weight:500;">/ clinic</span></div>
+                        $39 <span style="font-size:1rem; color:#94A3B8; font-weight:500;">/ month</span></div>
 
                     <ul style="list-style:none; padding:0; margin:0 0 2rem 0;">
                         <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
                             <ion-icon name="medkit-outline" style="color:#3B82F6; font-size:1.2rem;"></ion-icon>
-                            <span>Batch Ingredient Lookup</span>
+                            <span>Multi-product monitoring</span>
                         </li>
                         <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
                             <ion-icon name="document-text-outline" style="color:#3B82F6; font-size:1.2rem;"></ion-icon>
-                            <span>PDF & Citation Export</span>
+                            <span>Exportable ingredient logs</span>
                         </li>
                         <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
                             <ion-icon name="time-outline" style="color:#3B82F6; font-size:1.2rem;"></ion-icon>
-                            <span>Historical Audit Logs</span>
-                        </li>
-                        <li style="display:flex; gap:10px; margin-bottom:12px; align-items:center;">
-                            <ion-icon name="file-tray-full-outline" style="color:#3B82F6; font-size:1.2rem;"></ion-icon>
-                            <span>Compliance Documentation</span>
+                            <span>Structured product history</span>
                         </li>
                     </ul>
                     <button onclick="startCheckout('pri_01khccg37dc7v5542hr7a65vb7')" class="btn-primary"
                         style="background:#0F172A; width:100%;">Request Access</button>
                 </div>
-
             </div>
-
-            <!-- Institutional -->
-            <div style="text-align:center; margin-top:4rem; padding:2rem; background:#F1F5F9; border-radius:16px;">
-                <h4 style="margin-bottom:0.5rem;">Institutional & Regulatory Access</h4>
-                <p style="max-width:600px; margin:0 auto 1.5rem auto; font-size:0.9rem;">
-                    For universities, research bodies, and regulatory agencies requiring raw data access or API
-                    integration.
-                </p>
-                <a href="mailto:research@kibblescan.io"
-                    style="color:#0F172A; font-weight:600; text-decoration:none; border-bottom:1px solid #0F172A;">Contact
-                    Research Division &rarr;</a>
-            </div>
-
         </div>
     </section>
 
