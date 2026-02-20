@@ -4,38 +4,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap');
 
 :root {
-    /* Palette: Slate & Clinical Signals */
-    --primary: #0F172A;
-    /* Slate 900 - Authority */
-    --primary-light: #475569;
-    /* Slate 600 - Reading text */
-    --bg-page: #F8FAFC;
-    /* Slate 50 - Clinical clean */
+    /* Palette: D2C Pet Brand Aesthetic */
+    --primary: #1E1B4B;
+    /* Deep warm navy */
+    --primary-light: #4F46E5;
+    /* Playful blurple */
+    --bg-page: #FFF9F2;
+    /* Soft warm cream */
     --bg-card: #FFFFFF;
 
-    /* Signals - Binary (Safe vs Risk) */
-    --risk: #EF4444;
-    /* Red 500 - Toxic/Stop */
-    --risk-bg: #FEF2F2;
-    /* Red 50 */
-    --safe: #10B981;
-    /* Emerald 500 - Good */
-    --safe-bg: #ECFDF5;
-    /* Emerald 50 */
-    --neutral: #94A3B8;
-    /* Slate 400 - Inactive */
+    /* Signals - Friendly */
+    --risk: #EA580C;
+    /* Warm orange/red */
+    --risk-bg: #FFEDD5;
+    --safe: #047857;
+    /* Mint */
+    --safe-bg: #A7F3D0;
+    --neutral: #A8A29E;
 
     /* Typography */
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Inter', sans-serif;
 
-    /* Shadows - Soft & Deep (No 'Pop') */
-    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    --shadow-device: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+    /* Shadows - Soft, playful float */
+    --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.04);
+    --shadow-device: 0 25px 50px -12px rgba(30, 27, 75, 0.15);
 
-    --radius-lg: 24px;
-    --radius-md: 16px;
-    --radius-sm: 8px;
+    /* Very rounded, playful corners */
+    --radius-lg: 32px;
+    --radius-md: 24px;
+    --radius-sm: 12px;
 }
 
 * {
@@ -1743,3 +1741,5 @@ p {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(234, 88, 12, 0.1);
 }
+.logo { display: flex; align-items: center; gap: 8px; }
+.logo-img { height: 28px; width: auto; vertical-align: middle; }
