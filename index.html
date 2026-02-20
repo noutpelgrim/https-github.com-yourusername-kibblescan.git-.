@@ -5,176 +5,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="/manifest.json">
-    <title>KibbleScan Network - Initializing</title>
-    <style>
-        body {
-            background-color: #0f172a;
-            color: #e2e8f0;
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .container {
-            text-align: center;
-            max-width: 600px;
-            padding: 2rem;
-            border: 1px solid #334155;
-            background: #1e293b;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-        }
-
-        .status-light {
-            width: 12px;
-            height: 12px;
-            background-color: #f59e0b;
-            /* Amber for initializing */
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 10px;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                opacity: 0.4;
-            }
-
-            50% {
-                opacity: 1;
-            }
-
-            100% {
-                opacity: 0.4;
-            }
-        }
-
-        h1 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #334155;
-            border-radius: 2px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #10b981;
-            width: 0%;
-            animation: load 3s ease-in-out forwards;
-        }
-
-        @keyframes load {
-            0% {
-                width: 0%;
-            }
-
-            100% {
-                width: 75%;
-            }
-
-            /* Stalls at 75% intentionally */
-        }
-
-        .terminal-log {
-            text-align: left;
-            font-size: 0.8rem;
-            color: #64748b;
-            margin-top: 1rem;
-            border-top: 1px solid #334155;
-            padding-top: 1rem;
-        }
-
-        .log-entry {
-            margin-bottom: 4px;
-            opacity: 0;
-            animation: fadeIn 0.5s forwards;
-        }
-
-        .log-entry:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        .log-entry:nth-child(2) {
-            animation-delay: 0.8s;
-        }
-
-        .log-entry:nth-child(3) {
-            animation-delay: 1.5s;
-        }
-
-        .log-entry:nth-child(4) {
-            animation-delay: 2.2s;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .hidden-link {
-            margin-top: 2rem;
-            font-size: 0.75rem;
-            color: #475569;
-            text-decoration: none;
-            border: 1px solid #334155;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
-
-        .hidden-link:hover {
-            color: #94a3b8;
-            border-color: #475569;
-        }
-    </style>
+    <title>KibbleScan | Veterinary-Informed Monitoring</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="container">
-        <div style="display:flex; align-items:center; justify-content:center; margin-bottom:1rem;">
-            <div class="status-light"></div>
-            <span style="font-size:0.8rem; font-weight:bold; color:#f59e0b;">SYSTEM INITIALIZING</span>
+    <!-- NAVBAR -->
+    <header class="navbar container">
+        <a href="/" class="logo">KibbleScan</a>
+        <div class="nav-right">
+            <a href="#" class="nav-link">For Clinics</a>
+            <a href="#" class="nav-btn">Log In</a>
         </div>
+    </header>
 
-        <h1>KibbleScan Network</h1>
-        <p>Public access is currently restricted while we perform final calibration of the toxicology grid.</p>
-
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
+    <!-- 1. HERO SECTION -->
+    <section class="hero-section section-white">
+        <div class="container text-center max-w-md">
+            <h1 class="hero-headline">Veterinary-Informed Monitoring for Pet Food Safety</h1>
+            <p class="hero-subheadline">
+                Scan ingredient labels, track formulation changes, and monitor products using structured toxicology
+                data.
+            </p>
+            <div class="cta-group" style="justify-content: center; margin-top: 2rem;">
+                <a href="#" class="btn-primary">Scan a Label</a>
+                <a href="#" class="nav-link" style="color: var(--primary); font-weight: 600; text-decoration: none;">For
+                    Veterinary Clinics &rarr;</a>
+            </div>
         </div>
+    </section>
 
-        <div class="terminal-log">
-            <div class="log-entry">> Establishing secure connection... OK</div>
-            <div class="log-entry">> Loading ingredient signatures... OK</div>
-            <div class="log-entry">> Calibrating OCR nodes... [IN PROGRESS]</div>
-            <div class="log-entry">> Awaiting administrative release...</div>
+    <!-- 2. HOW IT WORKS -->
+    <section class="how-it-works-section section-gray">
+        <div class="container text-center">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Upload or Scan</h3>
+                    <p class="step-description">Upload an image or scan a pet food ingredient label directly.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Ingredient Classification</h3>
+                    <p class="step-description">Ingredients are classified against established toxicology references and
+                        veterinary data.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Continuous Monitoring</h3>
+                    <p class="step-description">Monitor selected products for objective formulation and ingredient
+                        changes over time.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <br>
-        <!-- The "Backdoor" Link -->
-        <a href="home.html" class="hidden-link">System Status & Login</a>
-    </div>
+    <!-- 3. CREDIBILITY BLOCK -->
+    <section class="credibility-section section-white">
+        <div class="container text-center max-w-md">
+            <h2 class="section-title">Structured Data. Not Marketing Claims.</h2>
+            <ul class="credibility-list"
+                style="text-align: left; margin-top: 2rem; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
+                <li style="display: flex; gap: 10px; align-items: flex-start;"><span
+                        style="color: var(--safe); font-weight: bold;">✓</span> Uses established regulatory
+                    classifications for ingredient analysis.</li>
+                <li style="display: flex; gap: 10px; align-items: flex-start;"><span
+                        style="color: var(--safe); font-weight: bold;">✓</span> Does not rank or endorse specific
+                    brands.</li>
+                <li style="display: flex; gap: 10px; align-items: flex-start;"><span
+                        style="color: var(--safe); font-weight: bold;">✓</span> Does not promote commercial products.
+                </li>
+                <li style="display: flex; gap: 10px; align-items: flex-start;"><span
+                        style="color: var(--safe); font-weight: bold;">✓</span> Tracks formulation changes objectively
+                    based on label data.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 4. SPLIT SECTION: USER TYPES -->
+    <section class="audience-split-section section-gray">
+        <div class="container">
+            <div class="audience-grid">
+
+                <!-- Card 1: For Pet Owners -->
+                <div class="audience-card pet-owners-card">
+                    <div>
+                        <h3 class="audience-title">For Pet Owners</h3>
+                        <ul class="feature-list-vertical" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+                            <li><span style="color: var(--safe); font-weight: bold;">✓</span> Scan labels instantly</li>
+                            <li><span style="color: var(--safe); font-weight: bold;">✓</span> View ingredient
+                                classifications</li>
+                            <li><span style="color: var(--safe); font-weight: bold;">✓</span> Track formulation changes
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn-primary" style="width: 100%; text-align: center; display: block;">Get
+                        Started</a>
+                </div>
+
+                <!-- Card 2: For Veterinary Clinics -->
+                <div class="audience-card vet-clinics-card" style="background: var(--primary); color: white;">
+                    <div>
+                        <h3 class="audience-title" style="color: white;">For Veterinary Clinics</h3>
+                        <ul class="feature-list-vertical" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+                            <li><span style="color: var(--safe); font-weight: bold;">✓</span> Monitor multiple products
+                                systematically</li>
+                            <li><span style="color: var(--safe); font-weight: bold;">✓</span> Access structured
+                                ingredient logs</li>
+                            <li><span style="color: var(--safe); font-weight: bold;">✓</span> Exportable product history
+                                records</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn-primary"
+                        style="background: white; color: var(--primary); width: 100%; text-align: center; display: block;">Clinic
+                        Access</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SIMPLE PRICING PREVIEW -->
+    <section class="pricing-preview-section section-white">
+        <div class="container text-center">
+            <h2 class="section-title">Transparent Access</h2>
+            <div class="pricing-grid">
+
+                <div class="pricing-tier">
+                    <h3 class="tier-name">Pet Owners</h3>
+                    <p class="tier-price" style="font-size: 2.5rem; font-weight: 800; margin: 1.5rem 0;">Free</p>
+                    <p class="tier-details" style="margin: 0;">Basic label scanning and classification.</p>
+                </div>
+
+                <div class="pricing-tier">
+                    <h3 class="tier-name">Pet Owners (Pro)</h3>
+                    <p class="tier-price" style="font-size: 2.5rem; font-weight: 800; margin: 1.5rem 0;">$5<span
+                            style="font-size: 1.1rem; color: var(--primary-light); font-weight: 500;">/month</span></p>
+                    <p class="tier-details" style="margin: 0;">Formulation monitoring and history tracking.</p>
+                </div>
+
+                <div class="pricing-tier professional-tier" style="border: 2px solid var(--primary);">
+                    <h3 class="tier-name">Veterinary Clinics</h3>
+                    <p class="tier-price" style="font-size: 2.5rem; font-weight: 800; margin: 1.5rem 0;">$39<span
+                            style="font-size: 1.1rem; color: var(--primary-light); font-weight: 500;">/month</span></p>
+                    <p class="tier-details" style="margin: 0;">Professional Access. Multi-product monitoring and data
+                        export.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="logo">KibbleScan</div>
+            <div class="footer-links">
+                <a href="#" style="text-decoration: none; color: inherit;">Privacy Policy</a>
+                <a href="#" style="text-decoration: none; color: inherit;">Terms of Service</a>
+                <a href="#" style="text-decoration: none; color: inherit;">Contact</a>
+            </div>
+        </div>
+    </footer>
 
 </body>
 
