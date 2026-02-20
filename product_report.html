@@ -13,13 +13,30 @@
 <body style="background:#F1F5F9; color:#1E293B;">
     <div class="container">
         <!-- Infrastructure Nav -->
-        <nav class="navbar" style="padding:1rem 0;">
-            <a href="index.html" class="logo" style="font-size:1.1rem;">KibbleScan</a>
-            <div class="nav-right" style="gap:1rem;">
-                <a href="registry.html" class="nav-link">Registry</a>
-                <a href="scan.html" class="nav-btn" style="padding:8px 16px; font-size:0.8rem;">Start Scan</a>
-            </div>
-        </nav>
+        <div class="container">
+<div class="container nav-container">
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="logo.svg" alt="KibbleScan Logo" class="logo-img">
+            KibbleScan
+        </a>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-btn" aria-label="Toggle Navigation" onclick="document.getElementById('navMenu').classList.toggle('active')">
+            <ion-icon name="menu-outline"></ion-icon>
+        </button>
+
+        <div class="nav-right" id="navMenu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="scan.html" class="nav-link">Scan</a>
+            <a href="access.html" class="nav-link">Monitoring</a>
+            <a href="clinical.html" class="nav-link" style="color: #64748B; font-weight: 500;">For Clinics</a>
+            <a href="access.html" class="nav-link">Pricing</a>
+            <a href="protocol.html" class="nav-link">Protocol</a>
+        </div>
+    </nav>
+</div>
+</div>
 
         <div
             style="max-width:800px; margin:2rem auto; background:white; box-shadow:0 10px 30px -5px rgba(0,0,0,0.1); border-radius:4px; overflow:hidden;">

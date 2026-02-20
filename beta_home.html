@@ -13,13 +13,29 @@
 <body>
 
     <!-- NAVBAR -->
-    <header class="navbar container">
-        <a href="/" class="logo"><img src="logo.svg" alt="KibbleScan Logo" class="logo-img"> KibbleScan</a>
-        <div class="nav-right">
-            <a href="clinical.html" class="nav-link">For Clinics</a>
-            <a href="access.html" class="nav-btn">Log In</a>
+    <!-- NAVBAR -->
+<div class="container nav-container">
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="logo.svg" alt="KibbleScan Logo" class="logo-img">
+            KibbleScan
+        </a>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-btn" aria-label="Toggle Navigation" onclick="document.getElementById('navMenu').classList.toggle('active')">
+            <ion-icon name="menu-outline"></ion-icon>
+        </button>
+
+        <div class="nav-right" id="navMenu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="scan.html" class="nav-link">Scan</a>
+            <a href="access.html" class="nav-link">Monitoring</a>
+            <a href="clinical.html" class="nav-link" style="color: #64748B; font-weight: 500;">For Clinics</a>
+            <a href="access.html" class="nav-link">Pricing</a>
+            <a href="protocol.html" class="nav-link">Protocol</a>
         </div>
-    </header>
+    </nav>
+</div>
 
     <!-- 1. HERO SECTION -->
     <section class="hero-section soft-gradient-bg section">
