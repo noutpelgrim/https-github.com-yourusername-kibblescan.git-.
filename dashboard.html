@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Cache Control -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Monitoring Dashboard - KibbleScan</title>
+    <link rel="stylesheet" href="style.css?v=7.0">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</head>
+
+<body style="background:#F8FAFC; color:#1E293B;">
+
+    <!-- NAVBAR -->
+    <div class="container nav-container">
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="logo.svg" alt="KibbleScan Logo" class="logo-img">
+            KibbleScan
+        </a>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-btn" aria-label="Toggle Navigation" onclick="document.getElementById('navMenu').classList.toggle('active')">
+            <ion-icon name="menu-outline"></ion-icon>
+        </button>
+
+        <div class="nav-right" id="navMenu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="scan.html" class="nav-link">Scan</a>
+            <a href="dashboard.html" class="nav-link">Monitoring</a>
+            <a href="clinical.html" class="nav-link" style="color: #64748B; font-weight: 500;">For Clinics</a>
+            <a href="access.html" class="nav-link">Pricing</a>
+            <a href="protocol.html" class="nav-link">Protocol</a>
+        </div>
+    </nav>
+</div>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <div class="container" style="padding-top: 3rem; padding-bottom: 5rem;">
+
+        <header style="margin-bottom: 2rem;">
+            <h1 style="font-size: 2rem; margin-bottom: 0.5rem; letter-spacing: -0.02em;">Product Monitoring</h1>
+            <p style="color: #64748B; font-size: 1.1rem; max-width: 600px;">
+                Track commercial formulations for your pet. We actively monitor these recipes for silent ingredient
+                changes or new veterinary warnings.
+            </p>
+        </header>
+
+        <div class="dashboard-grid">
+
+            <!-- Card 1 -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <h3 class="dashboard-card-title">Purina Pro Plan Sensitive Skin & Stomach Salmon</h3>
+                    <div class="dashboard-card-badge badge-safe">
+                        <ion-icon name="shield-checkmark"></ion-icon> Verified
+                    </div>
+                </div>
+
+                <div class="dashboard-card-body">
+                    <div class="dashboard-meta-row">
+                        <div class="dashboard-meta-label">
+                            <ion-icon name="time-outline"></ion-icon> Last Scanned
+                        </div>
+                        <div class="dashboard-meta-value">Oct 24, 2026</div>
+                    </div>
+                    <div class="dashboard-meta-row">
+                        <div class="dashboard-meta-label">
+                            <ion-icon name="analytics-outline"></ion-icon> Formulation Status
+                        </div>
+                        <div class="dashboard-meta-value status-no-change">Stable (No Changes)</div>
+                    </div>
+                </div>
+
+                <button class="btn-ghost-remove" onclick="this.parentElement.style.display='none'">
+                    <ion-icon name="trash-outline"></ion-icon> Stop Tracking
+                </button>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <h3 class="dashboard-card-title">Hills Science Diet Puppy Large Breed Chicken</h3>
+                    <div class="dashboard-card-badge badge-safe">
+                        <ion-icon name="shield-checkmark"></ion-icon> Verified
+                    </div>
+                </div>
+
+                <div class="dashboard-card-body">
+                    <div class="dashboard-meta-row">
+                        <div class="dashboard-meta-label">
+                            <ion-icon name="time-outline"></ion-icon> Last Scanned
+                        </div>
+                        <div class="dashboard-meta-value">Nov 02, 2026</div>
+                    </div>
+                    <div class="dashboard-meta-row">
+                        <div class="dashboard-meta-label">
+                            <ion-icon name="analytics-outline"></ion-icon> Formulation Status
+                        </div>
+                        <div class="dashboard-meta-value status-no-change">Stable (No Changes)</div>
+                    </div>
+                </div>
+
+                <button class="btn-ghost-remove" onclick="this.parentElement.style.display='none'">
+                    <ion-icon name="trash-outline"></ion-icon> Stop Tracking
+                </button>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <h3 class="dashboard-card-title">Blue Buffalo Life Protection Formula Adult Beef</h3>
+                    <div class="dashboard-card-badge badge-warn">
+                        <ion-icon name="alert-circle"></ion-icon> Formulation Drift
+                    </div>
+                </div>
+
+                <div class="dashboard-card-body">
+                    <div class="dashboard-meta-row">
+                        <div class="dashboard-meta-label">
+                            <ion-icon name="time-outline"></ion-icon> Last Scanned
+                        </div>
+                        <div class="dashboard-meta-value">Nov 15, 2026</div>
+                    </div>
+                    <div class="dashboard-meta-row">
+                        <div class="dashboard-meta-label">
+                            <ion-icon name="analytics-outline"></ion-icon> Formulation Status
+                        </div>
+                        <div class="dashboard-meta-value status-drift">Recipe Changed</div>
+                    </div>
+                </div>
+
+                <button class="btn-ghost-remove" onclick="this.parentElement.style.display='none'">
+                    <ion-icon name="trash-outline"></ion-icon> Stop Tracking
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer style="background:white; border-top:1px solid #E2E8F0; padding:2rem 0; margin-top:2rem;">
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-weight:700; font-size:0.9rem;">KibbleScan.</div>
+            <div style="font-size:0.8rem; color:#64748B; text-align:right;">
+                <div style="margin-bottom:4px;">&copy; 2026 Independent Standard. No Industry Conflict.</div>
+                <div>Data provided for clinical reference. <strong>Consult a Veterinarian.</strong></div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
