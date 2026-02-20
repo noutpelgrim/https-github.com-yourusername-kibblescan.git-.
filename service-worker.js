@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kibblescan-v8.0';
+const CACHE_NAME = 'kibblescan-v8.13';
 const ASSETS_TO_CACHE = [
     '/',
     '/index.html',
