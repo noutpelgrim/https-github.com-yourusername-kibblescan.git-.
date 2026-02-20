@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kibblescan-v8.16';
+const CACHE_NAME = 'kibblescan-v8.17';
 const ASSETS_TO_CACHE = [
     '/',
     '/index.html',
@@ -8,7 +8,8 @@ const ASSETS_TO_CACHE = [
     '/protocol.html',
     '/style.css',
     '/app.js',
-    '/manifest.json'
+    '/manifest.json',
+    '/logo.svg'
 ];
 
 // 1. INSTALL: Cache Core Assets
