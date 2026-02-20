@@ -239,7 +239,17 @@ function initScanFlow() {
 
     if (monitorBtn) {
         monitorBtn.addEventListener('click', () => {
-            alert("MONITORING REQUIRED\n\n'Drift Detection' monitors this formula for silent recipe changes.\nEnable monitoring to access this feature.");
+            const upgradeModal = document.getElementById('upgrade-modal');
+            if (upgradeModal) upgradeModal.classList.remove('hidden');
+        });
+    }
+
+    // Modal Dismiss Trigger
+    const closeUpgradeBtn = document.getElementById('btn-close-upgrade-modal');
+    if (closeUpgradeBtn) {
+        closeUpgradeBtn.addEventListener('click', () => {
+            const upgradeModal = document.getElementById('upgrade-modal');
+            if (upgradeModal) upgradeModal.classList.add('hidden');
         });
     }
 }
