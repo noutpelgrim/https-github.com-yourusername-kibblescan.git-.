@@ -762,6 +762,7 @@ p {
         letter-spacing: -0.05em;
         background: -webkit-linear-gradient(45deg, #0F172A, #334155);
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
@@ -850,6 +851,106 @@ p {
 
     .log-status.alert {
         color: var(--risk);
+    }
+
+    /* =========================================
+       NEW SCAN RESULT LAYOUT (Mobile-First)
+       ========================================= */
+
+    /* Classification Badge */
+    .classification-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border-radius: 100px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+    }
+
+    .badge-safe {
+        background: rgba(16, 185, 129, 0.1);
+        color: #10B981;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .badge-warn {
+        background: rgba(234, 179, 8, 0.1);
+        color: #EAB308;
+        border: 1px solid rgba(234, 179, 8, 0.2);
+    }
+
+    .badge-risk {
+        background: rgba(239, 68, 68, 0.1);
+        color: #EF4444;
+        border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    /* Ingredient Accordion */
+    .ingredient-accordion {
+        background: white;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .accordion-header {
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        background: white;
+        user-select: none;
+    }
+
+    .accordion-header:hover {
+        background: #F8FAFC;
+    }
+
+    .accordion-title {
+        font-weight: 600;
+        color: #1E293B;
+        text-transform: capitalize;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1rem;
+    }
+
+    .accordion-icon {
+        font-size: 1.25rem;
+        transition: transform 0.3s ease;
+        color: #94A3B8;
+    }
+
+    .ingredient-accordion.open .accordion-icon {
+        transform: rotate(180deg);
+    }
+
+    .accordion-body {
+        padding: 0 16px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        background: #F8FAFC;
+        border-top: 1px solid transparent;
+        font-size: 0.9rem;
+        color: #475569;
+        line-height: 1.5;
+    }
+
+    .ingredient-accordion.open .accordion-body {
+        padding: 16px;
+        max-height: 300px;
+        /* Arbitrary large height to allow expansion */
+        border-top-color: #E2E8F0;
     }
 
     /* FOOTER */

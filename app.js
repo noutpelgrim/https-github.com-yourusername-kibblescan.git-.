@@ -115,98 +115,86 @@ function initScanFlow() {
     }
 
     // -----------------------------------------------------
-    // UTILITY: Render Results
-    // -----------------------------------------------------
-    // -----------------------------------------------------
-    // UTILITY: Render Results (Premium Upgrade)
+    // UTILITY: Render Results (Mobile-First UI)
     // -----------------------------------------------------
     function renderResult(outcome, confidence, ingredients) {
-        // Reset State
-        const resultHeader = document.getElementById('result-header');
 
-        // Apply Glass Card Style
-        if (resultHeader) {
-            resultHeader.className = 'glass-card'; // Removes inline styles if any, or add to list
-            resultHeader.style.textAlign = 'center';
-            resultHeader.style.padding = '30px';
-            resultHeader.style.marginBottom = '20px';
-        }
+        // 1. Classification Badge
+        const badgeContainer = document.getElementById('badge-container');
+        if (badgeContainer) {
+            let badgeClass = 'badge-warn';
+            let badgeIcon = 'alert-circle';
+            let badgeText = 'ANALYZING';
 
-        let iconHtml = '';
-        let verdictHtml = '';
-        let subtextHtml = '';
+            if (outcome === 'VERIFIED' || outcome === 'COMPLIANT') {
+                badgeClass = 'badge-safe';
+                badgeIcon = 'shield-checkmark';
+                badgeText = 'VERIFIED SAFE';
+            } else if (outcome === 'NON_COMPLIANT' || outcome === 'RESTRICTED') {
+                badgeClass = 'badge-risk';
+                badgeIcon = 'warning';
+                badgeText = 'RESTRICTED LIST';
+            }
 
-        if (outcome === 'VERIFIED' || outcome === 'COMPLIANT') {
-            // GREEN SHIELD
-            iconHtml = `<div class="outcome-icon icon-pulse-green" style="background:rgba(16, 185, 129, 0.1); color:#10B981;">
-                <ion-icon name="shield-checkmark"></ion-icon>
-            </div>`;
-            verdictHtml = `<div class="result-verdict-large" style="color:#10B981;">VERIFIED</div>`;
-            subtextHtml = `<div style="color:#475569; font-weight:500;">Safe for consumption.</div>`;
-        } else if (outcome === 'AMBIGUOUS' || outcome === 'UNKNOWN_FORMULATION') {
-            // YELLOW ALERT
-            iconHtml = `<div class="outcome-icon icon-blink-yellow" style="background:rgba(234, 179, 8, 0.1); color:#EAB308;">
-                <ion-icon name="alert-circle"></ion-icon>
-            </div>`;
-            verdictHtml = `<div class="result-verdict-large" style="color:#EAB308;">ANALYZING</div>`;
-            subtextHtml = `<div style="color:#475569;">Incomplete data detected.</div>`;
-        } else {
-            // RED WARNING
-            iconHtml = `<div class="outcome-icon" style="background:rgba(239, 68, 68, 0.1); color:#EF4444;">
-                <ion-icon name="warning"></ion-icon>
-            </div>`;
-            verdictHtml = `<div class="result-verdict-large" style="color:#EF4444;">RESTRICTED</div>`;
-            subtextHtml = `<div style="color:#475569;">Ingredients flagged.</div>`;
-        }
-
-        // Inject HTML
-        if (resultHeader) {
-            resultHeader.innerHTML = `
-                ${iconHtml}
-                ${verdictHtml}
-                ${subtextHtml}
-                <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; color:#94A3B8; margin-top:15px;">
-                    Confidence: ${(confidence * 100).toFixed(0)}%
+            badgeContainer.innerHTML = `
+                <div class="classification-badge ${badgeClass}">
+                    <ion-icon name="${badgeIcon}"></ion-icon> ${badgeText}
                 </div>
             `;
         }
 
-        // Render Ingredient List with Stagger
+        // 2. Confidence Score Update
+        const scoreElem = document.getElementById('confidence-score');
+        if (scoreElem) {
+            scoreElem.innerText = `${(confidence * 100).toFixed(0)}% Match`;
+        }
+
+        // 3. Render Ingredient Accordion
         const resultFindings = document.getElementById('result-findings');
         if (resultFindings) {
             resultFindings.innerHTML = '';
-            resultFindings.style.background = 'transparent'; // Remove white bg for glass feel
-            resultFindings.style.border = 'none';
 
             if (ingredients && ingredients.length > 0) {
                 ingredients.forEach((ing, index) => {
-                    const li = document.createElement('div'); // Div for better control
-                    li.className = 'stagger-entry';
-                    li.style.animationDelay = `${index * 50}ms`;
-                    li.style.background = 'white';
-                    li.style.marginBottom = '8px';
-                    li.style.padding = '12px 16px';
-                    li.style.borderRadius = '12px';
-                    li.style.display = 'flex';
-                    li.style.justifyContent = 'space-between';
-                    li.style.alignItems = 'center';
-                    li.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
+                    const accordion = document.createElement('div');
+                    accordion.className = 'ingredient-accordion stagger-entry';
+                    accordion.style.animationDelay = `${index * 50}ms`;
 
-                    let statusIcon = '<ion-icon name="checkmark-circle" style="color:#CBD5E1;"></ion-icon>';
-                    if (ing.flagged) statusIcon = '<ion-icon name="alert-circle" style="color:#EF4444;"></ion-icon>';
+                    let statusIcon = '<ion-icon name="checkmark-circle" style="color:#10B981;"></ion-icon>';
+                    let explanation = "This ingredient complies with standard veterinary nutritional guidelines.";
 
-                    li.innerHTML = `
-                        <span style="font-weight:600; color:#1E293B; text-transform:capitalize;">${ing.name}</span>
-                        ${statusIcon}
+                    if (ing.flagged) {
+                        statusIcon = '<ion-icon name="warning" style="color:#EF4444;"></ion-icon>';
+                        explanation = "Flagged: This ingredient may be restricted or require veterinary consultation based on current dietary protocols.";
+                    }
+
+                    // For the mockup: We'll fake a more detailed explanation if the API didn't provide one
+                    const details = ing.explanation || explanation;
+
+                    accordion.innerHTML = `
+                        <div class="accordion-header">
+                            <div class="accordion-title">
+                                ${statusIcon} ${ing.name}
+                            </div>
+                            <ion-icon class="accordion-icon" name="chevron-down-outline"></ion-icon>
+                        </div>
+                        <div class="accordion-body">
+                            <p>${details}</p>
+                        </div>
                     `;
-                    resultFindings.appendChild(li);
+
+                    // Toggle logic
+                    const header = accordion.querySelector('.accordion-header');
+                    header.addEventListener('click', () => {
+                        accordion.classList.toggle('open');
+                    });
+
+                    resultFindings.appendChild(accordion);
                 });
             } else {
-                resultFindings.innerHTML = '<div style="text-align:center; padding:20px; color:#94A3B8;">No data extracted.</div>';
+                resultFindings.innerHTML = '<div style="text-align:center; padding:30px; color:#94A3B8; background:white; border-radius:12px; border:1px solid #E2E8F0;">No ingredients extracted.</div>';
             }
         }
-
-
     }
 
     // -----------------------------------------------------

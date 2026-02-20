@@ -98,36 +98,45 @@
                     </div>
 
                     <!-- STATE 3: RESULT (Hidden) -->
-                    <div id="scan-result" style="display:none;">
+                    <div id="scan-result" style="display:none; padding-bottom: 2rem;">
                         <button id="btn-reset" onclick="location.reload()"
-                            style="background:none; border:none; color:#64748B; font-size:0.85rem; margin-bottom:1rem; cursor:pointer; padding:0;">←
-                            New Audit</button>
+                            style="background:none; border:none; color:#64748B; font-size:0.85rem; margin-bottom:1rem; cursor:pointer; padding:0; display: flex; align-items: center; gap: 4px;">
+                            <ion-icon name="arrow-back-outline"></ion-icon> New Audit
+                        </button>
 
-                        <div id="result-header"
-                            style="background:white; border-radius:16px; padding:20px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom:1.5rem; text-align:center;">
-                            <h2 id="result-verdict" style="font-size:1.8rem; font-weight:800; margin:0 0 8px 0;">VERDICT
-                            </h2>
-                            <p id="result-subtext" style="margin:0; font-size:0.9rem;">Analysis Complete.</p>
+                        <div id="result-header" style="text-align:center; margin-bottom:1.5rem;">
+                            <!-- JS Inject Classification Badge Here -->
+                            <div id="badge-container"></div>
 
-                            <!-- Stamp -->
-                            <div id="result-stamp"
-                                style="margin:16px auto 0 auto; width:60px; height:60px; border:3px solid; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:0.7rem; transform:rotate(-15deg); opacity:0.3;">
-                                AUDIT
-                            </div>
+                            <h2 style="font-size:1.5rem; font-weight:800; margin:10px 0 4px 0;">Analysis Complete</h2>
+                            <p id="result-subtext" style="color:#64748B; font-size:0.95rem; margin:0;">Review the
+                                identified recipe elements.</p>
                         </div>
 
                         <div
-                            style="font-size:0.75rem; text-transform:uppercase; color:#94A3B8; margin-bottom:0.8rem; font-weight:700;">
-                            Full Findings</div>
-                        <div id="result-findings"
-                            style="background:white; border-radius:12px; overflow:hidden; border:1px solid #E2E8F0;">
-                            <!-- Injected Content -->
+                            style="font-size:0.8rem; text-transform:uppercase; color:#94A3B8; margin-bottom:0.8rem; font-weight:700; display: flex; justify-content: space-between; align-items: center;">
+                            <span>Identified Ingredients</span>
+                            <span id="confidence-score" style="font-weight: 500;">99% Match</span>
                         </div>
 
+                        <div id="result-findings" style="margin-bottom: 2rem;">
+                            <!-- Injected Accordion Content goes here -->
+                        </div>
 
-
-                        <button onclick="location.reload()" class="btn-primary"
-                            style="width:100%; margin-top:1rem; justify-content:center;">Finish Audit</button>
+                        <div
+                            style="background: white; border: 1px solid #E2E8F0; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                            <div class="icon-pulse-green"
+                                style="width: 48px; height: 48px; border-radius: 50%; background: #ECFDF5; color: #10B981; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 12px auto;">
+                                <ion-icon name="notifications"></ion-icon>
+                            </div>
+                            <h3 style="font-size: 1.1rem; color: #1E293B; margin-bottom: 8px;">Track Formula Changes
+                            </h3>
+                            <p style="font-size: 0.9rem; color: #64748B; margin-bottom: 16px;">We'll automatically alert
+                                you if the manufacturer silently changes this recipe.</p>
+                            <button id="btn-monitor-drift" class="btn-primary"
+                                style="width:100%; justify-content:center; box-shadow: 0 4px 12px rgba(10, 37, 64, 0.1);">Add
+                                to Monitoring</button>
+                        </div>
                     </div>
 
                     <!-- STATE 4: ERROR / UNKNOWN (Simplified) -->
