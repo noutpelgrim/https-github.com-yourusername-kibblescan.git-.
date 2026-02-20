@@ -1227,33 +1227,36 @@ p {
 }
 
 /* =========================================
-   NEW HOMEPAGE STYLES (Appealing SaaS Redesign)
+/* =========================================
+   NEW HOMEPAGE STYLES (D2C Pet Brand Aesthetic / Pawdy Style)
    ========================================= */
 
 /* Spacing and Backgrounds */
 .section {
-    padding: 8rem 0;
+    padding: 7rem 0;
 }
 
 @media (max-width: 768px) {
     .section {
-        padding: 5rem 0;
+        padding: 4rem 0;
     }
 }
 
+/* Warm, inviting backgrounds */
 .soft-gradient-bg {
-    background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
-    border-bottom: 1px solid #BAE6FD;
+    background: #FFF9F2;
+    /* Very soft cream/warm off-white */
+    border-bottom: none;
 }
 
 .soft-blue-bg {
-    background: #F8FAFC;
-    border-top: 1px solid #E2E8F0;
-    border-bottom: 1px solid #E2E8F0;
+    background: #FDF4EB;
+    border-top: none;
+    border-bottom: none;
 }
 
 .soft-gray-bg {
-    background: #F1F5F9;
+    background: #FFF9F2;
 }
 
 .max-w-lg {
@@ -1264,31 +1267,37 @@ p {
 /* Hero */
 .hero-chip {
     display: inline-block;
-    background: white;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--primary);
+    background: #FFEDD5;
+    /* Soft orange */
+    padding: 8px 20px;
+    border-radius: 100px;
+    /* Fully rounded pill */
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #C2410C;
+    /* Deep warm orange */
     margin-bottom: 2rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border: 1px solid #E2E8F0;
+    box-shadow: none;
+    border: none;
 }
 
 .hero-headline {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    font-weight: 800;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
     margin-bottom: 1.5rem;
-    color: #0F172A;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    color: #1E1B4B;
+    /* Very deep, warm navy/purple */
+    line-height: 1.05;
+    letter-spacing: -0.03em;
 }
 
 .hero-subheadline {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     line-height: 1.6;
-    color: #475569;
+    color: #4F46E5;
+    /* Playful blurple */
     margin-bottom: 3rem;
+    font-weight: 500;
 }
 
 .cta-group {
@@ -1299,46 +1308,59 @@ p {
 }
 
 .btn-large {
-    padding: 16px 32px;
-    font-size: 1.1rem;
-    border-radius: 8px;
-    font-weight: 600;
+    padding: 18px 40px;
+    font-size: 1.15rem;
+    border-radius: 100px;
+    /* Pill buttons */
+    font-weight: 800;
     text-decoration: none;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-block;
     text-align: center;
 }
 
-.btn-secondary {
-    background: white;
-    color: #0F172A;
-    border: 1px solid #CBD5E1;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.btn-secondary:hover {
-    background: #F8FAFC;
-    transform: translateY(-1px);
+.btn-primary {
+    background: #F97316;
+    /* Vibrant friendly orange */
+    color: white;
+    border: none;
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
 }
 
 .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+    background: #EA580C;
+}
+
+.btn-secondary {
+    background: white;
+    color: #1E1B4B;
+    border: 2px solid #E0E7FF;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.btn-secondary:hover {
+    background: #EEF2FF;
+    transform: translateY(-4px);
+    border-color: #C7D2FE;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
 }
 
 /* Section Titles */
 .section-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #0F172A;
+    font-size: 3rem;
+    font-weight: 900;
+    color: #1E1B4B;
     margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
 }
 
 .section-subtitle {
-    font-size: 1.2rem;
-    color: #64748B;
+    font-size: 1.25rem;
+    color: #4338CA;
     margin-bottom: 4rem;
+    font-weight: 500;
 }
 
 /* Steps */
@@ -1356,56 +1378,65 @@ p {
 
 .step-card {
     background: white;
-    padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    padding: 3rem 2.5rem;
+    border-radius: 32px;
+    /* Super rounded corners */
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04);
     text-align: left;
-    border: 1px solid #F1F5F9;
-    transition: transform 0.2s;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
 }
 
 .step-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    border-color: #FDBA74;
+    /* Soft orange border on hover */
+    box-shadow: 0 20px 40px -10px rgba(249, 115, 22, 0.15);
 }
 
 .step-number {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 800;
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-weight: 900;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
 }
 
 .step-green {
-    background: #D1FAE5;
-    color: #059669;
+    background: #A7F3D0;
+    color: #047857;
 }
 
+/* Mint */
 .step-blue {
-    background: #DBEAFE;
-    color: #2563EB;
+    background: #FDE68A;
+    color: #B45309;
 }
 
+/* Sunny Yellow */
 .step-purple {
-    background: #F3E8FF;
-    color: #9333EA;
+    background: #DDD6FE;
+    color: #6D28D9;
 }
 
+/* Soft Purple */
 .step-title {
-    font-size: 1.3rem;
-    margin-bottom: 0.75rem;
-    color: #0F172A;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1E1B4B;
+    font-weight: 800;
 }
 
 .step-description {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #64748B;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #4F46E5;
     margin: 0;
+    font-weight: 500;
 }
 
 /* Credibility */
@@ -1427,21 +1458,26 @@ p {
     align-items: flex-start;
     gap: 1rem;
     background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border: 1px solid #E2E8F0;
+    padding: 2rem;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03);
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.credibility-item:hover {
+    transform: translateY(-3px);
 }
 
 .credibility-icon {
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 .credibility-item p {
     margin: 0;
-    color: #334155;
-    font-weight: 500;
-    line-height: 1.5;
+    color: #4338CA;
+    font-weight: 600;
+    line-height: 1.6;
 }
 
 /* Audience Split */
@@ -1460,56 +1496,61 @@ p {
 }
 
 .audience-card {
-    padding: 3rem;
-    border-radius: 24px;
+    padding: 4rem 3rem;
+    border-radius: 40px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.2s;
+    transition: all 0.4s ease;
 }
 
 .audience-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
 }
 
 .pet-owners-card {
-    background: white;
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
-    border: 1px solid #E2E8F0;
+    background: #FEF3C7;
+    /* Soft yellow base */
+    box-shadow: 0 20px 40px -10px rgba(251, 191, 36, 0.2);
+    border: none;
 }
 
 .vet-clinics-card {
-    background: #0F172A;
+    background: #1E1B4B;
+    /* Deep warm navy */
     color: white;
-    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.3);
+    box-shadow: 0 20px 40px -10px rgba(30, 27, 75, 0.4);
 }
 
 .audience-pill {
     display: inline-block;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .green-pill {
-    background: #D1FAE5;
-    color: #059669;
+    background: #FDE68A;
+    color: #B45309;
 }
 
+/* Yellow pill on yellow card */
 .blue-pill {
-    background: #1E293B;
-    color: #38BDF8;
+    background: #4338CA;
+    color: white;
 }
 
+/* Purple pill on navy card */
 .audience-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 1rem;
-    font-weight: 800;
+    font-weight: 900;
     color: inherit;
+    letter-spacing: -0.02em;
 }
 
 .vet-clinics-card .audience-title {
@@ -1517,18 +1558,19 @@ p {
 }
 
 .pet-owners-card .audience-title {
-    color: #0F172A;
+    color: #1E1B4B;
 }
 
 .audience-desc {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    margin-bottom: 2rem;
-    color: #64748B;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    color: #92400E;
+    font-weight: 500;
 }
 
 .vet-clinics-card .audience-desc {
-    color: #94A3B8;
+    color: #A5B4FC;
 }
 
 .feature-list-vertical {
@@ -1542,44 +1584,52 @@ p {
 
 .feature-list-vertical li {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 500;
+    align-items: flex-start;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.pet-owners-card .feature-list-vertical li {
+    color: #78350F;
 }
 
 .check-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
+    min-width: 28px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    background: #D1FAE5;
-    color: #059669;
-    font-size: 0.8rem;
-    font-weight: bold;
+    background: #FCD34D;
+    color: #B45309;
+    font-size: 0.9rem;
+    font-weight: 900;
 }
 
 .check-light {
-    background: #1E293B;
-    color: #38BDF8;
+    background: #4338CA;
+    color: #C7D2FE;
 }
 
 .btn-white {
     background: white;
-    color: #0F172A;
-    padding: 16px;
-    border-radius: 8px;
-    font-weight: 600;
+    color: #1E1B4B;
+    padding: 18px;
+    border-radius: 100px;
+    font-weight: 800;
     text-decoration: none;
     display: block;
     text-align: center;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .btn-white:hover {
-    background: #F8FAFC;
-    transform: translateY(-1px);
+    background: #EEF2FF;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Pricing */
@@ -1589,6 +1639,7 @@ p {
     gap: 2rem;
     max-width: 1000px;
     margin: 0 auto;
+    padding-top: 2rem;
 }
 
 @media (min-width: 768px) {
@@ -1601,79 +1652,94 @@ p {
 .pricing-tier {
     background: white;
     padding: 3rem 2rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border: 1px solid #E2E8F0;
+    border-radius: 32px;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04);
+    border: none;
     text-align: center;
     display: flex;
     flex-direction: column;
     position: relative;
+    transition: all 0.3s ease;
+}
+
+.pricing-tier:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
 }
 
 .popular-tier {
-    border: 2px solid var(--primary);
+    border: 4px solid #F97316;
     transform: scale(1.05);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(249, 115, 22, 0.2);
     z-index: 10;
+}
+
+.popular-tier:hover {
+    transform: scale(1.05) translateY(-5px);
 }
 
 .popular-badge {
     position: absolute;
-    top: -12px;
+    top: -16px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--primary);
+    background: #F97316;
     color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
+    padding: 6px 20px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
 }
 
 .tier-name {
-    font-size: 1.25rem;
-    color: #0F172A;
+    font-size: 1.5rem;
+    color: #1E1B4B;
     margin-bottom: 1rem;
-    font-weight: 700;
+    font-weight: 900;
 }
 
 .tier-price {
-    font-size: 3rem;
-    font-weight: 800;
-    color: #0F172A;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #F97316;
+    margin-bottom: 0.5rem;
     line-height: 1;
+    letter-spacing: -0.05em;
 }
 
 .tier-period {
     font-size: 1.1rem;
-    color: #64748B;
-    font-weight: 500;
+    color: #A8A29E;
+    font-weight: 600;
+    letter-spacing: 0;
 }
 
 .tier-details {
-    color: #64748B;
-    margin-bottom: 2rem;
-    line-height: 1.5;
-    font-size: 0.95rem;
+    color: #78716C;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    font-weight: 500;
 }
 
 .btn-outline {
-    background: transparent;
-    color: #0F172A;
-    border: 1px solid #CBD5E1;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 600;
+    background: #FFF7ED;
+    color: #EA580C;
+    border: none;
+    padding: 18px;
+    border-radius: 100px;
+    font-weight: 800;
     text-decoration: none;
     display: block;
     text-align: center;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
 }
 
 .btn-outline:hover {
-    background: #F8FAFC;
-    border-color: #94A3B8;
+    background: #FFEDD5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.1);
 }
