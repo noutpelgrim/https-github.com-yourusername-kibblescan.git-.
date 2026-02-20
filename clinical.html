@@ -4,267 +4,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clinical Portal - KibbleScan</title>
-    <link rel="stylesheet" href="style.css">
+    <title>KibbleScan Professional Access</title>
+    <link rel="stylesheet" href="style.css?v=13.0">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-</head>
-
-<body style="background:#F8FAFC; color:#1E293B;">
-    <div class="container">
-        <!-- Infrastructure Nav -->
-        <nav class="navbar" style="padding:1rem 0;">
-            <a href="index.html" class="logo" style="font-size:1.1rem;">KibbleScan</a>
-            <div class="nav-right" style="gap:1rem;">
-                <a href="registry.html" class="nav-link">Registry</a>
-                <a href="access.html" class="nav-link">Access</a>
-            </div>
-        </nav>
-
-        <!-- HERO SECTION -->
-        <div style="padding:5rem 0 4rem 0; max-width:800px;">
-            <div
-                style="display:inline-block; background:#F1F5F9; padding:6px 12px; border-radius:4px; font-size:0.75rem; color:#64748B; font-weight:600; margin-bottom:1.5rem; letter-spacing:0.05em;">
-                VETERINARY DIVISION
-            </div>
-            <h1 style="font-size:2.5rem; margin-bottom:1.5rem; color:#1E293B; letter-spacing:-0.03em; line-height:1.2;">
-                Independent Ingredient Surveillance<br>for Veterinary Practice.
-            </h1>
-            <p style="font-size:1.1rem; line-height:1.6; color:#475569; max-width:600px;">
-                A unified diagnostic layer for commercial pet food. Verify formulations against the Global Toxicology
-                Registry without industry interference.
-            </p>
-            <div style="margin-top:2rem;">
-                <button onclick="openRequestModal()" class="btn-primary"
-                    style="border-radius:6px; padding:14px 24px; font-size:1rem;">
-                    Request Clinical Access
-                </button>
-            </div>
-        </div>
-
-        <!-- 3-COLUMN GRID: CONTEXT -->
-        <div
-            style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:3rem; margin-bottom:6rem; border-top:1px solid #E2E8F0; padding-top:4rem;">
-
-            <!-- COL 1: Why It Exists -->
-            <div>
-                <h3
-                    style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; color:#94A3B8; margin-bottom:1rem;">
-                    01. Why It Exists
-                </h3>
-                <p style="font-size:0.95rem; color:#475569; line-height:1.6;">
-                    Clinical diet recommendations are often undermined by silent formulation changes in over-the-counter
-                    products. Manufacturers are not legally required to notify practitioners of ingredient drift. This
-                    platform fills that informational gap.
-                </p>
-            </div>
-
-            <!-- COL 2: How It Works -->
-            <div>
-                <h3
-                    style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; color:#94A3B8; margin-bottom:1rem;">
-                    02. How It Works
-                </h3>
-                <p style="font-size:0.95rem; color:#475569; line-height:1.6;">
-                    We utilize optical surveillance to track 12,000+ formulations. When a client scans a product, it is
-                    cross-referenced against expected values. Deviations (Drift) are flagged immediately for clinical
-                    review.
-                </p>
-            </div>
-
-            <!-- COL 3: Designed For -->
-            <div>
-                <h3
-                    style="font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em; color:#94A3B8; margin-bottom:1rem;">
-                    03. Designed For
-                </h3>
-                <ul
-                    style="list-style:none; padding:0; margin:0; font-size:0.95rem; color:#475569; display:grid; gap:8px;">
-                    <li style="display:flex; gap:10px; align-items:center;">
-                        <ion-icon name="medkit-outline" style="color:#64748B;"></ion-icon> Veterinary Dermatologists
-                    </li>
-                    <li style="display:flex; gap:10px; align-items:center;">
-                        <ion-icon name="flask-outline" style="color:#64748B;"></ion-icon> Internal Medicine Specialists
-                    </li>
-                    <li style="display:flex; gap:10px; align-items:center;">
-                        <ion-icon name="nutrition-outline" style="color:#64748B;"></ion-icon> Integrative Nutritionists
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- WHAT IT IS NOT (Clarification) -->
-        <div
-            style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:3rem; margin-bottom:6rem; display:grid; grid-template-columns: 1fr 2fr; gap:2rem;">
-            <div>
-                <h2 style="font-size:1.5rem; margin-bottom:1rem; color:#1E293B;">Scope Limitations.</h2>
-                <p style="color:#64748B; font-size:0.9rem;">Essential distinctions for clinical application.</p>
-            </div>
-            <div style="display:grid; gap:1.5rem;">
-                <div style="display:flex; gap:16px;">
-                    <ion-icon name="close-circle-outline"
-                        style="font-size:1.5rem; color:#94A3B8; flex-shrink:0;"></ion-icon>
-                    <div>
-                        <strong style="display:block; color:#1E293B; margin-bottom:4px;">Not a Replacement for
-                            Prescription Diets</strong>
-                        <span style="font-size:0.9rem; color:#64748B; line-height:1.5;">This tool audits commercial OTC
-                            consistency. It does not formulate therapeutic diets or replace hydrolyzed protein
-                            protocols.</span>
-                    </div>
-                </div>
-                <div style="display:flex; gap:16px;">
-                    <ion-icon name="close-circle-outline"
-                        style="font-size:1.5rem; color:#94A3B8; flex-shrink:0;"></ion-icon>
-                    <div>
-                        <strong style="display:block; color:#1E293B; margin-bottom:4px;">Not Funded by Industry</strong>
-                        <span style="font-size:0.9rem; color:#64748B; line-height:1.5;">We accept no grants, samples, or
-                            "educational" funding from pet food manufacturers. Data is strictly objective.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ACCESS & PRICING -->
-        <div style="margin-bottom:6rem;">
-            <div style="text-align:center; margin-bottom:3rem;">
-                <h2 style="font-size:2rem; margin-bottom:1rem; color:#1E293B;">Clinical Access</h2>
-                <p style="color:#64748B; max-width:500px; margin:0 auto;">
-                    Standardized pricing for independent practices.
-                </p>
-            </div>
-
-            <div
-                style="background:#1E293B; color:white; border-radius:12px; padding:3rem; max-width:900px; margin:0 auto; display:grid; grid-template-columns: 1fr 1fr; gap:4rem; align-items:center;">
-
-                <!-- FEATURES -->
-                <div>
-                    <h3
-                        style="font-size:1.1rem; color:white; margin-bottom:1.5rem; border-bottom:1px solid #334155; padding-bottom:1rem; display:inline-block;">
-                        Infrastructure Includes
-                    </h3>
-                    <ul
-                        style="list-style:none; padding:0; margin:0; display:grid; gap:16px; font-size:1rem; color:#E2E8F0;">
-                        <li style="display:flex; gap:12px; align-items:center;">
-                            <ion-icon name="document-text-outline" style="color:#22D3EE;"></ion-icon> White-Label
-                            Patient Reports (PDF)
-                        </li>
-                        <li style="display:flex; gap:12px; align-items:center;">
-                            <ion-icon name="search-outline" style="color:#22D3EE;"></ion-icon> Batch Formulation Lookup
-                        </li>
-                        <li style="display:flex; gap:12px; align-items:center;">
-                            <ion-icon name="git-network-outline" style="color:#22D3EE;"></ion-icon> Historical Drift
-                            Tracking
-                        </li>
-                        <li style="display:flex; gap:12px; align-items:center;">
-                            <ion-icon name="shield-checkmark-outline" style="color:#22D3EE;"></ion-icon> Priority
-                            Support
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- PRICE -->
-                <div style="text-align:center; border-left:1px solid #334155; padding-left:2rem;">
-                    <div style="font-size:3.5rem; font-weight:700; line-height:1;">$39</div>
-                    <div style="font-size:1.1rem; color:#94A3B8; margin-bottom:2rem;">per month / location</div>
-
-                    <button onclick="openRequestModal()"
-                        style="background:white; color:#0F172A; border:none; padding:16px 32px; border-radius:6px; font-weight:700; font-size:1rem; cursor:pointer; width:100%;">
-                        Request Access
-                    </button>
-                    <div style="font-size:0.8rem; color:#64748B; margin-top:1rem;">
-                        No long-term contract. Cancel anytime.
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
-    <!-- FOOTER -->
-    <footer style="border-top:1px solid #E2E8F0; padding:2rem 0; margin-top:4rem;">
-        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
-            <div style="font-weight:700; font-size:0.9rem;">KibbleScan Clinical.</div>
-            <div style="font-size:0.8rem; color:#64748B; text-align:right;">
-                <div style="margin-bottom:4px;">&copy; 2026 Independent Standard.</div>
-                <div>Professional Diagnostic Tool.</div>
-            </div>
-        </div>
-    </footer>
-    <!-- REQUEST MODAL -->
-    <dialog id="clinical-modal"
-        style="border:none; border-radius:12px; padding:2rem; width:100%; max-width:450px; box-shadow:var(--shadow-card);">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-            <h3 style="margin:0; color:#1E293B;">Request Access</h3>
-            <button onclick="document.getElementById('clinical-modal').close()"
-                style="background:none; border:none; cursor:pointer; font-size:1.5rem; color:#94A3B8;">&times;</button>
-        </div>
-
-        <form id="clinical-form" onsubmit="submitClinicalRequest(event)">
-            <div style="margin-bottom:1rem;">
-                <label style="display:block; font-size:0.85rem; color:#64748B; margin-bottom:4px;">Practitioner
-                    Name</label>
-                <input type="text" name="name" required
-                    style="width:100%; padding:10px; border:1px solid #CBD5E1; border-radius:6px;">
-            </div>
-            <div style="margin-bottom:1rem;">
-                <label style="display:block; font-size:0.85rem; color:#64748B; margin-bottom:4px;">Clinic Name</label>
-                <input type="text" name="clinic" required
-                    style="width:100%; padding:10px; border:1px solid #CBD5E1; border-radius:6px;">
-            </div>
-            <div style="margin-bottom:1.5rem;">
-                <label style="display:block; font-size:0.85rem; color:#64748B; margin-bottom:4px;">Professional
-                    Email</label>
-                <input type="email" name="email" required
-                    style="width:100%; padding:10px; border:1px solid #CBD5E1; border-radius:6px;">
-            </div>
-            <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:12px;">Submit
-                Application</button>
-        </form>
-    </dialog>
-
-    <script>
-        function openRequestModal() {
-            document.getElementById('clinical-modal').showModal();
+    <style>
+        /* Clinical Page Specific Styles - overriding playful D2C variables for a structured tone */
+        body {
+            background-color: #F8FAFC;
+            /* Slate 50 - Clinical clean */
+            color: #0F172A;
+            /* Slate 900 */
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
-        async function submitClinicalRequest(e) {
-            e.preventDefault();
-            const form = e.target;
-            const btn = form.querySelector('button');
-            const originalText = btn.innerText;
+        .clinical-hero {
+            background-color: #1E1B4B;
+            /* Deep Navy */
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
 
-            btn.innerText = "Processing...";
-            btn.disabled = true;
+        .clinical-hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
 
-            const payload = {
-                name: form.name.value,
-                clinic: form.clinic.value,
-                email: form.email.value
-            };
+        .clinical-hero p {
+            font-size: 1.15rem;
+            color: #A5B4FC;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
 
-            try {
-                const res = await fetch('/api/clinical/request', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
 
-                if (res.ok) {
-                    alert("Application Received.\n\nA regional director will contact you periodically.");
-                    document.getElementById('clinical-modal').close();
-                    form.reset();
-                } else {
-                    alert("Error submitting request.");
-                }
-            } catch (err) {
-                console.error(err);
-                alert("Network Error.");
-            } finally {
-                btn.innerText = originalText;
-                btn.disabled = false;
+        .section-heading {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            color: #1E1B4B;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #E2E8F0;
+            padding-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .clinical-card {
+            background: white;
+            border-radius: 8px;
+            /* Sharper, more professional corners */
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+            margin-bottom: 3rem;
+        }
+
+        /* Features & Use Cases Grids */
+        .clinical-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .clinical-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
-    </script>
+
+        .grid-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .grid-icon {
+            color: #4F46E5;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .grid-text {
+            font-size: 1rem;
+            color: #334155;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* Pricing Section */
+        .pricing-box {
+            background: #F1F5F9;
+            border: 1px solid #CBD5E1;
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .price-amount {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #0F172A;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-terms {
+            font-size: 0.95rem;
+            color: #64748B;
+            margin-bottom: 2rem;
+        }
+
+        .btn-subscribe {
+            background: #1E1B4B;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-subscribe:hover {
+            background: #312E81;
+        }
+
+        /* Disclaimer */
+        .disclaimer-box {
+            background: #FEF2F2;
+            border-left: 4px solid #EF4444;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            color: #7F1D1D;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar container" style="padding: 1.5rem 2rem; max-width: 1200px;">
+        <a href="/" class="logo"><img src="logo.svg" alt="KibbleScan Logo" class="logo-img"> KibbleScan</a>
+        <div class="nav-right">
+            <a href="access.html" class="nav-btn" style="border-radius: 6px;">Provider Login</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="clinical-hero">
+        <h1>KibbleScan Professional Access</h1>
+        <p>A structured platform for veterinary clinics to track commercial diet formulations and analyze ingredient
+            classifications.</p>
+    </section>
+
+    <main class="container">
+
+        <!-- 1. OVERVIEW -->
+        <div class="clinical-card">
+            <h2 class="section-heading">1. Overview</h2>
+            <p style="color: #334155; line-height: 1.6; font-size: 1.05rem;">
+                KibbleScan provides structured ingredient classification and formulation change tracking for clinical
+                reference. Designed specifically to bridge the informational gap in commercial pet food, this platform
+                enables practitioners to audit over-the-counter diets with regulatory-aligned, objective data.
+            </p>
+        </div>
+
+        <!-- 2. FEATURES -->
+        <div class="clinical-card">
+            <h2 class="section-heading">2. Features</h2>
+            <div class="clinical-grid">
+                <div class="grid-item">
+                    <ion-icon name="list-outline" class="grid-icon"></ion-icon>
+                    <div class="grid-text">Multi-product monitoring</div>
+                </div>
+                <div class="grid-item">
+                    <ion-icon name="analytics-outline" class="grid-icon"></ion-icon>
+                    <div class="grid-text">Ingredient classification logs</div>
+                </div>
+                <div class="grid-item">
+                    <ion-icon name="git-compare-outline" class="grid-icon"></ion-icon>
+                    <div class="grid-text">Historical formulation comparison</div>
+                </div>
+                <div class="grid-item">
+                    <ion-icon name="download-outline" class="grid-icon"></ion-icon>
+                    <div class="grid-text">Structured export capability</div>
+                </div>
+                <div class="grid-item">
+                    <ion-icon name="shield-checkmark-outline" class="grid-icon"></ion-icon>
+                    <div class="grid-text">Regulatory-aligned references</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. USE CASES -->
+        <div class="clinical-card">
+            <h2 class="section-heading">3. Use Cases</h2>
+            <div class="clinical-grid" style="grid-template-columns: 1fr;">
+                <div class="grid-item">
+                    <ion-icon name="chatbubbles-outline" class="grid-icon"></ion-icon>
+                    <div class="grid-text"><strong>Supporting client conversations</strong> &mdash; Provide objective,
+                        data-backed context when discussing over-the-counter diet choices with pet owners.</div>
+                </div>
+                <div class="grid-item">
+                    <ion-icon name="scan-outline" class="grid-icon"></ion-icon>
+                    <div class="grid-text"><strong>Reviewing ingredient changes</strong> &mdash; Identify silent
+                        formulation drift in commercial foods that may impact patients with specific sensitivities.
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <ion-icon name="trending-up-outline" class="grid-icon"></ion-icon>
+                    <div class="grid-text"><strong>Monitoring product consistency</strong> &mdash; Track brand
+                        reliability and ingredient sourcing patterns over temporal milestones.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. PRICING -->
+        <div class="pricing-box">
+            <h2
+                style="font-family: 'Outfit', sans-serif; font-size: 1.25rem; color: #475569; margin-bottom: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+                Professional Subscription</h2>
+            <div class="price-amount">$39<span style="font-size: 1.5rem; color: #64748B;">/mo</span></div>
+            <div class="price-terms">
+                Monthly subscription<br>
+                No long-term contracts
+            </div>
+            <a href="#" class="btn-subscribe">Request Access</a>
+        </div>
+
+        <!-- 5. DISCLAIMER -->
+        <div class="disclaimer-box">
+            <strong>Disclaimer:</strong> KibbleScan provides objective ingredient analysis and historical formulation
+            data. It does not replace clinical judgment, constitute therapeutic nutritional advice, or substitute for
+            properly prescribed veterinary therapeutic diets.
+        </div>
+
+    </main>
+
+    <footer
+        style="border-top: 1px solid #E2E8F0; padding: 2rem 0; background: white; text-align: center; color: #64748B; font-size: 0.9rem;">
+        <div class="container" style="padding: 0;">
+            &copy; 2026 KibbleScan Clinical. All rights reserved.
+        </div>
+    </footer>
+
 </body>
 
 </html>
