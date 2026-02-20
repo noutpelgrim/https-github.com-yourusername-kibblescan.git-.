@@ -1230,6 +1230,27 @@ p {
    NEW HOMEPAGE STYLES (Redesign)
    ========================================= */
 
+.hero-section,
+.how-it-works-section,
+.credibility-section,
+.audience-split-section,
+.pricing-preview-section {
+    padding: 6rem 0;
+    /* Huge breathing room between sections */
+}
+
+@media (max-width: 768px) {
+
+    .hero-section,
+    .how-it-works-section,
+    .credibility-section,
+    .audience-split-section,
+    .pricing-preview-section {
+        padding: 4rem 0;
+        /* Slightly tighter on mobile, but still spaced */
+    }
+}
+
 .hero-headline {
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
