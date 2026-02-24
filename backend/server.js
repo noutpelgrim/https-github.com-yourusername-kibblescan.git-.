@@ -178,6 +178,8 @@ app.use('/api/auth', rateLimiter, authRoutes);
 // 2. PROTECTED: Monitoring & Clinical (Auth Required)
 app.use('/api/user', rateLimiter, userRoutes);
 app.use('/api', rateLimiter, protectedRoutes);
+
+const { requireAuth } = require('./middleware/auth');
 app.use('/monitoring', requireAuth, require('./routes/monitoring'));
 
 // Page Routes
