@@ -32,8 +32,11 @@ const PORT = process.env.PORT || 3000;
 console.log("DEBUG: Environment Variables Keys:", Object.keys(process.env).sort());
 
 const app = express();
+const cookieParser = require('cookie-parser');
 const scanRoutes = require('./routes/scan');
 const ingredientsRoutes = require('./routes/ingredients'); // NEW
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 const paddleWebhookRoutes = require('./routes/paddleWebhook');
 const clinicalRequestRoutes = require('./routes/clinical_request');
 
@@ -48,6 +51,7 @@ app.use('/api/webhook/paddle', paddleWebhookRoutes);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.get('/api/ping', (req, res) => res.send('pong'));
 
@@ -169,9 +173,12 @@ const protectedRoutes = require('./routes/protected');
 app.use('/api/scans', rateLimiter, scanRoutes); // Note: Original was just /api, but scanRoutes handles /scans internally usually? 
 // Wait, scanRoutes likely has /scans prefix or similar. Let's check scan.js
 app.use('/api/ingredients', rateLimiter, ingredientsRoutes); // NEW
+app.use('/api/auth', rateLimiter, authRoutes);
 
 // 2. PROTECTED: Monitoring & Clinical (Auth Required)
+app.use('/api/user', rateLimiter, userRoutes);
 app.use('/api', rateLimiter, protectedRoutes);
+app.use('/monitoring', requireAuth, require('./routes/monitoring'));
 
 // Page Routes
 app.get('/clinical', (req, res) => {
@@ -179,12 +186,12 @@ app.get('/clinical', (req, res) => {
 });
 
 // Fallback for API (404)
-app.use('/api/*', (req, res) => {
+app.use('/api', (req, res) => {
     res.status(404).json({ error: 'API Endpoint Not Found' });
 });
 
 // SPA Fallback / Default Route
-app.get('*', (req, res) => {
+app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, '../index.html'));
 });
 
@@ -229,6 +236,12 @@ const server = app.listen(PORT, '0.0.0.0', () => {
         await registry.init(); // Load Ingredients from DB
 
         console.log("✅ Initialization Complete.");
+
+        // Start Background Monitor Cron Job safely after DB initialized
+        require('./scripts/run_monitor');
+        // Start Monthly Digest Cron Job
+        require('./scripts/run_digest');
+
     } catch (err) {
         console.error("❌ BACKGROUND INIT FAILED:", err);
         logger.error("Failed to initialize background services", { error: err.message });

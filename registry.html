@@ -52,7 +52,7 @@
                 </p>
 
                 <div
-                    style="background:white; padding:1.5rem; border-radius:8px; border:1px solid #E2E8F0; box-shadow:var(--shadow-card); display:flex; gap:1rem; align-items:center;">
+                    style="background:white; padding:1.5rem; border-radius:20px; border:1px solid #E2E8F0;  display:flex; gap:1rem; align-items:center;">
                     <ion-icon name="search-outline" style="font-size:1.5rem; color:#94A3B8;"></ion-icon>
                     <input type="text" id="registry-search-input"
                         placeholder="Search by Ingredient Name, CAS Number, brand, or UPC..."
@@ -67,7 +67,7 @@
             <!-- NO RESULTS STATE (Hidden) -->
             <div id="registry-no-results" style="display:none; margin-bottom:3rem; animation:fadeIn 0.3s ease-out;">
                 <div
-                    style="background:white; border:1px solid #E2E8F0; border-radius:8px; padding:2rem; box-shadow:var(--shadow-card); display:flex; gap:1.5rem; align-items:start;">
+                    style="background:white; border:1px solid #E2E8F0; border-radius:20px; padding:2rem;  display:flex; gap:1.5rem; align-items:start;">
                     <div style="background:#F1F5F9; padding:1rem; border-radius:50%; color:#64748B;">
                         <ion-icon name="cloud-offline" style="font-size:1.5rem;"></ion-icon>
                     </div>
@@ -79,7 +79,7 @@
                             unindexed or operating under a shell company.
                         </p>
                         <button id="btn-request-surveillance"
-                            style="background:#0F172A; border:1px solid #0F172A; color:white; padding:10px 16px; border-radius:6px; font-weight:600; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; gap:8px; transition: all 0.2s;">
+                            style="background:#0F172A; border:1px solid #0F172A; color:white; padding:10px 16px; border-radius:20px; font-weight:600; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; gap:8px; transition: all 0.2s;">
                             <ion-icon name="add-circle"></ion-icon> Request Surveillance
                         </button>
                     </div>
@@ -128,7 +128,7 @@
                                 0-38100-13180-2</td>
                             <td style="padding:1rem;">
                                 <span
-                                    style="background:#FEF2F2; color:#991B1B; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">NON-COMPLIANT</span>
+                                    style="background:#FEF2F2; color:#991B1B; padding:2px 8px; border-radius:20px; font-size:0.75rem; font-weight:700;">NON-COMPLIANT</span>
                             </td>
                             <td style="padding:1rem; text-align:right;">
                                 <a href="product_report.html?id=8821"
@@ -144,7 +144,7 @@
                                 0-30111-78901-5</td>
                             <td style="padding:1rem;">
                                 <span
-                                    style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">VERIFIED</span>
+                                    style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:20px; font-size:0.75rem; font-weight:700;">VERIFIED</span>
                             </td>
                             <td style="padding:1rem; text-align:right;">
                                 <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
@@ -158,7 +158,7 @@
                                 0-23100-11001-2</td>
                             <td style="padding:1rem;">
                                 <span
-                                    style="background:#FEF2F2; color:#991B1B; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">NON-COMPLIANT</span>
+                                    style="background:#FEF2F2; color:#991B1B; padding:2px 8px; border-radius:20px; font-size:0.75rem; font-weight:700;">NON-COMPLIANT</span>
                             </td>
                             <td style="padding:1rem; text-align:right;">
                                 <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
@@ -172,7 +172,7 @@
                                 0-84024-30001-9</td>
                             <td style="padding:1rem;">
                                 <span
-                                    style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">VERIFIED</span>
+                                    style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:20px; font-size:0.75rem; font-weight:700;">VERIFIED</span>
                             </td>
                             <td style="padding:1rem; text-align:right;">
                                 <span style="color:#CBD5E1; font-size:0.85rem;">—</span>
@@ -196,7 +196,7 @@
 
 
             <div
-                style="overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:1rem; border-radius:8px; border:1px solid #E2E8F0;">
+                style="overflow-x:auto; -webkit-overflow-scrolling:touch; margin-bottom:1rem; border-radius:20px; border:1px solid #E2E8F0;">
                 <table style="width:100%; border-collapse:collapse; font-size:0.9rem; min-width:600px;">
                     <!-- Min-width ensures it doesn't squish -->
                     <thead style="background:#F8FAFC; border-bottom:1px solid #E2E8F0;">
@@ -353,7 +353,7 @@
                                     ${item.description || '<span style="opacity:0.5">No description on file.</span>'}
                                 </td>
                                 <td style="padding:1rem;">
-                                    <span style="background:${badgeBg}; color:${badgeColor}; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700;">
+                                    <span style="background:${badgeBg}; color:${badgeColor}; padding:2px 8px; border-radius:20px; font-size:0.75rem; font-weight:700;">
                                         ${item.status_label}
                                     </span>
                                 </td>

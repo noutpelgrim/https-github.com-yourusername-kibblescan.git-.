@@ -167,23 +167,188 @@ function extractIngredients(text) {
 // Alias for backward compatibility if routes import 'cleanText'
 const cleanText = extractIngredients;
 
+// ─────────────────────────────────────────────────────────────────────────────
+// OCR correction map (shared between extractIngredients and extractIngredientsWithRaw)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Apply the hard-coded OCR correction rules to a normalised string.
+ * Returns the corrected string (may be '' to signal removal).
+ * @param {string} item  Already normalised (lowercased, cleaned)
+ * @returns {string}
+ */
+function applyOCRCorrections(item) {
+    if (item === 'mamin b-3') return 'vitamin b-3';
+    if (item === 'choline t') return 'choline chloride';
+    if (item === 'sum iodide') return 'potassium iodide';
+    if (item.includes('jodate')) return item.replace('jodate', 'iodate');
+    if (item === 'fes') return 'ferrous sulfate';
+    if (item === 'focad') return '';
+    if (item.includes('dis and fats')) return 'oils and fats';
+    if (item === 'linseed 0') return 'linseed';
+    if (item.startsWith('including')) return '';
+    if (item.includes('in the') && item.includes('kibble')) return '';
+    if (item.startsWith('dden ')) return 'chicken ' + item.split(' ')[1];
+    if (item.startsWith('- ')) return item.substring(2);
+    return item;
+}
+
+/**
+ * Filter test — returns true if item should be kept.
+ * @param {string} normalized
+ * @returns {boolean}
+ */
+function passesFilter(normalized) {
+    if (!normalized || normalized.length < 2) return false;
+    const noise = ['crude', 'protein', 'fat', 'fiber', 'moisture', 'min', 'max',
+        'ash', 'guaranteed', 'analysis', 'supplement', 'vitamin', 'mineral',
+        'vitamins', 'minerals', 'ingredients', 'composition'];
+    if (noise.includes(normalized)) return false;
+    if (normalized.includes('purina') || normalized.includes('petcare') ||
+        normalized.includes('usa') || normalized.includes('mo 63164') ||
+        normalized.includes('louis') || normalized === 'st') return false;
+    if (normalized.includes('de in') && normalized.length < 10) return false;
+    if (normalized === 'sa') return false;
+    return true;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Levenshtein-based per-ingredient OCR confidence
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Character-level similarity between two strings, 0.0–1.0.
+ * Uses Levenshtein distance.
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
+function stringSimilarity(a, b) {
+    if (a === b) return 1.0;
+    if (!a || !b) return 0.0;
+    const la = a.length, lb = b.length;
+    // Build rows of the DP table iteratively to save memory
+    let prev = Array.from({ length: lb + 1 }, (_, j) => j);
+    let curr = new Array(lb + 1);
+    for (let i = 1; i <= la; i++) {
+        curr[0] = i;
+        for (let j = 1; j <= lb; j++) {
+            curr[j] = a[i - 1] === b[j - 1]
+                ? prev[j - 1]
+                : 1 + Math.min(prev[j], curr[j - 1], prev[j - 1]);
+        }
+        [prev, curr] = [curr, prev];
+    }
+    return 1 - prev[lb] / Math.max(la, lb);
+}
+
+/**
+ * Compute a 0–100 confidence score for how well the raw OCR token
+ * matches the final normalised name.
+ * @param {string} rawToken   Raw OCR text (before normalisation)
+ * @param {string} normalized Final normalised ingredient name
+ * @returns {number}  Integer 0–100
+ */
+function computeIngredientConfidence(rawToken, normalized) {
+    // Strip the raw token to just [a-z0-9 -] for a fair comparison
+    const cleanRaw = (rawToken || '').toLowerCase().replace(/[^a-z0-9 -]/g, '').trim();
+    if (!cleanRaw || !normalized) return 0;
+    return Math.round(stringSimilarity(cleanRaw, normalized) * 100);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// extractIngredientsWithRaw — same pipeline as extractIngredients but
+// returns { raw, normalized } pairs instead of just strings.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Parse raw OCR text into an array of { raw, normalized } ingredient pairs.
+ * `raw`        — the split OCR token before normalisation (trimmed)
+ * `normalized` — the cleaned & corrected name used by the registry
+ * @param {string} text  Full raw OCR text
+ * @returns {{ raw: string, normalized: string }[]}
+ */
+function extractIngredientsWithRaw(text) {
+    if (typeof text !== 'string' || !text.trim()) return [];
+
+    let content = text;
+
+    // 1. Scope to Ingredients section
+    if (content.toLowerCase().includes('ingredients:')) {
+        content = content.split(/ingredients:/i)[1];
+    } else if (content.toLowerCase().includes('composition:')) {
+        content = content.split(/composition:/i)[1];
+    } else if (content.toLowerCase().includes('composition')) {
+        content = content.split(/composition/i)[1];
+    }
+
+    // 2. Stop at common end-of-section markers
+    const stopPhrases = ['guaranteed analysis', 'analytical constituents',
+        'additives', 'daily feeding guide', 'calorie content',
+        'distributed by', 'manufactured by', 'trademarks',
+        'nutritional levels', 'netutional levels', 'aafco',
+        'find cassic', 'formula with'];
+    for (const phrase of stopPhrases) {
+        if (content.toLowerCase().includes(phrase)) {
+            content = content.split(new RegExp(phrase, 'i'))[0];
+        }
+    }
+
+    // 2.5 Heuristic start for labels without "Ingredients:" header
+    if (!text.toLowerCase().includes('ingredients:')) {
+        const lines = content.split('\n');
+        let startIndex = 0;
+        for (let i = 0; i < lines.length; i++) {
+            const lower = lines[i].toLowerCase();
+            if (lower.includes('moisture') || lower.includes('crude protein') || lower.includes('crude fat')) {
+                startIndex = i + 1;
+            }
+        }
+        if (startIndex > 0 && startIndex < lines.length) {
+            content = lines.slice(startIndex).join('\n');
+        }
+    }
+
+    // 3. Pre-process separators
+    content = content.replace(/[()]/g, ',');
+
+    // 4. Smart Split
+    const commaCount = (content.match(/,/g) || []).length;
+    let rawList;
+    if (commaCount > 3) {
+        content = content.replace(/-\s+/g, '-');
+        content = content.replace(/\n/g, ' ');
+        content = content.replace(/ingredients[:\s]*/i, '');
+        rawList = content.split(/[,;\.]/);
+    } else {
+        rawList = content.split(/[,;\n\.]/);
+    }
+
+    // 5. Pair raw token with its normalized form, then filter
+    const result = [];
+    for (const item of rawList) {
+        const rawToken = item.trim();          // preserve before normalization
+        let normalized = normalizeText(item);   // lowercase + clean chars
+        normalized = applyOCRCorrections(normalized); // OCR correction map
+        if (!passesFilter(normalized)) continue;
+        result.push({ raw: rawToken, normalized });
+    }
+    return result;
+}
+
 /**
  * Normalizes email addresses.
- * - Lowercases.
- * - Trims whitespace.
- * - Collapses multiple spaces.
  */
 function normalizeEmail(email) {
     if (typeof email !== 'string') return '';
-    return email
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, ' ');
+    return email.toLowerCase().trim().replace(/\s+/g, ' ');
 }
 
 module.exports = {
     normalizeText,
     extractIngredients,
     cleanText,
+    extractIngredientsWithRaw,
+    computeIngredientConfidence,
     normalizeEmail
 };

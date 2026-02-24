@@ -118,6 +118,23 @@ async function migrate() {
             process.stdout.write('.');
         }
         console.log("\n✅ Batch Migration Complete!");
+
+        // ── Correction: force NON-SPECIFIC for dose-dependent inorganic minerals ──
+        // These were seeded as UNRESTRICTED but are clinically dose-dependent.
+        // This UPDATE runs after batch insert and overrides any preserved classification.
+        const forceNonSpecific = [
+            'sodium selenite', 'zinc sulfate', 'copper sulfate',
+            'carrageenan', 'guar gum', 'locust bean gum'
+        ];
+        if (forceNonSpecific.length > 0) {
+            const placeholders = forceNonSpecific.map((_, i) => `$${i + 1}`).join(', ');
+            const corrResult = await client.query(
+                `UPDATE ingredients SET classification = 'NON-SPECIFIC' WHERE LOWER(name) = ANY(ARRAY[${placeholders}]) AND classification != 'VIOLATION'`,
+                forceNonSpecific
+            );
+            console.log(`🔧 Correction: ${corrResult.rowCount} ingredient(s) reclassified to NON-SPECIFIC.`);
+        }
+
         client.release();
     } catch (err) {
         console.error("\n❌ Migration Failed:", err);

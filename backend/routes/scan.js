@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { cleanText } = require('../normalize');
+const { cleanText, extractIngredientsWithRaw } = require('../normalize');
 const { classifyFormulation } = require('../classifier');
+const { detectLabelMetadata } = require('../label_parser');
 const fs = require('fs');
 const os = require('os');
 const db = require('../db');
+const fh = require('../services/formulation_history');
+
 
 // Setup Disk Storage (Spill to Disk to prevent RAM exhaustion)
 const upload = multer({
@@ -115,8 +118,8 @@ router.post('/analyze', upload.single('receipt'), async (req, res) => {
             });
         }
 
-        // 3. Normalization
-        const ingredientsList = cleanText(rawText);
+        // 3. Normalization — extract {raw, normalized} pairs for OCR transparency
+        const ingredientsList = extractIngredientsWithRaw(rawText);
 
         // 4. Classification
         const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -126,32 +129,35 @@ router.post('/analyze', upload.single('receipt'), async (req, res) => {
 
         const result = classifyFormulation(ingredientsList, confidence);
 
-        // 5. Persist Scan Result
-        try {
-            // If user is authenticated, we might have req.user from middleware
-            // But this route is currently public/rate-limited. 
-            // We'll store NULL for user_id for now (or a session ID if available)
-            const userId = req.user ? req.user.id : null;
+        // 5. Label Metadata (product type, life stage, AAFCO, GA)
+        const scanSummary = detectLabelMetadata(rawText, result.ingredients);
 
-            await db.query(`
-                INSERT INTO scans (verdict, raw_text, ingredients_found, user_id)
-                VALUES ($1, $2, $3, $4)
-            `, [
-                result.outcome,             // Verdict
-                rawText,                    // Raw OCR Text
-                JSON.stringify(result),     // Full Result JSON
-                userId                      // Optional User ID
-            ]);
-            console.log("[SCAN] Result saved to database.");
-        } catch (dbErr) {
-            console.error("[SCAN] Failed to save scan to DB:", dbErr.message);
-            // Don't fail the request, just log it.
+        // 5. Formulation versioning — save every scan as a version (no auth required)
+        let formulationHistory = { versions: [], productId: null, versionNumber: null, changeStatus: null };
+        try {
+            const productName = (scanSummary && scanSummary.productName) ? scanSummary.productName : 'Unknown Product';
+            const saved = await fh.saveVersion({
+                ingredients: result.ingredients,
+                classificationResult: result,
+                productName,
+                scanSource: 'OCR'
+            });
+            if (saved) {
+                formulationHistory.productId = saved.productId;
+                formulationHistory.versionNumber = saved.versionNumber;
+                formulationHistory.changeStatus = saved.changeStatus;
+                formulationHistory.versions = await fh.getHistory(saved.productId);
+            }
+        } catch (fhErr) {
+            console.error('[SCAN] Formulation history save failed (non-fatal):', fhErr.message);
         }
 
         res.json({
             message: 'Audit Complete',
             data: result,
-            rawText: rawText
+            scanSummary,
+            rawText: rawText,
+            formulationHistory
         });
 
     } catch (error) {
@@ -160,6 +166,69 @@ router.post('/analyze', upload.single('receipt'), async (req, res) => {
     } finally {
         // ALWAYS Cleanup Temp File
         cleanup();
+    }
+});
+
+// POST /analyze-text — manual ingredient paste (skips OCR, same pipeline)
+router.post('/analyze-text', async (req, res) => {
+    const rawText = (req.body && req.body.text) ? String(req.body.text).trim() : '';
+
+    if (!rawText || rawText.length < 3) {
+        return res.status(400).json({ error: 'No ingredient text provided.' });
+    }
+    if (rawText.length > 20000) {
+        return res.status(400).json({ error: 'Text too long (max 20,000 characters).' });
+    }
+
+    try {
+        console.log('[SCAN-TEXT] Manual paste received, length:', rawText.length);
+
+        // 1. Normalization — identical to image path
+        const ingredientsList = extractIngredientsWithRaw(rawText);
+
+        if (!ingredientsList || ingredientsList.length === 0) {
+            return res.json({
+                message: 'Audit Complete',
+                data: { outcome: 'UNKNOWN_FORMULATION', reason: 'No ingredients detected in pasted text.', ingredients: [], confidence: 1.0 },
+                scanSummary: { overallOCRMatch: 100, productType: 'Unknown', lifeStage: 'Unknown', guaranteedAnalysisPresent: false, aafcoStatement: null, scanSource: 'Manual' },
+                rawText
+            });
+        }
+
+        // 2. Classification (confidence = 1.0 — no OCR uncertainty on manual input)
+        const result = classifyFormulation(ingredientsList, 1.0);
+
+        // 3. Label metadata + mark source as Manual
+        const scanSummary = {
+            ...detectLabelMetadata(rawText, result.ingredients),
+            scanSource: 'Manual'
+        };
+
+        // 4. Formulation versioning (non-blocking, no auth required)
+        let formulationHistory = { versions: [], productId: null, versionNumber: null, changeStatus: null };
+        try {
+            const productName = (scanSummary && scanSummary.productName) ? scanSummary.productName : 'Unknown Product';
+            const saved = await fh.saveVersion({
+                ingredients: result.ingredients,
+                classificationResult: result,
+                productName,
+                scanSource: 'Manual'
+            });
+            if (saved) {
+                formulationHistory.productId = saved.productId;
+                formulationHistory.versionNumber = saved.versionNumber;
+                formulationHistory.changeStatus = saved.changeStatus;
+                formulationHistory.versions = await fh.getHistory(saved.productId);
+            }
+        } catch (fhErr) {
+            console.error('[SCAN-TEXT] Formulation history save failed (non-fatal):', fhErr.message);
+        }
+
+        res.json({ message: 'Audit Complete', data: result, scanSummary, rawText, formulationHistory });
+
+    } catch (error) {
+        console.error('[SCAN-TEXT] Error:', error);
+        res.status(500).json({ error: 'Internal processing error' });
     }
 });
 
@@ -177,6 +246,30 @@ router.get('/recent', async (req, res) => {
     } catch (err) {
         console.error("[HISTORY] Failed to fetch recent scans:", err);
         res.status(500).json({ error: "Failed to fetch history" });
+    }
+});
+
+// GET /history/:productId - Formulation version history for a product
+// Free: returns all version rows (date, version number, change status)
+// Pro: same data — diff view is rendered client-side using ingredient_list
+router.get('/history/:productId', async (req, res) => {
+    try {
+        const versions = await fh.getHistory(req.params.productId);
+        res.json({ productId: req.params.productId, versions });
+    } catch (err) {
+        console.error('[HISTORY] fetch failed:', err.message);
+        res.status(500).json({ error: 'Failed to fetch history' });
+    }
+});
+
+// GET /versions/recent - Debug / dashboard: most recent versions across all products
+router.get('/versions/recent', async (req, res) => {
+    try {
+        const versions = await fh.getRecentVersions(50);
+        res.json({ versions });
+    } catch (err) {
+        console.error('[VERSIONS] recent fetch failed:', err.message);
+        res.status(500).json({ error: 'Failed to fetch recent versions' });
     }
 });
 

@@ -14,16 +14,16 @@
     <script src="app.js?v=8.2" defer></script>
 </head>
 
-<body style="background:#F8FAFC;">
+<body style="background:var(--bg-page);">
     <div class="device-container" style="margin-top:2rem; margin-bottom:2rem;">
         <div class="iphone-frame">
             <div class="screen-content">
 
                 <!-- App Header -->
                 <div class="app-header"
-                    style="padding:16px 20px; background:white; border-bottom:1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center;">
-                    <div style="font-weight:800; font-size:1rem; color:#0F172A;">KibbleScan <span
-                            style="font-size:0.6rem; color:#10B981; font-weight:700;">v6.1 (Latest)</span></div>
+                    style="padding:16px 20px; background:var(--bg-card); border-bottom:1px solid #E2E8F0; display:flex; justify-content:space-between; align-items:center;">
+                    <div style="font-weight:800; font-size:1rem; color:var(--primary);">KibbleScan <span
+                            style="font-size:0.6rem; color:var(--safe); font-weight:700;">v6.1 (Latest)</span></div>
                     <div style="display:flex; gap:12px; align-items:center;">
                         <button id="btn-show-history"
                             style="background:none; border:none; color:#64748B; cursor:pointer; padding:4px;">
@@ -63,116 +63,210 @@
                         </div>
 
                         <button id="btn-camera-scan"
-                            style="width:100%; background:white; border:2px dashed #CBD5E1; padding:2rem; border-radius:16px; cursor:pointer; transition:all 0.2s; text-align:center; color:#64748B; margin-bottom:1.5rem;">
+                            style="width:100%; background:var(--bg-card); border:2px dashed #CBD5E1; padding:2rem; border-radius:20px; cursor:pointer; transition:all 0.2s; text-align:center; color:var(--primary-light); margin-bottom:1.5rem;">
                             <ion-icon name="camera-outline"
-                                style="font-size:2.5rem; margin-bottom:0.5rem; color:#1E293B;"></ion-icon>
-                            <div style="font-weight:600; color:#1E293B;">Scan Label</div>
+                                style="font-size:2.5rem; margin-bottom:0.5rem; color:var(--primary);"></ion-icon>
+                            <div style="font-weight:600; color:var(--primary);">Scan Label</div>
                         </button>
 
                         <input type="file" id="file-upload-trigger" style="display:none;" accept="image/*"
                             capture="environment">
 
+                        <!-- Manual paste fallback -->
+                        <div class="manual-toggle-row">
+                            <button id="btn-toggle-manual" class="btn-manual-toggle" type="button">
+                                <ion-icon name="create-outline"></ion-icon>
+                                Paste ingredient list manually
+                            </button>
+                        </div>
+
+                        <div id="manual-paste-panel" class="manual-paste-panel" style="display:none;">
+                            <label for="manual-text-input" class="manual-label">Paste the full ingredient list
+                                below</label>
+                            <textarea id="manual-text-input" class="manual-textarea" rows="7"
+                                placeholder="e.g. Chicken, Brown Rice, Peas, Salmon Oil, Vitamin E Supplement, BHA…"
+                                spellcheck="false" autocorrect="off" autocapitalize="off"></textarea>
+                            <button id="btn-submit-manual" class="btn-primary"
+                                style="width:100%; justify-content:center; margin-top:10px;">
+                                <ion-icon name="search-outline"></ion-icon>
+                                Analyze Ingredients
+                            </button>
+                        </div>
+
                     </div>
 
                     <!-- STATE 2: PROCESSING (Hidden) -->
                     <div id="scan-processing" style="display:none; height:100%; padding-top:2rem; text-align:center;">
-                        <h2 style="font-size:1.2rem; margin-bottom:2rem;">Processing Data...</h2>
 
-                        <!-- Scanning Animation (Bio-Grid) -->
-                        <div class="scan-container">
-                            <div class="scan-grid"></div>
-                            <div class="scan-beam"></div>
-                            <div class="scan-overlay"></div>
+                        <!-- Clinical Loading UI -->
+                        <div id="scan-loading-ui" class="clinical-loading-container"
+                            style="background:transparent; border:none; box-shadow:none; padding:10px;">
+                            <div class="loading-header">
+                                <div class="circular-spinner"></div>
+                                <h3 style="font-size:1.25rem; font-weight:600; color:var(--primary); margin-top:20px;">
+                                    Analyzing Formulation</h3>
+                                <p style="color:var(--primary-light); font-size:0.95rem;">Cross-referencing ingredients
+                                    against veterinary databases...</p>
+                            </div>
 
-                            <div
-                                style="position:absolute; bottom:15px; left:20px; font-family:'Courier New', monospace; font-size:0.75rem; color:#22D3EE; z-index:20;">
-                                <div class="typing-text">> READING INGREDIENTS LIST...</div>
-                                <div style="opacity:0.7; margin-top:2px;">> CHECKING VETERINARY DATABASE...</div>
+                            <!-- Skeleton Cards representing the structured analysis -->
+                            <div class="skeleton-wrapper" style="margin-top:30px;">
+                                <div class="skeleton-row header-row">
+                                    <div class="skeleton-box title" style="width: 40%"></div>
+                                    <div class="skeleton-box badge" style="width: 15%"></div>
+                                </div>
+
+                                <div class="skeleton-list">
+                                    <div class="skeleton-row">
+                                        <div class="skeleton-box line" style="width: 100%"></div>
+                                    </div>
+                                    <div class="skeleton-row">
+                                        <div class="skeleton-box line" style="width: 85%"></div>
+                                    </div>
+                                    <div class="skeleton-row">
+                                        <div class="skeleton-box line" style="width: 90%"></div>
+                                    </div>
+                                    <div class="skeleton-row">
+                                        <div class="skeleton-box line" style="width: 70%"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div id="cli-output"
-                            style="font-family:'Courier New', monospace; font-size:0.8rem; color:#64748B; text-align:left; min-height:60px;">
-                            <span>> Preparing your results...</span>
-                        </div>
+                        <!-- Invisible placeholder to prevent app.js from throwing errors when it tries to write to the old CLI output -->
+                        <div id="cli-output" style="display:none;"></div>
                     </div>
 
                     <!-- STATE 3: RESULT (Hidden) -->
                     <div id="scan-result" style="display:none; padding-bottom: 2rem;">
                         <button id="btn-reset" onclick="location.reload()"
-                            style="background:none; border:none; color:#64748B; font-size:0.85rem; margin-bottom:1rem; cursor:pointer; padding:0; display: flex; align-items: center; gap: 4px;">
+                            style="background:none; border:none; color:var(--primary-light); font-size:0.85rem; margin-bottom:1rem; cursor:pointer; padding:0; display:flex; align-items:center; gap:4px;">
                             <ion-icon name="arrow-back-outline"></ion-icon> New Audit
                         </button>
 
-                        <div id="result-header" style="text-align:center; margin-bottom:1.5rem;">
-                            <!-- JS Inject Classification Badge Here -->
+                        <!-- Badge + Title -->
+                        <div id="result-header" style="text-align:center; padding:8px 0 20px 0;">
                             <div id="badge-container"></div>
-
-                            <h2 style="font-size:1.5rem; font-weight:800; margin:10px 0 4px 0;">Analysis Complete</h2>
-                            <p id="result-subtext" style="color:#64748B; font-size:0.95rem; margin:0;">Review the
-                                identified recipe elements.</p>
+                            <h2 style="font-size:1.4rem; font-weight:800; margin:4px 0 6px 0; letter-spacing:-0.02em;">
+                                Analysis Complete</h2>
+                            <p id="result-subtext" style="color:var(--primary-light); font-size:0.88rem; margin:0;">
+                                Review the
+                                identified recipe elements below.</p>
                         </div>
 
-                        <div
-                            style="font-size:0.8rem; text-transform:uppercase; color:#94A3B8; margin-bottom:0.8rem; font-weight:700; display: flex; justify-content: space-between; align-items: center;">
-                            <span>Identified Ingredients</span>
-                            <span id="confidence-score" style="font-weight: 500;">99% Match</span>
-                        </div>
+                        <!-- Scan Summary Card (populated by app.js) -->
+                        <div id="scan-summary-card" class="scan-summary-card" style="display:none; margin-bottom:20px;">
+                            <!-- Meta fields grid (rendered by JS) -->
+                            <div id="scan-summary-meta" class="scan-summary-meta"></div>
 
-                        <div id="result-findings" style="margin-bottom: 2rem;">
-                            <!-- Injected Accordion Content goes here -->
-                        </div>
-
-                        <div
-                            style="background: white; border: 1px solid #E2E8F0; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-                            <div class="icon-pulse-green"
-                                style="width: 48px; height: 48px; border-radius: 50%; background: #ECFDF5; color: #10B981; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 12px auto;">
-                                <ion-icon name="notifications"></ion-icon>
+                            <!-- AAFCO Statement collapsible (shown by JS when present) -->
+                            <div id="scan-summary-aafco" class="scan-summary-aafco" style="display:none;">
+                                <button class="aafco-toggle" id="aafco-toggle-btn" aria-expanded="false">
+                                    <span>AAFCO Statement</span>
+                                    <ion-icon name="chevron-down-outline" class="aafco-chevron"></ion-icon>
+                                </button>
+                                <div id="aafco-body" class="aafco-body">
+                                    <p id="aafco-text" class="aafco-text"></p>
+                                </div>
                             </div>
-                            <h3 style="font-size: 1.1rem; color: #1E293B; margin-bottom: 8px;">Track Formula Changes
-                            </h3>
-                            <p style="font-size: 0.9rem; color: #64748B; margin-bottom: 16px;">We'll automatically alert
-                                you if the manufacturer silently changes this recipe.</p>
-                            <button id="btn-monitor-drift" class="btn-primary"
-                                style="width:100%; justify-content:center; box-shadow: 0 4px 12px rgba(10, 37, 64, 0.1);">Add
-                                to Monitoring</button>
+
+                            <!-- Data limits disclaimer — always visible -->
+                            <div class="scan-summary-disclaimer">
+                                <ion-icon name="information-circle-outline"></ion-icon>
+                                <span>Ingredient list only. Nutrient adequacy and suitability depend on the full label
+                                    (AAFCO statement, guaranteed analysis) and the individual pet.</span>
+                            </div>
                         </div>
+
+                        <!-- Ingredients Section Header -->
+                        <div
+                            style="font-size:0.75rem; text-transform:uppercase; color:var(--neutral); margin-bottom:10px; font-weight:700; display:flex; justify-content:space-between; align-items:center; letter-spacing:0.05em;">
+                            <span>Identified Ingredients <span id="ingredient-count"
+                                    style="font-weight:500; text-transform:none; letter-spacing:0;"></span></span>
+                            <span id="confidence-score"
+                                style="font-weight:500; text-transform:none; letter-spacing:0;">99% Match</span>
+                        </div>
+
+                        <!-- Ingredient Accordion List -->
+                        <div id="result-findings" style="margin-bottom:20px;"></div>
+
+                        <!-- Smart Upgrade Trigger Banner (JS-controlled) -->
+                        <div id="smart-trigger-banner" style="display:none; margin-bottom:12px;"></div>
+
+
+                        <!-- Automatic Monitoring Section -->
+                        <div class="am-section">
+                            <div class="am-header">
+                                <ion-icon name="sync-outline" class="am-icon"></ion-icon>
+                                <span class="am-title">Automatic Monitoring</span>
+                            </div>
+                            <p class="am-description">
+                                KibbleScan can automatically check this product for ingredient changes.
+                            </p>
+                            <button id="btn-enable-monitoring" class="am-btn-enable">
+                                Enable Monitoring
+                            </button>
+                            <p class="am-subtext">Manual rescans are always free.</p>
+                        </div>
+
+
+                        <!-- Formulation History Section -->
+                        <div id="formulation-history" class="fh-section">
+                            <div class="fh-header">
+                                <span class="fh-title">Formulation History</span>
+                                <span class="fh-badge-count" id="fh-version-count"></span>
+                            </div>
+                            <div id="fh-timeline" class="fh-timeline">
+                                <!-- Populated by app.js -->
+                            </div>
+                            <!-- Pro upsell hint — shown for free users when 2+ versions exist -->
+                            <div id="fh-pro-hint" class="fh-pro-hint" style="display:none;">
+                                <ion-icon name="lock-closed-outline"></ion-icon>
+                                <span>Upgrade to <strong>Pro</strong> to compare versions and see highlighted ingredient
+                                    changes.</span>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- STATE 4: ERROR / UNKNOWN (Simplified) -->
                     <div id="scan-error" style="display:none; text-align:center; padding-top:4rem;">
                         <ion-icon name="alert-circle"
-                            style="font-size:3rem; color:#EF4444; margin-bottom:1rem;"></ion-icon>
+                            style="font-size:3rem; color:var(--danger); margin-bottom:1rem;"></ion-icon>
                         <h3>Scan Failed</h3>
                         <button onclick="location.reload()" class="btn-primary" style="margin-top:1rem;">Try
                             Again</button>
                         <p id="error-details"
-                            style="font-size:0.7rem; color:#EF4444; margin-top:10px; font-family:monospace;"></p>
+                            style="font-size:0.75rem; color:var(--danger); margin-top:20px; font-family:monospace; word-break: break-all; padding: 0 10px;">
+                        </p>
 
                         <div
-                            style="margin-top: 2rem; text-align: left; background: #FEF08A; padding: 10px; border-radius: 8px; font-size: 0.75rem; border: 2px solid #EAB308;">
-                            <strong style="display:block; margin-bottom:5px; color:#475569;">Debug Info (Tap to
+                            style="margin-top: 2rem; text-align: left; background: var(--risk-bg); padding: 10px; border-radius:20px; font-size: 0.75rem; border: 2px solid var(--risk);">
+                            <strong style="display:block; margin-bottom:5px; color:var(--primary-light);">Debug Info
+                                (Tap to
                                 Copy):</strong>
                             <div id="debug-error-text"
-                                style="white-space: pre-wrap; word-break: break-word; color:#334155; max-height: 100px; overflow-y: auto; user-select: text;">
+                                style="white-space: pre-wrap; word-break: break-word; color:var(--primary); max-height: 100px; overflow-y: auto; user-select: text;">
                                 Waiting for data...
                             </div>
                         </div>
                     </div>
 
                     <div id="scan-unknown" style="display:none; text-align:center; padding-top:4rem;">
-                        <ion-icon name="help-circle-outline" style="font-size:4rem; color:#94A3B8;"></ion-icon>
+                        <ion-icon name="help-circle-outline" style="font-size:4rem; color:var(--neutral);"></ion-icon>
                         <h3>Analysis Inconclusive</h3>
-                        <p style="color:#64748B; margin-bottom:1.5rem;">Could not identify ingredients list.<br>Ensure
+                        <p style="color:var(--primary-light); margin-bottom:1.5rem;">Could not identify ingredients
+                            list.<br>Ensure
                             text is clear and well-lit.</p>
                         <button onclick="location.reload()" class="btn-primary">Try Again</button>
 
                         <div
-                            style="margin-top: 2rem; text-align: left; background: #FEF08A; padding: 10px; border-radius: 8px; font-size: 0.75rem; border: 2px solid #EAB308;">
-                            <strong style="display:block; margin-bottom:5px; color:#475569;">Debug Info (Tap to
+                            style="margin-top: 2rem; text-align: left; background: var(--risk-bg); padding: 10px; border-radius:20px; font-size: 0.75rem; border: 2px solid var(--risk);">
+                            <strong style="display:block; margin-bottom:5px; color:var(--primary-light);">Debug Info
+                                (Tap to
                                 Copy):</strong>
                             <div id="debug-raw-text"
-                                style="white-space: pre-wrap; word-break: break-word; color:#334155; max-height: 100px; overflow-y: auto; user-select: text;">
+                                style="white-space: pre-wrap; word-break: break-word; color:var(--primary); max-height: 100px; overflow-y: auto; user-select: text;">
                                 Waiting for data...
                             </div>
                         </div>
@@ -182,56 +276,61 @@
 
                 <!-- Home Indicator -->
                 <div style="height:20px; display:flex; justify-content:center; align-items:center;">
-                    <div style="width:120px; height:4px; background:#CBD5E1; border-radius:2px;"></div>
+                    <div style="width:120px; height:4px; background:var(--border-color); border-radius:20px;"></div>
                 </div>
 
             </div>
         </div>
     </div>
 
-    <!-- UPGRADE MODAL (Hidden by default) -->
+    <!-- UPGRADE MODAL — Automatic Monitoring (Hidden by default) -->
     <div id="upgrade-modal" class="upgrade-modal-overlay hidden">
         <div class="upgrade-modal-panel">
-            <div style="text-align:center; margin-bottom: 20px;">
-                <div
-                    style="width: 50px; height: 50px; background: #EEF2FF; color: #4F46E5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 16px auto;">
-                    <ion-icon name="shield-checkmark"></ion-icon>
-                </div>
-                <h3 style="font-size: 1.25rem; font-weight: 700; color: #0F172A; margin: 0 0 8px 0;">Unlock Pro
-                    Monitoring</h3>
-                <p style="font-size: 0.9rem; color: #64748B; margin: 0; line-height: 1.4;">
-                    Upgrade to KibbleScan Pro to continuously monitor this formula for silent recipe changes and new
-                    toxicology alerts.
-                </p>
+
+            <!-- Drag handle -->
+            <div class="upgrade-modal-handle"></div>
+
+            <!-- Heading -->
+            <div class="upgrade-modal-heading">
+                <h3>KibbleScan Pro</h3>
+                <p>Automatic monitoring periodically rescans this product and notifies you if the ingredient list has
+                    changed.</p>
             </div>
 
-            <ul class="upgrade-feature-list"
-                style="list-style: none; padding: 0; margin: 0 0 24px 0; font-size: 0.9rem; color: #334155;">
-                <li style="display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start;">
-                    <ion-icon name="checkmark-circle"
-                        style="color: #10B981; font-size: 1.1rem; margin-top: 2px;"></ion-icon>
-                    <span><strong>Drift Alerts:</strong> Get notified if the manufacturer changes ingredients.</span>
+            <!-- What's included -->
+            <ul class="upgrade-feature-list">
+                <li>
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                    <span><strong>Automatic Rescans</strong> — product is checked on a regular schedule. No action
+                        required.</span>
                 </li>
-                <li style="display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start;">
-                    <ion-icon name="checkmark-circle"
-                        style="color: #10B981; font-size: 1.1rem; margin-top: 2px;"></ion-icon>
-                    <span><strong>Toxicology Updates:</strong> Real-time alerts on new restrictions.</span>
+                <li>
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                    <span><strong>Change Alerts</strong> — notified when any ingredient is added or removed.</span>
                 </li>
-                <li style="display: flex; gap: 10px; margin-bottom: 0; align-items: flex-start;">
-                    <ion-icon name="checkmark-circle"
-                        style="color: #10B981; font-size: 1.1rem; margin-top: 2px;"></ion-icon>
-                    <span><strong>Unlimited Scans:</strong> Skip the queue on all future label scans.</span>
+                <li>
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                    <span><strong>Version Comparison</strong> — view highlighted differences between any two
+                        snapshots.</span>
+                </li>
+                <li>
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                    <span><strong>Unlimited Scans</strong> — no daily limit on manual label analysis.</span>
                 </li>
             </ul>
 
+            <!-- Pricing note -->
+            <p class="upgrade-price-note">$5 / month. Cancel any time.</p>
+
+            <!-- Primary CTA -->
             <button onclick="startCheckout('pri_01khcchknvqv3w3dc9r2c5jpwj')" class="btn-primary"
-                style="width: 100%; justify-content: center; margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);">
-                Upgrade to Pro - $5/mo
+                style="width:100%; justify-content:center; display:flex; font-size:1rem; margin-bottom:12px;">
+                Enable Monitoring
             </button>
 
-            <button id="btn-close-upgrade-modal" class="btn-secondary"
-                style="width: 100%; justify-content: center; background: transparent; border: none; color: #94A3B8; font-weight: 600;">
-                Continue Without Monitoring
+            <!-- Ghost dismiss -->
+            <button id="btn-close-upgrade-modal" class="btn-secondary">
+                Continue without Monitoring
             </button>
         </div>
     </div>

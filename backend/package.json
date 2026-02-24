@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@google-cloud/vision": "^5.3.4",
+    "@paddle/paddle-node-sdk": "^3.6.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.0.2",
+    "node-cron": "^4.2.1",
+    "openai": "^6.22.0",
+    "pg": "^8.18.0"
+  }
+}

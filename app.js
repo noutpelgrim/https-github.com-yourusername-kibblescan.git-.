@@ -20,7 +20,21 @@ function initScanFlow() {
     // Config: New Viewport for scrolling
     const appViewport = document.getElementById('app-viewport');
 
-    if (!cameraBtn) return; // Not on scan page (simplified check)
+    // Manual paste elements
+    const toggleManualBtn = document.getElementById('btn-toggle-manual');
+    const manualPanel = document.getElementById('manual-paste-panel');
+    const manualTextarea = document.getElementById('manual-text-input');
+    const submitManualBtn = document.getElementById('btn-submit-manual');
+
+    // ── Toggle manual paste panel ──────────────────────────
+    if (toggleManualBtn && manualPanel) {
+        toggleManualBtn.addEventListener('click', () => {
+            const open = manualPanel.style.display !== 'none';
+            manualPanel.style.display = open ? 'none' : 'block';
+            toggleManualBtn.classList.toggle('active', !open);
+            if (!open && manualTextarea) manualTextarea.focus();
+        });
+    }
 
     // Result Nodes (for dynamic updates)
     const resultHeader = document.getElementById('result-header');
@@ -30,7 +44,7 @@ function initScanFlow() {
     const resultFindings = document.getElementById('result-findings');
 
     // -----------------------------------------------------
-    // CORE PROCESSING ENGINE (Async / Await)
+    // CORE PROCESSING ENGINE — IMAGE (Async / Await)
     // -----------------------------------------------------
     async function startProcessing(fileBlob) {
         // 1. UI State: Processing
@@ -40,23 +54,8 @@ function initScanFlow() {
         // Auto-Scroll to top of viewport
         if (appViewport) appViewport.scrollTop = 0;
 
-        // Reset Log
-        cliOutput.innerHTML = '<span>> Initializing Secure Handshake...</span><br>';
-
-        // ... (Visuals same as before)
-        const runVisuals = async () => {
-            const steps = [
-                { text: "> Quantizing Ingredient Deck...", delay: 50 },
-                { text: "> Uploading Manifest [OCR-A]...", delay: 800 },
-                { text: "> Querying Global Registry...", delay: 1500 }
-            ];
-            for (const step of steps) {
-                await new Promise(r => setTimeout(r, step.delay));
-                cliOutput.innerHTML += `<span>${step.text}</span><br>`;
-                cliOutput.scrollTop = cliOutput.scrollHeight;
-            }
-        };
-        const visualPromise = runVisuals();
+        // Artificial delay so the user can see the new loading UI briefly
+        const visualPromise = new Promise(r => setTimeout(r, 1200));
 
         try {
             console.log("[CLIENT] Uploading file for analysis...");
@@ -86,7 +85,8 @@ function initScanFlow() {
                 return;
             }
 
-            renderResult(result.outcome, result.confidence, result.ingredients);
+            renderResult(result.outcome, result.confidence, result.ingredients, data.scanSummary, data.formulationHistory);
+
 
             processView.style.display = 'none';
             resultView.style.display = 'block';
@@ -94,11 +94,8 @@ function initScanFlow() {
             // CRITICAL: Auto-Scroll to result
             if (appViewport) appViewport.scrollTop = 0;
 
-            if (result.outcome === 'NON-COMPLIANT') {
-                saveLocalScan(result);
-            }
-
-            // ... (Rest of logic)
+            // Smart upgrade triggers (localStorage-driven, non-blocking)
+            checkSmartTriggers(result.outcome, result.ingredients);
 
         } catch (error) {
             console.error("[CLIENT] Critical Failure:", error);
@@ -115,11 +112,142 @@ function initScanFlow() {
     }
 
     // -----------------------------------------------------
-    // UTILITY: Render Results (Mobile-First UI)
+    // CORE PROCESSING ENGINE — MANUAL TEXT (Async / Await)
     // -----------------------------------------------------
-    function renderResult(outcome, confidence, ingredients) {
+    async function startProcessingText(rawText) {
+        // 1. UI State: Processing
+        entryView.style.display = 'none';
+        processView.style.display = 'block';
+        if (appViewport) appViewport.scrollTop = 0;
 
-        // 1. Classification Badge
+        // Artificial delay so the user can see the new loading UI briefly
+        const visualPromise = new Promise(r => setTimeout(r, 1200));
+
+        try {
+            const response = await fetch('/api/scans/analyze-text', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: rawText })
+            });
+
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(`API Error ${response.status}: ${errText}`);
+            }
+
+            const data = await response.json();
+            const result = data.data;
+
+            await visualPromise;
+
+            if (result.outcome === 'UNKNOWN_FORMULATION') {
+                processView.style.display = 'none';
+                unknownView.style.display = 'block';
+                if (appViewport) appViewport.scrollTop = 0;
+                return;
+            }
+
+            renderResult(result.outcome, result.confidence, result.ingredients, data.scanSummary, data.formulationHistory);
+
+
+            processView.style.display = 'none';
+            resultView.style.display = 'block';
+            if (appViewport) appViewport.scrollTop = 0;
+
+            checkSmartTriggers(result.outcome, result.ingredients);
+
+        } catch (error) {
+            console.error('[CLIENT-TEXT] Failure:', error);
+            processView.style.display = 'none';
+            errorView.style.display = 'block';
+            const errElem = document.getElementById('error-details');
+            if (errElem) errElem.innerText = error.message;
+            if (appViewport) appViewport.scrollTop = 0;
+        }
+    }
+
+    // ── Bind submit-manual button ───────────────────────────
+    if (submitManualBtn && manualTextarea) {
+        submitManualBtn.addEventListener('click', () => {
+            const text = manualTextarea.value.trim();
+            if (!text) {
+                manualTextarea.focus();
+                manualTextarea.classList.add('textarea-shake');
+                setTimeout(() => manualTextarea.classList.remove('textarea-shake'), 500);
+                return;
+            }
+            startProcessingText(text);
+        });
+
+        // Also allow Ctrl+Enter / Cmd+Enter to submit
+        manualTextarea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                submitManualBtn.click();
+            }
+        });
+    }
+
+    function renderResult(outcome, confidence, ingredients, scanSummary, formulationHistory) {
+
+
+        // 0. Scan Summary Card
+        const summaryCard = document.getElementById('scan-summary-card');
+        if (summaryCard && scanSummary) {
+            const metaContainer = document.getElementById('scan-summary-meta');
+
+            // Helper: format a Yes/No boolean
+            const yesNo = val => val ? 'Yes' : 'No';
+
+            // Helper: confidence colour class
+            const confClass = pct => pct >= 97 ? 'conf-high' : pct >= 90 ? 'conf-mid' : 'conf-low';
+
+            const pct = scanSummary.overallOCRMatch;
+
+            metaContainer.innerHTML = `
+                <div class="summary-meta-grid">
+                    <div class="summary-meta-row">
+                        <span class="summary-meta-label">Overall OCR match</span>
+                        <span class="summary-meta-value ${confClass(pct)}">${pct}%</span>
+                    </div>
+                    <div class="summary-meta-row">
+                        <span class="summary-meta-label">Product type</span>
+                        <span class="summary-meta-value">${scanSummary.productType}</span>
+                    </div>
+                    <div class="summary-meta-row">
+                        <span class="summary-meta-label">Life stage</span>
+                        <span class="summary-meta-value">${scanSummary.lifeStage}</span>
+                    </div>
+                    <div class="summary-meta-row">
+                        <span class="summary-meta-label">Guaranteed analysis</span>
+                        <span class="summary-meta-value">${yesNo(scanSummary.guaranteedAnalysisPresent)}</span>
+                    </div>
+                    ${scanSummary.scanSource ? `
+                    <div class="summary-meta-row">
+                        <span class="summary-meta-label">Scan source</span>
+                        <span class="summary-meta-value source-tag source-${scanSummary.scanSource.toLowerCase()}">${scanSummary.scanSource}</span>
+                    </div>` : ''}
+                </div>
+            `;
+
+            // AAFCO collapsible
+            const aafcoSection = document.getElementById('scan-summary-aafco');
+            if (scanSummary.aafcoStatement && aafcoSection) {
+                document.getElementById('aafco-text').textContent = scanSummary.aafcoStatement;
+                aafcoSection.style.display = 'block';
+
+                const toggleBtn = document.getElementById('aafco-toggle-btn');
+                const aafcoBody = document.getElementById('aafco-body');
+                toggleBtn.addEventListener('click', () => {
+                    const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+                    toggleBtn.setAttribute('aria-expanded', String(!expanded));
+                    aafcoBody.classList.toggle('open');
+                    toggleBtn.querySelector('.aafco-chevron').style.transform = expanded ? 'rotate(0deg)' : 'rotate(180deg)';
+                });
+            }
+
+            summaryCard.style.display = 'block';
+        }
+
         const badgeContainer = document.getElementById('badge-container');
         if (badgeContainer) {
             let badgeClass = 'badge-warn';
@@ -155,31 +283,134 @@ function initScanFlow() {
             resultFindings.innerHTML = '';
 
             if (ingredients && ingredients.length > 0) {
+
+                // ─────────────────────────────────────────────────────────────
+                // Helper: map ing.status → icon, badge label, default copy
+                // ─────────────────────────────────────────────────────────────
+                function getIngredientUI(ing) {
+                    switch (ing.status) {
+                        case 'EVIDENCE_FLAG':
+                            return {
+                                icon: '<ion-icon name="warning" class="ing-icon ing-icon--flag"></ion-icon>',
+                                badge: '<span class="ing-status-badge status-flag">Evidence flag</span>',
+                                // Body is always ing.rationale (the short rationale from registry)
+                                defaultExplanation: ing.rationale || 'A specific concern rule was triggered for this ingredient.',
+                                accordionClass: 'status-flag'
+                            };
+                        case 'NEEDS_REVIEW': {
+                            // Two distinct body variants:
+                            //   • OCR uncertain  → exact OCR copy
+                            //   • dose/context   → exact review copy
+                            const isOCRPath = ing.rationale && ing.rationale.startsWith('OCR match uncertain');
+                            const body = isOCRPath
+                                ? 'OCR match uncertain. Please verify this ingredient on the label.'
+                                : 'Review context: clinical relevance depends on dose, processing, and the individual pet (e.g., allergies, GI sensitivity).';
+                            return {
+                                icon: '<ion-icon name="alert-circle" class="ing-icon ing-icon--review"></ion-icon>',
+                                badge: '<span class="ing-status-badge status-review">Needs review</span>',
+                                defaultExplanation: body,
+                                accordionClass: 'status-review'
+                            };
+                        }
+                        default: // TYPICAL or undefined (backward compat)
+                            return {
+                                icon: '<ion-icon name="checkmark-circle" class="ing-icon ing-icon--typical"></ion-icon>',
+                                badge: '<span class="ing-status-badge status-typical">Identified</span>',
+                                defaultExplanation: 'Common pet-food ingredient. No specific evidence flags triggered from the name alone.',
+                                accordionClass: 'status-typical'
+                            };
+                    }
+                }
+
                 ingredients.forEach((ing, index) => {
                     const accordion = document.createElement('div');
-                    accordion.className = 'ingredient-accordion stagger-entry';
+                    const ui = getIngredientUI(ing);
+                    accordion.className = `ingredient-accordion stagger-entry ${ui.accordionClass}`;
                     accordion.style.animationDelay = `${index * 50}ms`;
 
-                    let statusIcon = '<ion-icon name="checkmark-circle" style="color:#10B981;"></ion-icon>';
-                    let explanation = "This ingredient complies with standard veterinary nutritional guidelines.";
+                    // ── Clinic-safe 3-bullet template ───────────────────────
+                    // Clinical Notes bullet — status-aware copy selection:
+                    //   EVIDENCE_FLAG → short rationale from registry (ui.defaultExplanation)
+                    //   NEEDS_REVIEW  → exact spec copy already encoded in ui.defaultExplanation
+                    //   TYPICAL       → ing.clinicalNotes from knowledge base, or generic default
+                    const clinicalNotes = (ing.status === 'EVIDENCE_FLAG' || ing.status === 'NEEDS_REVIEW')
+                        ? ui.defaultExplanation
+                        : (ing.clinicalNotes || ui.defaultExplanation);
 
-                    if (ing.flagged) {
-                        statusIcon = '<ion-icon name="warning" style="color:#EF4444;"></ion-icon>';
-                        explanation = "Flagged: This ingredient may be restricted or require veterinary consultation based on current dietary protocols.";
+                    let clinicBulletsHTML = '<ul class="ing-clinic-bullets">';
+                    if (ing.whatItIs) {
+                        clinicBulletsHTML += `
+                            <li class="ing-clinic-row">
+                                <span class="ing-clinic-label">What it is</span>
+                                <span class="ing-clinic-text">${ing.whatItIs}</span>
+                            </li>`;
+                    }
+                    if (ing.whyUsed) {
+                        clinicBulletsHTML += `
+                            <li class="ing-clinic-row">
+                                <span class="ing-clinic-label">Why it's used</span>
+                                <span class="ing-clinic-text">${ing.whyUsed}</span>
+                            </li>`;
+                    }
+                    clinicBulletsHTML += `
+                        <li class="ing-clinic-row">
+                            <span class="ing-clinic-label">Clinical notes</span>
+                            <span class="ing-clinic-text">${clinicalNotes}</span>
+                        </li>`;
+                    clinicBulletsHTML += '</ul>';
+
+                    // ── Sources — only for EVIDENCE_FLAG or hasClinicalEvidence ──
+                    const showSources = ing.status === 'EVIDENCE_FLAG' || ing.hasClinicalEvidence;
+                    let citationsHTML = '';
+                    if (showSources && ing.citations && ing.citations.length > 0) {
+                        const links = ing.citations
+                            .map(url => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="ing-citation-link">${url.replace(/^https?:\/\//, '').split('/')[0]}</a>`)
+                            .join('');
+                        citationsHTML = `<div class="ing-citations"><span class="ing-citations-label">Sources:</span>${links}</div>`;
                     }
 
-                    // For the mockup: We'll fake a more detailed explanation if the API didn't provide one
-                    const details = ing.explanation || explanation;
+                    // ── OCR transparency panel ───────────────────────────────
+                    const hasOCRData = ing.rawToken !== undefined || ing.ingredientConfidence !== undefined;
+                    const ingConf = (ing.ingredientConfidence !== undefined) ? ing.ingredientConfidence : 100;
+                    const confClass = ingConf < 90 ? 'conf-low' : ingConf < 97 ? 'conf-mid' : 'conf-high';
+                    const rawDisplay = ing.rawToken ? ing.rawToken.trim() : (ing.matchedName || ing.name);
+                    const matchedDisplay = ing.matchedName || ing.name;
+
+                    const ocrWarning = (ing.status === 'NEEDS_REVIEW' && ingConf < 90 && ing.classification !== 'NON-SPECIFIC' && ing.classification !== 'UNRESOLVED')
+                        ? `<div class="ocr-warning"><ion-icon name="alert-circle-outline"></ion-icon> OCR match uncertain. Please verify this ingredient on the label.</div>`
+                        : '';
+
+                    const ocrPanelHTML = hasOCRData ? `
+                        <div class="ocr-transparency">
+                            <div class="ocr-row">
+                                <span class="ocr-label">Detected</span>
+                                <span class="ocr-value ocr-raw">"${rawDisplay}"</span>
+                            </div>
+                            <div class="ocr-row">
+                                <span class="ocr-label">Matched</span>
+                                <span class="ocr-value">${matchedDisplay}</span>
+                            </div>
+                            <div class="ocr-row">
+                                <span class="ocr-label">Confidence</span>
+                                <span class="ocr-value ${confClass}">${ingConf}%</span>
+                            </div>
+                        </div>
+                        ${ocrWarning}
+                    ` : '';
 
                     accordion.innerHTML = `
-                        <div class="accordion-header">
+                        <div class="accordion-header ${ui.accordionClass}">
                             <div class="accordion-title">
-                                ${statusIcon} ${ing.name}
+                                ${ui.icon}
+                                <span class="accordion-name">${ing.name}</span>
+                                ${ui.badge}
                             </div>
                             <ion-icon class="accordion-icon" name="chevron-down-outline"></ion-icon>
                         </div>
                         <div class="accordion-body">
-                            <p>${details}</p>
+                            ${clinicBulletsHTML}
+                            ${citationsHTML}
+                            ${ocrPanelHTML}
                         </div>
                     `;
 
@@ -192,16 +423,114 @@ function initScanFlow() {
                     resultFindings.appendChild(accordion);
                 });
             } else {
-                resultFindings.innerHTML = '<div style="text-align:center; padding:30px; color:#94A3B8; background:white; border-radius:12px; border:1px solid #E2E8F0;">No ingredients extracted.</div>';
+                resultFindings.innerHTML = '<div style="text-align:center; padding:30px; color:#94A3B8; background:white; border-radius:20px; border:1px solid #E2E8F0;">No ingredients extracted.</div>';
+            }
+
+            // Update ingredient count label
+            const countElem = document.getElementById('ingredient-count');
+            if (countElem) {
+                const n = (ingredients && ingredients.length) ? ingredients.length : 0;
+                countElem.textContent = n > 0 ? `(${n})` : '';
             }
         }
+
+        // ── Formulation History ─────────────────────────────────
+        // Render from API response (backend is the source of truth).
+        renderFormulationHistoryFromAPI(formulationHistory);
     }
+
 
     // -----------------------------------------------------
     // EVENT LISTENERS
     // -----------------------------------------------------
 
     initLocalHistory();
+
+
+    // ============================================================
+    //  FORMULATION HISTORY — API-driven Timeline Renderer
+    // ============================================================
+
+    /**
+     * Renders the formulation history timeline from API response data.
+     * Backend (PostgreSQL) is the source of truth — localStorage is no longer used.
+     *
+     * @param {object|null} formulationHistory  The `formulationHistory` field from the scan API response.
+     *   Shape: { productId, versionNumber, changeStatus, versions: [{ version_number, change_status, created_at, scan_source, product_name }] }
+     */
+    function renderFormulationHistoryFromAPI(formulationHistory) {
+        const container = document.getElementById('fh-timeline');
+        const countBadge = document.getElementById('fh-version-count');
+        const proHint = document.getElementById('fh-pro-hint');
+        if (!container) return;
+
+        // Graceful fallback — API may have been unavailable
+        const versions = (formulationHistory && Array.isArray(formulationHistory.versions))
+            ? formulationHistory.versions : [];
+
+        if (versions.length === 0) {
+            container.innerHTML = '<p class="fh-empty">Snapshot saved — history will appear here on future scans.</p>';
+            if (countBadge) countBadge.textContent = '';
+            return;
+        }
+
+        // Simple Pro check (Paddle access stored in localStorage by access.js)
+        const isPro = (() => { try { return localStorage.getItem('ks_access') === 'pro'; } catch (_) { return false; } })();
+
+        if (countBadge) countBadge.textContent = `${versions.length} version${versions.length === 1 ? '' : 's'}`;
+
+        container.innerHTML = versions.map((entry, idx) => {
+            const date = new Date(entry.created_at);
+            const dateStr = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            const isCurrentVersion = idx === 0; // newest first from API
+            const label = isCurrentVersion ? 'Current Snapshot' : 'Snapshot';
+            const versionLabel = `Version ${entry.version_number}`;
+
+            // --- Change status pill ---
+            const status = entry.change_status || '';
+            let changePill;
+            if (status === 'First Record') {
+                changePill = '<span class="fh-pill fh-pill--new">First Record</span>';
+            } else if (status === 'Updated – Ingredient Change Detected') {
+                changePill = isCurrentVersion
+                    ? '<span class="fh-pill fh-pill--changed">Change Detected</span>'
+                    : '<span class="fh-pill fh-pill--changed">Changed</span>';
+            } else {
+                // 'No Change Detected' or unknown
+                changePill = isCurrentVersion
+                    ? '<span class="fh-pill fh-pill--current">Latest</span>'
+                    : '<span class="fh-pill fh-pill--stable">No Change Detected</span>';
+            }
+
+            // --- Pro comparison button ---
+            // Current version (idx 0): no compare button (nothing to compare to yet)
+            // Past versions: Compare (Pro) or lock icon (Free)
+            const compareBtn = idx === 0 ? '' : isPro
+                ? `<button class="fh-compare-btn" onclick="alert('Ingredient diff view coming in a future update.')">Compare <ion-icon name="git-compare-outline"></ion-icon></button>`
+                : `<button class="fh-compare-btn fh-compare-btn--locked" title="Pro feature" onclick="document.getElementById('upgrade-modal').classList.remove('hidden')"><ion-icon name="lock-closed-outline"></ion-icon></button>`;
+
+            return `
+            <div class="fh-entry${isCurrentVersion ? ' fh-entry--current' : ''}">
+                <div class="fh-entry-dot"></div>
+                <div class="fh-entry-body">
+                    <div class="fh-entry-top">
+                        <div class="fh-entry-meta">
+                            <span class="fh-entry-date">${dateStr}</span>
+                            <span class="fh-entry-version">${versionLabel}</span>
+                        </div>
+                        <div class="fh-entry-right">
+                            ${changePill}
+                            ${compareBtn}
+                        </div>
+                    </div>
+                    <div class="fh-entry-label">${label}</div>
+                </div>
+            </div>`;
+        }).join('');
+
+        // Pro upsell hint: show when 2+ versions and user is free
+        if (proHint) proHint.style.display = (!isPro && versions.length >= 2) ? 'flex' : 'none';
+    }
 
     // Removed Start Button (Manual Entry) Listener since button is gone from HTML
 
@@ -229,7 +558,7 @@ function initScanFlow() {
 
     // Gated Feature Simulators
     const saveBtn = document.getElementById('btn-save-history');
-    const monitorBtn = document.getElementById('btn-monitor-drift');
+    const enableMonitoringBtn = document.getElementById('btn-enable-monitoring');
 
     if (saveBtn) {
         saveBtn.addEventListener('click', () => {
@@ -237,8 +566,8 @@ function initScanFlow() {
         });
     }
 
-    if (monitorBtn) {
-        monitorBtn.addEventListener('click', () => {
+    if (enableMonitoringBtn) {
+        enableMonitoringBtn.addEventListener('click', () => {
             const upgradeModal = document.getElementById('upgrade-modal');
             if (upgradeModal) upgradeModal.classList.remove('hidden');
         });
@@ -260,6 +589,122 @@ function initScanFlow() {
    \u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d */
 
 // 1. Header Sync Animation
+/*
+ * =====================================================
+ * SMART UPGRADE TRIGGERS
+ * Non-blocking, dismissible, localStorage-driven.
+ * =====================================================
+ */
+
+/**
+ * Stable product fingerprint from sorted ingredient names.
+ * Used to detect when a user re-scans the same formula.
+ */
+function buildProductFingerprint(ingredients) {
+    if (!ingredients || !ingredients.length) return null;
+    return ingredients
+        .map(i => (i.name || '').toLowerCase().trim())
+        .filter(Boolean)
+        .sort()
+        .join('|');
+}
+
+/**
+ * Show a small, dismissible inline banner above the monitoring card.
+ * @param {string} variant  CSS class: 'trigger-info' | 'trigger-amber' | 'trigger-green'
+ * @param {string} icon     Ionicon name string
+ * @param {string} message  Plain-text message
+ */
+function showTriggerBanner(variant, icon, message) {
+    const container = document.getElementById('smart-trigger-banner');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="smart-trigger-banner ${variant}">
+            <ion-icon name="${icon}"></ion-icon>
+            <span>${message}</span>
+            <button class="smart-trigger-dismiss" aria-label="Dismiss">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        </div>
+    `;
+    container.style.display = 'block';
+
+    container.querySelector('.smart-trigger-dismiss').addEventListener('click', () => {
+        container.style.opacity = '0';
+        container.style.transition = 'opacity 0.2s ease';
+        setTimeout(() => { container.style.display = 'none'; }, 200);
+    });
+}
+
+/**
+ * Evaluate triggers and show at most one banner. Priority:
+ *   1. Returning user re-scanned the same product formula
+ *   2. Result is ambiguous/restricted (monitoring especially useful)
+ *   3. User has scanned 2+ times total (repeat user)
+ */
+function checkSmartTriggers(outcome, ingredients) {
+    const SCAN_COUNT_KEY = 'ks_scan_count';
+    const FINGERPRINTS_KEY = 'ks_scan_fingerprints';
+
+    // Update total scan count
+    let scanCount = parseInt(localStorage.getItem(SCAN_COUNT_KEY) || '0', 10);
+    scanCount += 1;
+    localStorage.setItem(SCAN_COUNT_KEY, String(scanCount));
+
+    // Update fingerprint history
+    let prints = [];
+    try {
+        prints = JSON.parse(localStorage.getItem(FINGERPRINTS_KEY) || '[]');
+        if (!Array.isArray(prints)) prints = [];
+    } catch (_) { prints = []; }
+
+    const fp = buildProductFingerprint(ingredients);
+    const isRescan = Boolean(fp && prints.includes(fp));
+
+    if (fp && !isRescan) {
+        prints.push(fp);
+        if (prints.length > 40) prints.shift(); // cap history
+        localStorage.setItem(FINGERPRINTS_KEY, JSON.stringify(prints));
+    }
+
+    // --- Priority 1: Rescan detected ---
+    if (isRescan) {
+        showTriggerBanner(
+            'trigger-green',
+            'refresh-circle-outline',
+            "You've scanned this formula before. Monitoring tracks changes automatically — no re-scanning needed."
+        );
+        return;
+    }
+
+    // --- Priority 2: Ambiguous / restricted outcome ---
+    const cleanOutcome = (outcome || '').toUpperCase().replace(/-/g, '_');
+    if (!['VERIFIED', 'COMPLIANT'].includes(cleanOutcome)) {
+        showTriggerBanner(
+            'trigger-amber',
+            'warning-outline',
+            "Ambiguous ingredients detected. Monitoring can alert you if this formula's status changes."
+        );
+        return;
+    }
+
+    // --- Priority 3: Repeat user (2nd scan or beyond) ---
+    if (scanCount >= 2) {
+        showTriggerBanner(
+            'trigger-info',
+            'bulb-outline',
+            "Running multiple scans? Monitoring does this automatically — no manual re-checking needed."
+        );
+    }
+}
+
+/* =====================================================
+   PHASE 4: LIVE DASHBOARD LOGIC
+   ===================================================== */
+
+// 1. Header Sync Animation
+
 function initLiveTimestamps() {
     const timeDisplay = document.getElementById('last-update');
     if (!timeDisplay) return;
