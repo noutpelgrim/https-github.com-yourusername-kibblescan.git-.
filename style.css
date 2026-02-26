@@ -4,45 +4,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap');
 
 :root {
-    /* Palette: Clean Light Mode */
-    --primary: #0F172A;
-    /* Primary text and deep slate accents */
-    --primary-light: #475569;
-    /* Secondary text / subdued */
-    --bg-page: #F8FAFC;
-    /* Main page background */
-    --bg-card: #FFFFFF;
-    /* Card background */
-    --border-color: #E2E8F0;
-    /* Standard card/element border */
+    /* Palette: Clean Premium Health-Tech */
+    --primary: #0F172A;        /* Deep Slate for high-contrast primary text */
+    --primary-light: #64748B;  /* Softer slate for secondary text */
+    --accent: #2563EB;         /* Medical / Trust Blue for CTAs and links */
+    --accent-light: #EFF6FF;   /* Soft blue background for elevated sections */
+    --bg-page: #F8FAFC;        /* Clean, airy page background */
+    --bg-card: #FFFFFF;        /* Pure white for cards */
+    --border-color: #E2E8F0;   /* Subtle borders */
+    --border-subtle: #F1F5F9;
 
-    /* Signals - Specific Hex Codes */
-    --risk: #F59E0B;
-    /* Ambiguous amber */
-    --risk-bg: #FEF3C7;
-    /* Light amber bg */
-    --safe: #16A34A;
-    /* Verified green */
-    --safe-bg: #DCFCE7;
-    /* Light green bg */
-    --danger: #DC2626;
-    /* Non-compliant red */
-    --danger-bg: #FEE2E2;
-    /* Light red bg */
+    /* Signals - Clinical Grades */
+    --risk: #EA580C;           /* Clinical Orange for warnings */
+    --risk-bg: #FFF7ED;
+    --safe: #059669;           /* Medical Green for safe/verified */
+    --safe-bg: #ECFDF5;
+    --danger: #DC2626;         /* Alert Red */
+    --danger-bg: #FEF2F2;
     --neutral: #94A3B8;
 
     /* Typography */
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Inter', sans-serif;
 
-    /* Shadows - Flattened for minimal design */
-    --shadow-card: none;
-    --shadow-device: none;
+    /* Shadows - Premium, soft, and deep */
+    --shadow-card: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.01);
+    --shadow-elevated: 0 20px 40px -10px rgba(37, 99, 235, 0.08);
+    --shadow-device: 0 25px 50px -12px rgba(15, 23, 42, 0.15);
 
-    /* Minimum 20px border radius */
+    /* Rounded Corners - Modern & Friendly */
     --radius-lg: 32px;
     --radius-md: 24px;
-    --radius-sm: 20px;
+    --radius-sm: 16px;
 }
 
 * {
