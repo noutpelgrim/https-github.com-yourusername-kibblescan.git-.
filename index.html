@@ -86,28 +86,27 @@
 
     <!-- NAVBAR -->
     <div class="container nav-container">
-        <nav class="navbar">
-            <a href="index.html" class="logo">
-                <img src="logo.svg" alt="KibbleScan Logo" class="logo-img">
-                KibbleScan
-            </a>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="logo.svg" alt="KibbleScan Logo" class="logo-img">
+            KibbleScan
+        </a>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-btn" aria-label="Toggle Navigation" onclick="document.getElementById('navMenu').classList.toggle('active')">
+            <ion-icon name="menu-outline"></ion-icon>
+        </button>
 
-            <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-btn" aria-label="Toggle Navigation"
-                onclick="document.getElementById('navMenu').classList.toggle('active')">
-                <ion-icon name="menu-outline"></ion-icon>
-            </button>
-
-            <div class="nav-right" id="navMenu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="scan.html" class="nav-link">Scan</a>
-                <a href="access.html" class="nav-link">Monitoring</a>
-                <a href="clinical.html" class="nav-link" style="color: #64748B; font-weight: 500;">For Clinics</a>
-                <a href="access.html" class="nav-link">Pricing</a>
-                <a href="protocol.html" class="nav-link">Protocol</a>
-            </div>
-        </nav>
-    </div>
+        <div class="nav-right" id="navMenu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="scan.html" class="nav-link">Scan</a>
+            <a href="dashboard.html" class="nav-link">Monitoring</a>
+            <a href="clinical.html" class="nav-link" style="color: #64748B; font-weight: 500;">For Clinics</a>
+            <a href="access.html" class="nav-link">Pricing</a>
+            <a href="protocol.html" class="nav-link">Protocol</a>
+        </div>
+    </nav>
+</div>
 
     <!-- CONTENT -->
     <main class="main-content">
@@ -124,14 +123,6 @@
                 <input type="email" class="form-input" placeholder="Enter your email address" required>
                 <button type="submit" class="btn-primary notify-btn">Notify Me</button>
             </form>
-
-            <div style="margin-top: 2rem;">
-                <a href="dashboard.html"
-                    style="color: var(--primary-light); text-decoration: none; font-weight: 600; padding: 10px 20px; border: 1px solid var(--border-subtle); border-radius: 20px; transition: background 0.2s;">
-                    <ion-icon name="log-in-outline" style="vertical-align: middle; margin-right: 5px;"></ion-icon>
-                    Beta Tester Log In
-                </a>
-            </div>
         </div>
     </main>
 
