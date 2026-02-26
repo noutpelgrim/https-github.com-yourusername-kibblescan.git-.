@@ -37,7 +37,8 @@ router.post('/request-link', async (req, res) => {
         `, [user.id, token]);
 
         // 4. Send email
-        const magicLink = `http://localhost:8085/api/auth/verify?token=${token}`;
+        const baseUrl = process.env.BASE_URL || `${req.protocol}://${req.get('host')}`;
+        const magicLink = `${baseUrl}/api/auth/verify?token=${token}`;
         await sendMagicLink(email, magicLink);
 
         res.json({ message: 'Magic link sent. Check your email.', debug_link: magicLink });

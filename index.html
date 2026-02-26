@@ -1,91 +1,20 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="/manifest.json">
-    <title>KibbleScan | Something Pawsome is Coming</title>
-    <link rel="stylesheet" href="style.css?v=13.0">
-    <style>
-        /* Specific Under Construction Styles */
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background: var(--bg-page);
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-
-        .construction-box {
-            text-align: center;
-            max-width: 600px;
-            background: white;
-            padding: 4rem 3rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-device);
-        }
-
-        .hero-headline {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 1rem;
-        }
-
-        .hero-subheadline {
-            font-size: 1.15rem;
-            color: var(--primary-light);
-            margin-bottom: 2.5rem;
-        }
-
-        .notify-form {
-            display: flex;
-            gap: 10px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 480px) {
-            .notify-form {
-                flex-direction: column;
-            }
-        }
-
-        .form-input {
-            flex: 1;
-            padding: 16px 20px;
-            border: 2px solid #E2E8F0;
-            border-radius: 100px;
-            font-family: inherit;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .form-input:focus {
-            border-color: var(--primary-light);
-        }
-
-        .notify-btn {
-            white-space: nowrap;
-            padding: 16px 28px;
-            font-size: 1rem;
-            border-radius: 100px;
-            cursor: pointer;
-        }
-    </style>
+    <title>KibbleScan | Veterinary-Informed Monitoring</title>
+    <!-- CSS version bumped to break browser cache -->
+    <link rel="stylesheet" href="style.css?v=12.0">
 </head>
 
 <body>
 
     <!-- NAVBAR -->
-    <div class="container nav-container">
+    <!-- NAVBAR -->
+<div class="container nav-container">
     <nav class="navbar">
         <a href="index.html" class="logo">
             <img src="logo.svg" alt="KibbleScan Logo" class="logo-img">
@@ -102,39 +31,207 @@
             <a href="scan.html" class="nav-link">Scan</a>
             <a href="dashboard.html" class="nav-link">Monitoring</a>
             <a href="clinical.html" class="nav-link" style="color: #64748B; font-weight: 500;">For Clinics</a>
-            <a href="access.html" class="nav-link">Pricing</a>
+            <a href="pricing.html" class="nav-link" style="color: #0F172A; font-weight: 700;">Pricing</a>
             <a href="protocol.html" class="nav-link">Protocol</a>
         </div>
     </nav>
 </div>
 
-    <!-- CONTENT -->
-    <main class="main-content">
-        <div class="construction-box">
-            <div class="hero-chip" style="margin-bottom: 1.5rem;">🐾 We're remodeling!</div>
-            <h1 class="hero-headline">Something Pawsome is Coming Soon</h1>
+    <!-- 1. HERO SECTION -->
+    <section class="hero-section soft-gradient-bg section">
+        <div class="container text-center max-w-lg">
+            <div class="hero-chip">âœ¨ New: Track Ingredient Changes Over Time</div>
+            <h1 class="hero-headline">A Veterinary-Informed Ingredient Monitoring System</h1>
             <p class="hero-subheadline">
-                We are currently upgrading KibbleScan with a brand new experience for pet owners and veterinary clinics.
-                Enter your email below to be notified the moment we launch.
+                Scan pet food labels, track formula updates, and monitor what goes into your pet's bowl using reliable,
+                objective data. 100% independent and transparent.
             </p>
-
-            <form class="notify-form"
-                onsubmit="event.preventDefault(); alert('Thanks! We will let you know when we are live.');">
-                <input type="email" class="form-input" placeholder="Enter your email address" required>
-                <button type="submit" class="btn-primary notify-btn">Notify Me</button>
-            </form>
+            <div class="cta-group">
+                <a href="scan.html" class="btn-primary btn-large">Scan a Label Now</a>
+                <a href="clinical.html" class="btn-secondary btn-large">For Veterinary Clinics &rarr;</a>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <footer style="margin-top: auto;">
+    <!-- 2. HOW IT WORKS -->
+    <section class="section">
+        <div class="container text-center">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Clear answers in three simple steps.</p>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number step-green">1</div>
+                    <h3 class="step-title">Upload or Scan</h3>
+                    <p class="step-description">Take a photo of your pet foodâ€™s ingredient label using your phoneâ€™s
+                        camera, or upload an existing image.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number step-blue">2</div>
+                    <h3 class="step-title">Ingredient Analysis</h3>
+                    <p class="step-description">We instantly break down and categorize the ingredients using established
+                        veterinary guidelines.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number step-purple">3</div>
+                    <h3 class="step-title">Ongoing Tracking</h3>
+                    <p class="step-description">We continuously monitor your saved products to alert you if the
+                        manufacturer quietly changes the formula.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. CREDIBILITY BLOCK -->
+    <section class="section soft-blue-bg">
+        <div class="container text-center max-w-lg">
+            <h2 class="section-title">Real Data. No Marketing Hype.</h2>
+            <p class="section-subtitle">We provide an independent look at whatâ€™s really inside the bag.</p>
+
+            <div class="credibility-grid">
+                <div class="credibility-item">
+                    <div class="credibility-icon">ðŸ“‹</div>
+                    <p>Relies on official regulatory standards to define ingredients.</p>
+                </div>
+                <div class="credibility-item">
+                    <div class="credibility-icon">âš–ï¸</div>
+                    <p>Does not rank, review, or accept sponsorships from pet food brands.</p>
+                </div>
+                <div class="credibility-item">
+                    <div class="credibility-icon">ðŸš«</div>
+                    <p>Does not sell or promote any commercial pet food products.</p>
+                </div>
+                <div class="credibility-item">
+                    <div class="credibility-icon">â±ï¸</div>
+                    <p>Tracks formula updates strictly based on documented label changes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SPLIT SECTION: USER TYPES -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <h2 class="section-title">A Tool for Everyone</h2>
+            </div>
+            <div class="audience-grid">
+
+                <!-- Card 1: For Pet Owners -->
+                <div class="audience-card pet-owners-card">
+                    <div>
+                        <div class="audience-pill green-pill">For Pet Owners</div>
+                        <h3 class="audience-title">Know exactly what's in the bowl.</h3>
+                        <p class="audience-desc">Make confident decisions about your pet's daily meals with instant,
+                            easy-to-read ingredient insights.</p>
+                        <ul class="feature-list-vertical">
+                            <li><span class="check-icon">âœ“</span> Scan labels in seconds</li>
+                            <li><span class="check-icon">âœ“</span> Understand complex ingredients</li>
+                            <li><span class="check-icon">âœ“</span> Track formula changes over time</li>
+                        </ul>
+                    </div>
+                    <a href="scan.html" class="btn-primary" style="width: 100%; text-align: center; display: block;">Get
+                        Started Free</a>
+                </div>
+
+                <!-- Card 2: For Veterinary Clinics -->
+                <div class="audience-card vet-clinics-card">
+                    <div>
+                        <div class="audience-pill blue-pill">For Veterinary Clinics</div>
+                        <h3 class="audience-title">Professional monitoring tools.</h3>
+                        <p class="audience-desc">Equip your practice with an objective database to support clinical
+                            conversations and dietary planning.</p>
+                        <ul class="feature-list-vertical">
+                            <li><span class="check-icon check-light">âœ“</span> Track multiple products systematically
+                            </li>
+                            <li><span class="check-icon check-light">âœ“</span> Access detailed ingredient histories</li>
+                            <li><span class="check-icon check-light">âœ“</span> Download and export product records</li>
+                        </ul>
+                    </div>
+                    <a href="clinical.html" class="btn-white"
+                        style="width: 100%; text-align: center; display: block;">Clinic Access</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PRICING PREVIEW -->
+    <section class="section soft-gray-bg">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <h2 class="section-title">Clear, Transparent Pricing</h2>
+                <p class="section-subtitle">Simple tools for every kind of pet guardian.</p>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 4rem; justify-content: center;">
+                <!-- Pet Owner Section -->
+                <div style="flex: 1; min-width: 300px; max-width: 500px;">
+                    <h3 style="font-size: 1.5rem; color: #1E293B; margin-bottom: 1.5rem; text-align: center;">Pet Owner
+                        Plans</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div
+                            style="background: white; padding: 1.5rem; border-radius:20px; border-left: 4px solid #10B981; ">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <strong style="font-size: 1.1rem;">Free</strong>
+                                <span style="font-weight: 700; color: #1E293B;">$0</span>
+                            </div>
+                            <p style="font-size: 0.9rem; color: #64748B; margin: 0;">Ingredient scan, Basic
+                                classification</p>
+                        </div>
+                        <div
+                            style="background: white; padding: 1.5rem; border-radius:20px; border-left: 4px solid #0F172A; ">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <strong style="font-size: 1.1rem;">Pro</strong>
+                                <span style="font-weight: 700; color: #1E293B;">$5<span
+                                        style="font-size: 0.8rem; color: #94A3B8;">/mo</span></span>
+                            </div>
+                            <p style="font-size: 0.9rem; color: #64748B; margin: 0;">Unlimited scans, Product
+                                monitoring, Tracking</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clinic Section -->
+                <div style="flex: 1; min-width: 300px; max-width: 500px;">
+                    <h3 style="font-size: 1.5rem; color: #1E293B; margin-bottom: 1.5rem; text-align: center;">Veterinary
+                        Clinic Plan</h3>
+                    <div
+                        style="background: white; padding: 2rem; border-radius:20px; border-left: 4px solid #3B82F6;  height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <strong style="font-size: 1.25rem;">Professional</strong>
+                            <span style="font-size: 1.5rem; font-weight: 700; color: #1E293B;">$39<span
+                                    style="font-size: 0.9rem; color: #94A3B8;">/mo</span></span>
+                        </div>
+                        <ul style="list-style: none; padding: 0; margin: 0; color: #475569; font-size: 0.95rem;">
+                            <li style="margin-bottom: 8px;">â€¢ Multi-product monitoring</li>
+                            <li style="margin-bottom: 8px;">â€¢ Exportable ingredient logs</li>
+                            <li>â€¢ Structured product history</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="pricing.html" class="btn-outline">View Full Pricing Details</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
         <div class="container footer-container">
             <div class="logo"><img src="logo.svg" alt="KibbleScan Logo" class="logo-img"> KibbleScan</div>
             <div class="footer-links">
+                <a href="protocol.html">Privacy Policy</a>
+                <a href="protocol.html">Terms of Service</a>
                 <a href="mailto:contact@kibblescan.com">Contact</a>
             </div>
         </div>
     </footer>
 
+    <script src="app.js?v=8.3"></script>
 </body>
 
 </html>

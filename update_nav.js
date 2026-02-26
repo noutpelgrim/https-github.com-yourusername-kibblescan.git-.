@@ -20,7 +20,7 @@ const newNav = `<div class="container nav-container">
             <a href="scan.html" class="nav-link">Scan</a>
             <a href="dashboard.html" class="nav-link">Monitoring</a>
             <a href="clinical.html" class="nav-link" style="color: #64748B; font-weight: 500;">For Clinics</a>
-            <a href="access.html" class="nav-link">Pricing</a>
+            <a href="pricing.html" class="nav-link" style="color: #0F172A; font-weight: 700;">Pricing</a>
             <a href="protocol.html" class="nav-link">Protocol</a>
         </div>
     </nav>

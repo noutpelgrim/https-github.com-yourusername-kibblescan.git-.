@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT UNIQUE NOT NULL,
     paddle_subscription_id TEXT,
     is_monitoring_active BOOLEAN DEFAULT false,
+    plan_tier VARCHAR(50) DEFAULT 'free',
+    free_slots INTEGER DEFAULT 1,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -32,6 +34,7 @@ CREATE TABLE IF NOT EXISTS user_monitoring (
     product_id UUID REFERENCES formulation_products(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT NOW(),
     last_checked_at TIMESTAMP DEFAULT NOW(),
+    alert_triggered BOOLEAN DEFAULT false,
     UNIQUE(user_id, product_id)
 );
 
@@ -41,6 +44,7 @@ CREATE TABLE IF NOT EXISTS monitoring (
     user_id UUID REFERENCES users(id) ON DELETE CASCADE,
     product_id UUID REFERENCES formulation_products(id) ON DELETE CASCADE,
     monitoring_active BOOLEAN DEFAULT true,
+    alert_triggered BOOLEAN DEFAULT false,
     created_at TIMESTAMP DEFAULT NOW(),
     UNIQUE(user_id, product_id)
 );
@@ -84,6 +88,7 @@ CREATE TABLE IF NOT EXISTS formulation_products (
     fingerprint TEXT UNIQUE NOT NULL,   -- normalised sorted ingredient key
     product_name TEXT NOT NULL DEFAULT 'Unknown Product',
     scan_source  VARCHAR(20) DEFAULT 'Manual',  -- 'OCR' | 'Manual'
+    current_status VARCHAR(50) DEFAULT 'stable', -- 'stable', 'drift_detected', 'recall'
     created_at   TIMESTAMP DEFAULT NOW(),
     updated_at   TIMESTAMP DEFAULT NOW()
 );

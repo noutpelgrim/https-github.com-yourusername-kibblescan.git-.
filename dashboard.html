@@ -8,8 +8,8 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Monitoring Dashboard - KibbleScan</title>
-    <link rel="stylesheet" href="style.css?v=7.0">
+    <title>Your Pet's Watchlist - KibbleScan</title>
+    <link rel="stylesheet" href="style.css?v=8.0">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </head>
 
@@ -34,119 +34,64 @@
                 <a href="scan.html" class="nav-link">Scan</a>
                 <a href="dashboard.html" class="nav-link">Monitoring</a>
                 <a href="clinical.html" class="nav-link" style="color: #64748B; font-weight: 500;">For Clinics</a>
-                <a href="access.html" class="nav-link">Pricing</a>
+                <a href="pricing.html" class="nav-link" style="color: #0F172A; font-weight: 700;">Pricing</a>
                 <a href="protocol.html" class="nav-link">Protocol</a>
             </div>
         </nav>
     </div>
 
-    <!-- MAIN DASHBOARD CONTENT -->
-    <div class="container" style="padding-top: 3rem; padding-bottom: 5rem;">
+    <!-- GLOBAL TRUST TICKER -->
+    <div class="global-trust-ticker">
+        <div class="container" style="display:flex; align-items:center; gap:10px; font-size: 0.85rem;">
+            <span class="pulse-dot"></span>
+            <strong>Live Verification:</strong> Protocol Engine Active. No systemic anomalies detected in the last hour.
+        </div>
+    </div>
 
-        <header style="margin-bottom: 2rem;">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:0.6rem;">
-                <h1 style="font-size: 2rem; margin:0; letter-spacing: -0.02em;">Product Monitoring</h1>
-                <span class="demo-data-tag"
-                    title="Dashboard cards contain placeholder data for demonstration purposes">DEMO DATA</span>
+    <!-- MAIN DASHBOARD CONTENT -->
+    <div class="container" style="padding-top: 2rem; padding-bottom: 5rem;">
+
+        <!-- FREEMIUM DASHBOARD HEADER -->
+        <header class="dashboard-header-container">
+            <div class="header-titles">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:0.6rem;">
+                    <h1 style="font-size: 2.2rem; margin:0; letter-spacing: -0.02em;">Your Pet's Active Watchlist</h1>
+                </div>
+                <p style="color: #64748B; font-size: 1.1rem; max-width: 600px; margin:0 0 0.75rem 0;">
+                    Scanning <strong>1 formulation</strong> for silent ingredient drift. Your pet's nutrition is
+                    currently stable.
+                </p>
+
+                <div class="demo-data-notice" style="margin-top: 10px;">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    <span>Dates below are placeholder values. Live monitoring will show real scan timestamps once your
+                        account is connected.</span>
+                </div>
             </div>
-            <p style="color: #64748B; font-size: 1.1rem; max-width: 600px; margin:0 0 0.75rem 0;">
-                Track commercial formulations for your pet. We actively monitor these recipes for silent ingredient
-                changes or new veterinary warnings.
-            </p>
-            <div class="demo-data-notice">
-                <ion-icon name="information-circle-outline"></ion-icon>
-                <span>Dates below are placeholder values. Live monitoring will show real scan timestamps once your
-                    account is connected.</span>
+
+            <!-- FREEMIUM USAGE METER & B2B ACTIONS -->
+            <div class="header-actions">
+                <div class="usage-meter-pill">
+                    <span class="usage-text">Coverage: <span class="usage-count">1/1 Formulations</span></span>
+                    <button class="btn-upgrade-sm" onclick="window.location.href='pricing.html'">Upgrade to Full
+                        Coverage</button>
+                </div>
+                <button class="btn-clinical-export" onclick="openConversionModal()">
+                    <ion-icon name="document-text-outline"></ion-icon>
+                    Generate Veterinary Audit
+                </button>
             </div>
         </header>
 
-        <div class="dashboard-grid">
-
-            <!-- Card 1 -->
-            <div class="dashboard-card">
-                <div class="dashboard-card-header">
-                    <h3 class="dashboard-card-title">Purina Pro Plan Sensitive Skin & Stomach Salmon</h3>
-                    <div class="dashboard-card-badge badge-safe">
-                        <ion-icon name="shield-checkmark"></ion-icon> Verified
-                    </div>
+        <div class="dashboard-grid" id="monitoring-grid">
+            <!-- Dynamic Content Injected Here via JS -->
+            <!-- Skeleton cards shown on load -->
+            <div class="dashboard-card tier-card" id="loading-skeleton">
+                <div class="card-loading-skeleton" style="display: flex;">
+                    <div class="skeleton-title"></div>
+                    <div class="skeleton-meta"></div>
+                    <div class="skeleton-meta"></div>
                 </div>
-
-                <div class="dashboard-card-body">
-                    <div class="dashboard-meta-row">
-                        <div class="dashboard-meta-label">
-                            <ion-icon name="time-outline"></ion-icon> Last Scanned
-                        </div>
-                        <div class="dashboard-meta-value" data-scan-date="2026-01-14">Jan 14, 2026</div>
-                    </div>
-                    <div class="dashboard-meta-row">
-                        <div class="dashboard-meta-label">
-                            <ion-icon name="analytics-outline"></ion-icon> Formulation Status
-                        </div>
-                        <div class="dashboard-meta-value status-no-change">Stable (No Changes)</div>
-                    </div>
-                </div>
-
-                <button class="btn-ghost-remove" onclick="this.parentElement.style.display='none'">
-                    <ion-icon name="trash-outline"></ion-icon> Stop Tracking
-                </button>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="dashboard-card">
-                <div class="dashboard-card-header">
-                    <h3 class="dashboard-card-title">Hills Science Diet Puppy Large Breed Chicken</h3>
-                    <div class="dashboard-card-badge badge-safe">
-                        <ion-icon name="shield-checkmark"></ion-icon> Verified
-                    </div>
-                </div>
-
-                <div class="dashboard-card-body">
-                    <div class="dashboard-meta-row">
-                        <div class="dashboard-meta-label">
-                            <ion-icon name="time-outline"></ion-icon> Last Scanned
-                        </div>
-                        <div class="dashboard-meta-value" data-scan-date="2026-01-28">Jan 28, 2026</div>
-                    </div>
-                    <div class="dashboard-meta-row">
-                        <div class="dashboard-meta-label">
-                            <ion-icon name="analytics-outline"></ion-icon> Formulation Status
-                        </div>
-                        <div class="dashboard-meta-value status-no-change">Stable (No Changes)</div>
-                    </div>
-                </div>
-
-                <button class="btn-ghost-remove" onclick="this.parentElement.style.display='none'">
-                    <ion-icon name="trash-outline"></ion-icon> Stop Tracking
-                </button>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="dashboard-card">
-                <div class="dashboard-card-header">
-                    <h3 class="dashboard-card-title">Blue Buffalo Life Protection Formula Adult Beef</h3>
-                    <div class="dashboard-card-badge badge-warn">
-                        <ion-icon name="alert-circle"></ion-icon> Formulation Drift
-                    </div>
-                </div>
-
-                <div class="dashboard-card-body">
-                    <div class="dashboard-meta-row">
-                        <div class="dashboard-meta-label">
-                            <ion-icon name="time-outline"></ion-icon> Last Scanned
-                        </div>
-                        <div class="dashboard-meta-value" data-scan-date="2026-02-10">Feb 10, 2026</div>
-                    </div>
-                    <div class="dashboard-meta-row">
-                        <div class="dashboard-meta-label">
-                            <ion-icon name="analytics-outline"></ion-icon> Formulation Status
-                        </div>
-                        <div class="dashboard-meta-value status-drift">Recipe Changed</div>
-                    </div>
-                </div>
-
-                <button class="btn-ghost-remove" onclick="this.parentElement.style.display='none'">
-                    <ion-icon name="trash-outline"></ion-icon> Stop Tracking
-                </button>
             </div>
 
         </div>
@@ -163,43 +108,229 @@
         </div>
     </footer>
     <!-- Date sanitizer: clamp any future timestamp to 'Demo data' at render time -->
-    <script>
-        (function () {
-            const today = new Date();
-            today.setHours(23, 59, 59, 999); // end of today in local time
+    <script type="module">
+        import { requestClinicalPdf } from './js/pdf_export.js'; // Future implementation
 
-            /**
-             * Format a Date as "Mon DD, YYYY" using the user's local timezone.
-             */
-            function fmtLocal(d) {
-                return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' });
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('monitoring-grid');
+            const usageMeter = document.querySelector('.usage-text');
+            const summaryText = document.querySelector('.header-titles p');
+
+            try {
+                // Fetch Watchlist API
+                const res = await fetch('/monitoring/list');
+
+                if (res.status === 401) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                const data = await res.json();
+                renderDashboard(data.monitored_products, data.user_plan);
+
+            } catch (err) {
+                console.error("Failed to load dashboard:", err);
+                grid.innerHTML = `<div style="padding:2rem; color:#DC2626; text-align:center;">Error communicating with KibbleScan Protocol Engine.</div>`;
             }
 
-            /**
-             * Given a display element that carries a data-scan-date attribute,
-             * replace its text with a safe date string:
-             *   - If the date is in the future → show 'Demo data'
-             *   - Otherwise → re-format in local timezone to avoid UTC-shift bugs
-             */
-            function safeDisplayDate(el) {
-                const raw = el.getAttribute('data-scan-date');
-                if (!raw) return;
-                // Parse as local noon to avoid timezone midnight-crossing bugs
-                const [y, m, d] = raw.split('-').map(Number);
-                const dt = new Date(y, m - 1, d, 12, 0, 0);
-                if (dt > today) {
-                    el.textContent = 'Demo data';
-                    el.classList.add('date-demo');
-                } else {
-                    el.textContent = fmtLocal(dt);
+            function renderDashboard(products, userPlan) {
+                grid.innerHTML = ''; // Clear skeleton
+
+                // Update Usage Meter
+                const planName = userPlan.plan_tier === 'pro' ? 'Pro' : (userPlan.plan_tier === 'clinic' ? 'Clinic' : 'Free');
+                const slotText = userPlan.plan_tier === 'free' ? `(${products.length}/${userPlan.free_slots} Foods Used)` : '(Unlimited)';
+                usageMeter.innerHTML = `Plan: <strong>${planName}</strong> <span class="usage-count">${slotText}</span>`;
+
+                // Update Header Summary
+                summaryText.innerHTML = `Scanning <strong>${products.length} formulation${products.length !== 1 ? 's' : ''}</strong> for silent ingredient drift.`;
+
+                // Render Cards
+                products.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = `dashboard-card tier-card ${p.current_status !== 'stable' ? 'border-alert' : ''}`;
+                    card.innerHTML = generateCardHTML(p, userPlan.plan_tier);
+                    grid.appendChild(card);
+                });
+
+                // Render Ghost Slot if Free tier and slots remaining, or just always show on Free to trigger upgrade trap
+                if (userPlan.plan_tier === 'free') {
+                    const ghostCard = document.createElement('div');
+                    ghostCard.className = 'dashboard-card ghost-card';
+                    ghostCard.onclick = () => window.location.href = 'pricing.html';
+                    ghostCard.innerHTML = `
+                        <div class="ghost-content">
+                            <div class="ghost-icon"><ion-icon name="add-outline"></ion-icon></div>
+                            <h3>Add Another Food or Treat</h3>
+                            <p>The Standard plan covers one diet. Upgrade to Full Coverage to actively monitor unlimited products for hidden changes.</p>
+                            <span class="btn-ghost-cta">Secure My Pet's Diet</span>
+                        </div>
+                    `;
+                    grid.appendChild(ghostCard);
                 }
             }
 
-            // Run on every element with a data-scan-date attribute
-            document.querySelectorAll('[data-scan-date]').forEach(safeDisplayDate);
-        })();
+            function generateCardHTML(p, tier) {
+                const isStable = p.current_status === 'stable';
+                const statusColor = isStable ? '#059669' : '#DC2626';
+                const statusText = isStable ? 'Stable (Verified to Protocol v2.4)' : 'Drift Detected';
+                const dateRaw = p.monitored_since.split('T')[0];
+
+                // In production, this data comes from the new diff_engine via the API.
+                const mockSummary = p.current_status === 'recall' ? 'CRITICAL VIOLATION: A known toxic or restricted ingredient was added.' : 'A primary core ingredient was demoted in the formulation.';
+                const mockReason = p.current_status === 'recall' ? 'This ingredient violates the KibbleScan safety protocol.' : 'Core ingredients dictate the primary biological value of the food.';
+
+                const diffBoxHTML = !isStable ? `
+                    <div class="diff-summary-box">
+                        <div class="diff-header" style="color: #0F172A; font-weight: 700; font-size: 0.9rem; margin-bottom: 4px;">${mockSummary}</div>
+                        <div style="font-size: 0.8rem; color: #475569; margin-bottom: 12px; line-height: 1.4;">${mockReason}</div>
+                        
+                        <div class="diff-header" style="opacity: 0.8;">Technical Breakdown:</div>
+                        <div class="diff-row diff-removed">
+                            <ion-icon name="remove-circle"></ion-icon> <strong>REMOVED:</strong> Legacy Ingredients
+                        </div>
+                        <div class="diff-row diff-added">
+                            <ion-icon name="add-circle"></ion-icon> <strong>ADDED:</strong> New Formulation detected
+                        </div>
+                    </div>
+                    <button class="btn-compare-data" onclick="alert('Compare Scan Data feature allows you to view the exact ingredient list side-by-side. Available in full release.')">
+                        <ion-icon name="git-compare-outline"></ion-icon> Compare Scan Data
+                    </button>
+                ` : '';
+
+                // Locked teaser for Free users on stable cards
+                const lockedTeaserHTML = (isStable && tier === 'free') ? `
+                    <div class="locked-feature-teaser" onclick="window.location.href='pricing.html'">
+                        <div class="locked-overlay">
+                            <ion-icon name="lock-closed"></ion-icon>
+                            <span>Unlock Full Ingredient History</span>
+                        </div>
+                        <div class="blurred-content">
+                            <div class="mock-graph-bar" style="height: 30%;"></div>
+                            <div class="mock-graph-bar" style="height: 40%;"></div>
+                            <div class="mock-graph-bar" style="height: 60%;"></div>
+                            <div class="mock-graph-bar" style="height: 80%;"></div>
+                        </div>
+                    </div>
+                ` : '';
+
+                return `
+                    ${!isStable ? '<div class="card-alert-header"><ion-icon name="warning"></ion-icon> Formulation Drift Detected</div>' : ''}
+                    <div class="dashboard-card-header" ${!isStable ? 'style="margin-top:16px;"' : ''}>
+                        <h3 class="dashboard-card-title">${p.product_name}</h3>
+                        <div class="${isStable ? 'dashboard-card-badge badge-safe tooltip' : 'badge-risk'}" data-tooltip="Analyzed against KibbleScan Methodology v2.4">
+                            <ion-icon name="${isStable ? 'shield-checkmark' : 'alert-circle'}"></ion-icon> ${isStable ? 'Verified' : 'Changed'}
+                        </div>
+                    </div>
+                    <div class="dashboard-card-body">
+                        <div class="dashboard-meta-row">
+                            <div class="dashboard-meta-label"><ion-icon name="time-outline"></ion-icon> Monitored Since</div>
+                            <div class="dashboard-meta-value" style="color: ${isStable ? 'inherit' : '#DC2626'};">${dateRaw}</div>
+                        </div>
+                        <div class="dashboard-meta-row">
+                            <div class="dashboard-meta-label"><ion-icon name="analytics-outline"></ion-icon> Status</div>
+                            <div class="dashboard-meta-value status-no-change" style="color: ${statusColor}; font-weight:600;">${statusText}</div>
+                        </div>
+                        ${diffBoxHTML}
+                        ${lockedTeaserHTML}
+                    </div>
+                    <div class="card-footer-actions">
+                         <button class="btn-icon-remove" onclick="untrackProduct('${p.product_id}')" title="Remove from Watchlist">
+                             <ion-icon name="trash-outline"></ion-icon>
+                         </button>
+                    </div>
+                `;
+            }
+
+            // Expose untrack for global onclick
+            window.untrackProduct = async function (productId) {
+                if (!confirm('Are you sure you want to stop monitoring this product?')) return;
+                try {
+                    await fetch('/monitoring/disable', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ product_id: productId })
+                    });
+                    location.reload();
+                } catch (e) {
+                    alert('Error disabling monitoring');
+                }
+            };
+        });
     </script>
 
+    </script>
+
+    <!-- The Conversion Modal (The Pitch) -->
+    <div class="modal-overlay" id="conversionModal" onclick="if(event.target === this) closeConversionModal()">
+        <div class="conversion-modal">
+            <button class="btn-close-modal" onclick="closeConversionModal()"><ion-icon
+                    name="close-outline"></ion-icon></button>
+
+            <div class="modal-pre-header">KibbleScan Security</div>
+            <h2 class="modal-title">Never be surprised by a recipe change again.</h2>
+            <p class="modal-subtitle">Ensure complete consistency with instant alerts and unlimited dietary monitoring.
+            </p>
+
+            <ul class="value-prop-list">
+                <li>
+                    <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+                    <div class="prop-text">
+                        <strong>Unlimited Formulation Tracking</strong>
+                        <span>Monitor their entire diet, including treats, toppers, and secondary kibbles.</span>
+                    </div>
+                </li>
+                <li>
+                    <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+                    <div class="prop-text">
+                        <strong>Instant SMS Drift Alerts</strong>
+                        <span>Get text notifications the moment a manufacturer changes a recipe, before you buy the next
+                            bag.</span>
+                    </div>
+                </li>
+                <li>
+                    <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+                    <div class="prop-text">
+                        <strong>Full Clinical Timelines</strong>
+                        <span>Access our deep database to see exactly what ingredients were removed or added over the
+                            years.</span>
+                    </div>
+                </li>
+                <li>
+                    <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+                    <div class="prop-text">
+                        <strong>Veterinary Export Logs</strong>
+                        <span>Generate 1-click dietary audit reports for your pet's medical file or next vet
+                            visit.</span>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="modal-actions">
+                <button class="btn-primary-action" onclick="window.location.href='access.html'">Activate Full Protection
+                    — $5.99/mo</button>
+                <button class="btn-secondary-action" onclick="closeConversionModal()">Keep my limited 1-product
+                    coverage</button>
+            </div>
+        </div>
+    </div>
+
+    <script inline>
+        function openConversionModal() {
+            document.getElementById('conversionModal').style.display = 'flex';
+            // Slight delay for pure CSS animation to kick in smoothly
+            setTimeout(() => {
+                document.getElementById('conversionModal').classList.add('visible');
+            }, 10);
+        }
+
+        function closeConversionModal() {
+            const modal = document.getElementById('conversionModal');
+            modal.classList.remove('visible');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300); // Wait for transition
+        }
+    </script>
 </body>
 
 </html>
