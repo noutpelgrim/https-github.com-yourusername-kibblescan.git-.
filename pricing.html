@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KibbleScan Security Pricing | Protect Your Pet's Diet</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Pricing Page Specific Styles */
+        .pricing-hero {
+            background: #F8FAFC;
+            padding: 5rem 2rem 3rem;
+            text-align: center;
+        }
+
+        .pricing-hero-chip {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0284c7;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-hero h1 {
+            font-size: 3rem;
+            color: #0F172A;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.1;
+        }
+
+        .pricing-hero p {
+            font-size: 1.15rem;
+            color: #475569;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Toggle */
+        .billing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 56px;
+            height: 32px;
+            background: #0F172A;
+            border-radius: 32px;
+            cursor: pointer;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            /* Default to monthly */
+            width: 24px;
+            height: 24px;
+            background: #FFFFFF;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toggle-switch.annual::after {
+            transform: translateX(24px);
+        }
+
+        .save-badge {
+            background: #ecfdf5;
+            color: #059669;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 5px;
+        }
+
+        /* The Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .pricing-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .pricing-card.highlight {
+            border: 2px solid #0F172A;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+            transform: translateY(-8px);
+        }
+
+        .highlight-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0F172A;
+            color: #FFFFFF;
+            padding: 4px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #F1F5F9;
+            padding-bottom: 2rem;
+        }
+
+        .tier-name {
+            font-size: 1.5rem;
+            color: #0F172A;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-desc {
+            color: #64748B;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            min-height: 48px;
+        }
+
+        .tier-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #0F172A;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .price-period {
+            font-size: 1rem;
+            color: #64748B;
+            font-weight: 500;
+        }
+
+        /* Feature List */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+            flex: 1;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        .feature-icon {
+            color: #0ea5e9;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .feature-icon.locked {
+            color: #CBD5E1;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-item.muted {
+            color: #94A3B8;
+        }
+
+        /* CTAs */
+        .btn-pricing {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-pricing-secondary {
+            background: #F8FAFC;
+            color: #0F172A;
+            border: 1px solid #E2E8F0;
+        }
+
+        .btn-pricing-secondary:hover {
+            background: #F1F5F9;
+        }
+
+        .btn-pricing-primary {
+            background: #0F172A;
+            color: #FFFFFF;
+            box-shadow: 0 4px 6px rgba(15, 23, 42, 0.1);
+        }
+
+        .btn-pricing-primary:hover {
+            background: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(15, 23, 42, 0.15);
+        }
+
+        /* Risk Reversal / Guarantees */
+        .guarantees {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 3rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .guarantee-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: #475569;
+            font-size: 0.95rem;
+            flex: 1;
+        }
+
+        .guarantee-icon {
+            font-size: 2rem;
+            color: #059669;
+            /* Emerald safe green */
+            margin-bottom: 0.5rem;
+        }
+
+        /* FAQs */
+        .faq-section {
+            background: #F8FAFC;
+            padding: 5rem 2rem;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .faq-header h2 {
+            font-size: 2rem;
+            color: #0F172A;
+            margin-bottom: 1rem;
+        }
+
+        .faq-item {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            color: #0F172A;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-answer {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .pricing-card.highlight {
+                transform: none;
+            }
+
+            .guarantees {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="container nav-container">
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="logo.svg" alt="KibbleScan Logo" class="logo-img">
+            KibbleScan
+        </a>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-btn" aria-label="Toggle Navigation" onclick="document.getElementById('navMenu').classList.toggle('active')">
+            <ion-icon name="menu-outline"></ion-icon>
+        </button>
+
+        <div class="nav-right" id="navMenu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="scan.html" class="nav-link">Scan</a>
+            <a href="dashboard.html" class="nav-link">Monitoring</a>
+            <a href="clinical.html" class="nav-link" style="color: #64748B; font-weight: 500;">For Clinics</a>
+            <a href="pricing.html" class="nav-link" style="color: #0F172A; font-weight: 700;">Pricing</a>
+            <a href="protocol.html" class="nav-link">Protocol</a>
+        </div>
+    </nav>
+</div>
+
+    <!-- HERO SECTION -->
+    <header class="pricing-hero">
+        <div class="pricing-hero-chip"><ion-icon name="shield-checkmark"
+                style="vertical-align: text-bottom; margin-right: 4px;"></ion-icon> Active Surveillance</div>
+        <h1>Don't let a recipe change catch you off guard.</h1>
+        <p>Pet food brands quietly change recipes to cut costs—often without warning. Keep your pet safe from hidden allergens, quality drops, and ingredient drift with 24/7 active surveillance.</p>
+
+        <div class="billing-toggle" onclick="toggleBilling()">
+            <span id="label-monthly" style="color: #475569; font-weight: 500;">Monthly</span>
+            <div class="toggle-switch annual" id="billingSwitch"></div>
+            <span id="label-annual" style="color: #0F172A; font-weight: 600;">Annually <span class="save-badge">2 Months Free</span></span>
+        </div>
+    </header>
+
+    <!-- PRICING CARDS -->
+    <section>
+        <div class="pricing-grid">
+
+            <!-- FREE TIER -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h3 class="tier-name">Standard</h3>
+                    <p class="tier-desc">Essential peace of mind for a single consistent diet.</p>
+                    <div class="tier-price">$0<span class="price-period">/forever</span></div>
+                </div>
+
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+                        <span class="feature-text">Track <strong>1</strong> product formulation</span>
+                    </li>
+                    <li class="feature-item">
+                        <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+                        <span class="feature-text">Important change alerts (Email)</span>
+                    </li>
+                    <li class="feature-item">
+                        <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+                        <span class="feature-text">Basic monitoring dashboard</span>
+                    </li>
+                    <li class="feature-item muted">
+                        <ion-icon name="lock-closed" class="feature-icon locked"></ion-icon>
+                        <span class="feature-text">Unlimited food & treat tracking</span>
+                    </li>
+                    <li class="feature-item muted">
+                        <ion-icon name="lock-closed" class="feature-icon locked"></ion-icon>
+                        <span class="feature-text">Silent drift alerts (SMS)</span>
+                    </li>
+                    <li class="feature-item muted">
+                        <ion-icon name="lock-closed" class="feature-icon locked"></ion-icon>
+                        <span class="feature-text">Ingredient comparison viewer</span>
+                    </li>
+                </ul>
+
+                <button class="btn-pricing btn-pricing-secondary" onclick="window.location.href='dashboard.html'">Create Free Account</button>
+            </div>
+
+            <!-- PRO TIER -->
+            <div class="pricing-card highlight">
+                <div class="highlight-badge">Maximum Protection</div>
+                <div class="card-header">
+                    <h3 class="tier-name">Full Coverage</h3>
+                    <p class="tier-desc">Complete transparency and instant awareness for all your pet's foods and treats.</p>
+                    <div class="tier-price">
+                        <span id="price-target">$59</span><span class="price-period" id="period-target">/year</span>
+                    </div>
+                </div>
+
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+                        <span class="feature-text">Track <strong>Unlimited</strong> formulations</span>
+                    </li>
+                    <li class="feature-item">
+                        <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+                        <span class="feature-text">Minor & important change alerts</span>
+                    </li>
+                    <li class="feature-item">
+                        <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+                        <span class="feature-text">Instant <strong>SMS notifications</strong></span>
+                    </li>
+                    <li class="feature-item">
+                        <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+                        <span class="feature-text">Full historical ingredient timeline</span>
+                    </li>
+                    <li class="feature-item">
+                        <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+                        <span class="feature-text">Visual ingredient comparison viewer</span>
+                    </li>
+                    <li class="feature-item">
+                        <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+                        <span class="feature-text">Exportable veterinary reports</span>
+                    </li>
+                    <li class="feature-item">
+                        <ion-icon name="checkmark-circle" class="feature-icon"></ion-icon>
+                        <span class="feature-text">Priority monitoring queue</span>
+                    </li>
+                </ul>
+
+                <button class="btn-pricing btn-pricing-primary" onclick="alert('Checkout incoming')">Activate Full Protection</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GUARANTEES -->
+    <section style="border-top: 1px solid #E2E8F0; background: #FFFFFF;">
+        <div class="guarantees">
+            <div class="guarantee-item">
+                <ion-icon name="calendar-clear" class="guarantee-icon"></ion-icon>
+                <strong>No Long-Term Contracts</strong>
+                <span>Cancel online anytime with 2 clicks. No phone calls required.</span>
+            </div>
+            <div class="guarantee-item">
+                <ion-icon name="refresh-circle" class="guarantee-icon" style="color:#0ea5e9;"></ion-icon>
+                <strong>Downgrade Anytime</strong>
+                <span>Only need full tracking for a few months? Drop down to the free tier whenever.</span>
+            </div>
+            <div class="guarantee-item">
+                <ion-icon name="shield-checkmark" class="guarantee-icon"></ion-icon>
+                <strong>Secure Payment</strong>
+                <span>We use Stripe's banking-grade encryption to process your protection plan.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQS -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <div class="faq-header">
+                <h2>Answers to common questions</h2>
+                <p style="color: #64748B;">Understanding how KibbleScan keeps your pet's diet safe.</p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Why shouldn't I just read the back of the bag?</div>
+                <div class="faq-answer">By the time a new printed bag reaches your local shelf, the formulation may have already been changed in the supply chain for months. Furthermore, minor shifts in ingredient hierarchy (which dictate how much of an ingredient is present) are incredibly hard to notice manually. KibbleScan automates this vigilance, so you don't have to guess.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What exactly does "ingredient drift" mean?</div>
+                <div class="faq-answer">Ingredient drift is when a manufacturer subtly changes a product's recipe—often substituting high-quality proteins for cheaper fillers or moving controversial preservatives higher up the ingredient list—while keeping the front packaging identical. It's a cost-saving measure that can impact your pet's health.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What triggers an SMS alert?</div>
+                <div class="faq-answer">Full Coverage members receive instant text messages the moment our system detects any addition, removal, or re-ordering of ingredients in their tracked foods. We don't bother you with marketing emails—only raw, actionable data about what your pet eats.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Is it easy to cancel if I change my mind?</div>
+                <div class="faq-answer">Absolutely. There are no lock-in contracts or hoops to jump through. You can downgrade to the Standard free plan or cancel your Full Coverage subscription entirely with two clicks from your dashboard at any time.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background:#0F172A; color:#94A3B8; padding:3rem 0; text-align:center;">
+        <div class="container" style="font-size:0.9rem;">
+            <div style="font-weight:700; color:#FFFFFF; margin-bottom: 1rem; font-size:1.2rem;">KibbleScan.</div>
+            <p>&copy; 2026 Independent Standard. No Industry Conflict.</p>
+        </div>
+    </footer>
+
+    <script inline>
+        let isAnnual = true;
+
+        function toggleBilling() {
+            isAnnual = !isAnnual;
+            const switchEl = document.getElementById('billingSwitch');
+            const priceEl = document.getElementById('price-target');
+            const periodEl = document.getElementById('period-target');
+
+            const labelMonthly = document.getElementById('label-monthly');
+            const labelAnnual = document.getElementById('label-annual');
+
+            if (isAnnual) {
+                switchEl.classList.add('annual');
+                priceEl.innerText = '$59';
+                periodEl.innerText = '/year';
+                labelAnnual.style.color = '#0F172A';
+                labelAnnual.style.fontWeight = '600';
+                labelMonthly.style.color = '#475569';
+                labelMonthly.style.fontWeight = '500';
+            } else {
+                switchEl.classList.remove('annual');
+                priceEl.innerText = '$5.99';
+                periodEl.innerText = '/month';
+                labelMonthly.style.color = '#0F172A';
+                labelMonthly.style.fontWeight = '600';
+                labelAnnual.style.color = '#475569';
+                labelAnnual.style.fontWeight = '500';
+            }
+        }
+    </script>
+</body>
+
+</html>
