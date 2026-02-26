@@ -5,21 +5,31 @@
 
 :root {
     /* Palette: Clean Premium Health-Tech */
-    --primary: #0F172A;        /* Deep Slate for high-contrast primary text */
-    --primary-light: #64748B;  /* Softer slate for secondary text */
-    --accent: #2563EB;         /* Medical / Trust Blue for CTAs and links */
-    --accent-light: #EFF6FF;   /* Soft blue background for elevated sections */
-    --bg-page: #F8FAFC;        /* Clean, airy page background */
-    --bg-card: #FFFFFF;        /* Pure white for cards */
-    --border-color: #E2E8F0;   /* Subtle borders */
+    --primary: #0F172A;
+    /* Deep Slate for high-contrast primary text */
+    --primary-light: #475569;
+    /* Slightly darker slate for confident readibility */
+    --accent: #2563EB;
+    /* Medical / Trust Blue for CTAs and links */
+    --accent-light: #EFF6FF;
+    /* Soft blue background for elevated sections */
+    --bg-page: #F8FAFC;
+    /* Clean, airy page background */
+    --bg-card: #FFFFFF;
+    /* Pure white for cards */
+    --border-color: #E2E8F0;
+    /* Subtle borders */
     --border-subtle: #F1F5F9;
 
     /* Signals - Clinical Grades */
-    --risk: #EA580C;           /* Clinical Orange for warnings */
+    --risk: #EA580C;
+    /* Clinical Orange for warnings */
     --risk-bg: #FFF7ED;
-    --safe: #059669;           /* Medical Green for safe/verified */
+    --safe: #10B981;
+    /* Modern emerald green for verified */
     --safe-bg: #ECFDF5;
-    --danger: #DC2626;         /* Alert Red */
+    --danger: #EF4444;
+    /* Bright Alert Red */
     --danger-bg: #FEF2F2;
     --neutral: #94A3B8;
 
@@ -27,15 +37,23 @@
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Inter', sans-serif;
 
-    /* Shadows - Premium, soft, and deep */
-    --shadow-card: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.01);
-    --shadow-elevated: 0 20px 40px -10px rgba(37, 99, 235, 0.08);
+    /* Shadows - Premium SaaS */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    /* Buttons and small elements */
+    --shadow-card: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+    /* Standard cards */
+    --shadow-elevated: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.06);
+    /* Modals, hover states */
     --shadow-device: 0 25px 50px -12px rgba(15, 23, 42, 0.15);
+    /* Mockups */
+    --shadow-primary-btn: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+    /* Primary CTA glow */
 
     /* Rounded Corners - Modern & Friendly */
-    --radius-lg: 32px;
-    --radius-md: 24px;
-    --radius-sm: 16px;
+    --radius-lg: 24px;
+    /* Slightly tighter curves for modern feel */
+    --radius-md: 16px;
+    --radius-sm: 8px;
 }
 
 * {
@@ -51,6 +69,18 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+a[href^="scan.html"],
+a[href^="#how-it-works"],
+a[href^="protocol.html"] {
+    min-height: 56px;
+    /* 48px min touch target, optimized to 56px */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.2;
+}
+
 h1,
 h2,
 h3,
@@ -62,9 +92,17 @@ h4 {
 }
 
 p {
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1.25rem 0;
     color: var(--primary-light);
     font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
 }
 
 .container {
@@ -143,6 +181,9 @@ p {
     color: var(--primary-light);
     font-weight: 500;
     font-size: 0.95rem;
+    padding: 12px;
+    /* Increased touch target */
+    display: inline-block;
 }
 
 .nav-btn {
@@ -164,7 +205,8 @@ p {
    3. HERO SECTION (Realization)
    ========================================= */
 .hero-wrapper {
-    padding: 4rem 0 6rem 0;
+    padding: 2.5rem 0 4rem 0;
+    /* Reduced top padding for mobile to bring content up */
 }
 
 .hero-grid {
@@ -186,9 +228,10 @@ p {
 }
 
 .hero-text h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2.25rem, 8vw, 4rem);
+    /* Slightly smaller minimum for very small phones, more responsive scaling */
     font-weight: 800;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     color: var(--primary);
 }
 
@@ -211,19 +254,30 @@ p {
     background: var(--primary);
     /* Slate for standard procedure */
     color: white;
-    padding: 18px 32px;
+    padding: 16px 32px;
     border-radius: 100px;
-    font-weight: 700;
-    font-size: 1.1rem;
+    font-weight: 600;
+    /* Sophisticated Semibold */
+    font-size: 1.05rem;
     text-decoration: none;
     border: none;
     cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    /* Subtle resting shadow */
 
-    transition: transform 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Smooth SaaS bounce */
+    min-height: 56px;
+    /* Ensure 48px minimum touch target, pushed to 56px for premium feel */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+    /* Lift on hover */
 }
 
 /* =========================================
@@ -396,7 +450,15 @@ p {
    5. NARRATIVE SECTIONS
    ========================================= */
 .section {
-    padding: 6rem 0;
+    padding: 3.5rem 0;
+    /* Reduced padding on mobile */
+}
+
+@media (min-width: 768px) {
+    .section {
+        padding: 6rem 0;
+        /* Keep large padding for desktop */
+    }
 }
 
 .section-white {
@@ -417,9 +479,10 @@ p {
 }
 
 .section-title {
-    font-size: 2rem;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    /* Responsive scaling for headers */
     font-weight: 800;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
 }
 
 .section-label {
@@ -435,13 +498,15 @@ p {
 /* Hidden Problem / Registry */
 .problem-grid {
     display: grid;
-    gap: 2rem;
-    margin-top: 3rem;
+    gap: 1.5rem;
+    /* Tighter gap on mobile */
+    margin-top: 2rem;
 }
 
 @media (min-width: 768px) {
     .problem-grid {
         grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
     }
 }
 
@@ -465,8 +530,9 @@ p {
 /* The Truth Cards */
 .truth-grid {
     display: grid;
-    gap: 1.5rem;
-    margin-top: 3rem;
+    gap: 1.25rem;
+    /* Tighter vertical spacing */
+    margin-top: 2rem;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -479,8 +545,28 @@ p {
 
     display: flex;
     align-items: flex-start;
-    gap: 1.5rem;
-    border: 1px solid #E2E8F0;
+    gap: 1rem;
+    /* Smaller gap */
+    border: 1px solid var(--border-color);
+    /* Cleaner border */
+    box-shadow: var(--shadow-sm);
+    /* Adds subtle depth */
+    flex-direction: column;
+    /* Stack top-to-bottom on mobile */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.truth-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+}
+
+@media (min-width: 768px) {
+    .truth-card {
+        flex-direction: row;
+        /* Side-by-side on desktop */
+        gap: 1.5rem;
+    }
 }
 
 .truth-badge {
@@ -499,7 +585,8 @@ p {
    ========================================= */
 .proof-grid {
     display: grid;
-    gap: 2rem;
+    gap: 1.5rem;
+    /* Tighter gap */
     margin-top: 2rem;
     grid-template-columns: 1fr !important;
     /* Default to single column for mobile */
@@ -512,19 +599,31 @@ p {
 @media (min-width: 768px) {
     .proof-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
     }
 }
 
 .story-card {
     background: white;
-    padding: 2.5rem;
-    border-radius: var(--radius-lg);
-    border-left: 4px solid var(--primary);
+    padding: 1.75rem;
+    /* Reduced padding on mobile */
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    /* Clean edge */
+    box-shadow: var(--shadow-card);
+    /* Definitie lift */
+}
+
+@media (min-width: 768px) {
+    .story-card {
+        padding: 2.5rem;
+    }
 }
 
 .story-text {
-    font-size: 1.1rem;
-    font-style: italic;
+    font-size: 1.05rem;
+    /* Modern sizing */
+    line-height: 1.5;
     margin-bottom: 1.5rem;
     color: var(--primary);
 }
